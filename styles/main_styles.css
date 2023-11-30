@@ -53,7 +53,10 @@
 2. Body and some general stuff
 *********************************/
 
-
+:root {
+    --primary-color: linear-gradient(90deg, rgba(200,155,84,1) 18%, rgba(236,218,112,1) 52%, rgba(213,169,73,1) 84%);
+    --darker-color: linear-gradient(to right, #fa9e1b, #8d4fff);
+}
 
 
 *
@@ -307,12 +310,12 @@ section
 {
 	position: fixed;
 	width: 100%;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 60%);
+	background: rgba(54, 19, 84, 0.6);
 	z-index: 12;
 }
 .header.scrolled
 {
-	background: linear-gradient(to right, #7f83f088 0%, #5ad2d481 50%);
+	background: rgba(54, 19, 84, 0.85);
 }
 
 /*********************************
@@ -510,7 +513,7 @@ section
 	bottom: -11px;
 	width: calc(100% + 2px);
 	height: 2px;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	content: '';
 	opacity: 0;
 	-webkit-transition: all 200ms ease;
@@ -775,7 +778,7 @@ qty {
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index: 100;
 	opacity: 0;
 	visibility: hidden;
@@ -1122,7 +1125,7 @@ qty {
 5. Search
 *********************************/
 .vehicle1 {
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	height: 100%;
     margin: 10px;
     border-radius: 10px;
@@ -1144,7 +1147,7 @@ qty {
 {
 	width: 100%;
 	height: 100%;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	z-index: 10;
 }
 .search_tabs_container
@@ -1197,7 +1200,7 @@ qty {
 
 .search_tab.active
 {
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 		color: #ffffff;
 }
 .search_tab.active img
@@ -1210,7 +1213,7 @@ qty {
 }
 .search_tab:hover
 {
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #FFFFFF;
 }
 .search_tab:hover img
@@ -1299,7 +1302,7 @@ qty {
 	color: #393333;
 	border-radius: 10px;
 	border-color: white;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	border-style: solid ;
 	margin-right: 10px;
 	display: flex;
@@ -1678,7 +1681,7 @@ qty {
 {
 	padding-top: 125px;
 	padding-bottom: 116px;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);	
+	background: var(--darker-color);	
 }
 .cta_background
 {
@@ -3191,7 +3194,7 @@ qty {
 		-ms-transform: translateX(-50%);
 		-o-transform: translateX(-50%);
 		transform: translateX(-50%);
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--darker-color);
 		z-index:4;
 }
 .menu2-hotel {
@@ -3206,7 +3209,7 @@ qty {
 		-ms-transform: translateX(-50%);
 		-o-transform: translateX(-50%);
 		transform: translateX(-50%);
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--darker-color);
 		z-index:4;
 		overflow: auto;
 }
@@ -3223,7 +3226,7 @@ qty {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 }
 
@@ -3239,7 +3242,7 @@ qty {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 }
 
@@ -3255,7 +3258,7 @@ qty {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 }
 
@@ -3525,7 +3528,7 @@ table {
 
 	#roundedk.active
 	{
-		background:linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background:var(--darker-color);;
 		color: #ffffff;
 	}
 
@@ -3568,7 +3571,7 @@ table {
 }
 
 .search_tab_lil.active {
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);;
 	color: #ffffff;
 	
 }
@@ -3601,22 +3604,22 @@ table {
 
 
 .menu-nav a:nth-child(1):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 	transition: background-color 1s ease;
 }
 .menu-nav a:nth-child(2):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 .menu-nav a:nth-child(3):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 
 .menu-nav a:nth-child(1):active {
 	width: 500px;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	transition: background-color 1s ease;
 	color: #ffffff;
 	
@@ -3827,7 +3830,7 @@ table {
 	margin: auto;
 	width: fit-content;
 	padding: 45px;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	border-radius: 60px;
 	border-color: aqua;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  

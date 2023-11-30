@@ -20,7 +20,10 @@
 13. 400px
 
 ******************************/
-
+:root {
+    --primary-color: linear-gradient(90deg, rgba(200,155,84,1) 18%, rgba(236,218,112,1) 52%, rgba(213,169,73,1) 84%);
+    --darker-color: linear-gradient(to right, #fa9e1b, #8d4fff);
+}
 
 /************
 2. PC Versoin
@@ -654,7 +657,7 @@ padding-left: 15px;
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 }
 .menu2-hotel {
@@ -669,7 +672,7 @@ padding-left: 15px;
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 	overflow: auto;
 }
@@ -686,7 +689,7 @@ left: 50%;
 -ms-transform: translateX(-50%);
 -o-transform: translateX(-50%);
 transform: translateX(-50%);
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--darker-color);
 z-index:4;
 }
 
@@ -702,7 +705,7 @@ left: 50%;
 -ms-transform: translateX(-50%);
 -o-transform: translateX(-50%);
 transform: translateX(-50%);
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--darker-color);
 z-index:4;
 }
 
@@ -718,7 +721,7 @@ left: 50%;
 -ms-transform: translateX(-50%);
 -o-transform: translateX(-50%);
 transform: translateX(-50%);
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--darker-color);
 z-index:4;
 }
 
@@ -988,7 +991,7 @@ background: #722df3;
 
 #roundedk.active
 {
-	background:linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 
@@ -1031,7 +1034,7 @@ transition: all 500ms ease;
 }
 
 .search_tab_lil.active {
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--primary-color);
 color: #ffffff;
 
 }
@@ -1065,22 +1068,22 @@ color: #ffffff;
 
 
 .menu-nav a:nth-child(1):hover{
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--primary-color);
 color: #ffffff;
 transition: background-color 1s ease;
 }
 .menu-nav a:nth-child(2):hover{
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--primary-color);
 color: #ffffff;
 }
 .menu-nav a:nth-child(3):hover{
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--primary-color);
 color: #ffffff;
 }
 
 .menu-nav a:nth-child(1):active {
 width: 100%;
-background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+background: var(--primary-color);
 transition: background-color 1s ease;
 color: #ffffff;
 
@@ -1764,7 +1767,7 @@ width: 100%;
 		-ms-transform: translateX(-50%);
 		-o-transform: translateX(-50%);
 		transform: translateX(-50%);
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--darker-color);
 		z-index:4;
 }
 
@@ -1780,7 +1783,7 @@ width: 100%;
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 	overflow: auto;
 }
@@ -1797,7 +1800,7 @@ width: 100%;
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 }
 
@@ -2058,7 +2061,7 @@ table {
 
 	#roundedk.active
 	{
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--primary-color);
 		color: #ffffff;
 	}
 
@@ -2101,7 +2104,7 @@ table {
 }
 
 .search_tab_lil.active {
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 	
 }
@@ -2134,22 +2137,22 @@ table {
 
 
 .menu-nav a:nth-child(1):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 	transition: background-color 1s ease;
 }
 .menu-nav a:nth-child(2):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 .menu-nav a:nth-child(3):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 
 .menu-nav a:nth-child(1):active {
 	width: 100%;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	transition: background-color 1s ease;
 	color: #ffffff;
 	
@@ -2486,7 +2489,7 @@ table {
 		-ms-transform: translateX(-50%);
 		-o-transform: translateX(-50%);
 		transform: translateX(-50%);
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--darker-color);
 		z-index:4;
 }
 .menu2-hotel {
@@ -2501,7 +2504,7 @@ table {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 	overflow: auto;
 }
@@ -2518,7 +2521,7 @@ table {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 }
 
@@ -2771,7 +2774,7 @@ table {
 
 	#roundedk.active
 	{
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--primary-color);
 		color: #ffffff;
 	}
 
@@ -2814,7 +2817,7 @@ table {
 }
 
 .search_tab_lil.active {
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 	
 }
@@ -2847,22 +2850,22 @@ table {
 
 
 .menu-nav a:nth-child(1):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 	transition: background-color 1s ease;
 }
 .menu-nav a:nth-child(2):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 .menu-nav a:nth-child(3):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 
 .menu-nav a:nth-child(1):active {
 	width: 100%;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	transition: background-color 1s ease;
 	color: #ffffff;
 	
@@ -3203,7 +3206,7 @@ table {
 		-ms-transform: translateX(-50%);
 		-o-transform: translateX(-50%);
 		transform: translateX(-50%);
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--darker-color);
 		z-index:4;
 }
 .menu2-hotel {
@@ -3218,7 +3221,7 @@ table {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 	overflow: auto;
 	overflow: auto;
@@ -3236,7 +3239,7 @@ table {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	z-index:4;
 }
 
@@ -3493,7 +3496,7 @@ table {
 
 	#roundedk.active
 	{
-		background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+		background: var(--primary-color);
 		color: #ffffff;
 	}
 
@@ -3549,7 +3552,7 @@ table {
 }
 
 .search_tab_lil.active {
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--primary-color);
 	color: #ffffff;
 	
 }
@@ -3582,22 +3585,22 @@ table {
 
 
 .menu-nav a:nth-child(1):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	color: #ffffff;
 	transition: background-color 1s ease;
 }
 .menu-nav a:nth-child(2):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	color: #ffffff;
 }
 .menu-nav a:nth-child(3):hover{
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	color: #ffffff;
 }
 
 .menu-nav a:nth-child(1):active {
 	width: 100%;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	transition: background-color 1s ease;
 	color: #ffffff;
 	
