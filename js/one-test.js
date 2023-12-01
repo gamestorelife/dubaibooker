@@ -75,7 +75,7 @@ villaform.addEventListener('submit', (event) => {
 
 
 
-    window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/OT-LOC-GEO-257055/(category:villa,nationality:75,rooms:!(('$$hashKey':'object:46',adults:${bedrooms},children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!f,stars:(max:5,min:0)) `;    
+   // window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/OT-LOC-GEO-257055/(category:villa,nationality:75,rooms:!(('$$hashKey':'object:46',adults:${bedrooms},children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!f,stars:(max:5,min:0)) `;    
 
   });
 
@@ -167,7 +167,7 @@ villaform.addEventListener('submit', (event) => {
   }
 
 
- window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:hotel,nationality:75,rooms:!(('$$hashKey':'object:51',adults:${halladultR1},children:${hallkids},childrenAges:!(${hotelkid1},${hotelkid2},${hotelkid3},${hotelkid4},${hotelkid5},${hotelkid6}),quantity:1)),searchOnRequestRooms:!f,stars:(max:5,min:0))`;
+ // window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:hotel,nationality:75,rooms:!(('$$hashKey':'object:51',adults:${halladultR1},children:${hallkids},childrenAges:!(${hotelkid1},${hotelkid2},${hotelkid3},${hotelkid4},${hotelkid5},${hotelkid6}),quantity:1)),searchOnRequestRooms:!f,stars:(max:5,min:0))`;
  
      
 });
@@ -252,7 +252,7 @@ var isValidDate2 = isValidDateFormat(dateInput2);
     return dateRegex.test(dateString);
   }
 
-window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:apartment,nationality:75,rooms:!(('$$hashKey':'object:51',adults:${apartAdults},children:${apartkids},childrenAges:!(${apartAge1},${apartAge2},${apartAge3},${apartAge4},${apartAge5},${apartAge6}),quantity:1)),searchOnRequestRooms:!f,stars:(max:5,min:0))`;
+// window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:apartment,nationality:75,rooms:!(('$$hashKey':'object:51',adults:${apartAdults},children:${apartkids},childrenAges:!(${apartAge1},${apartAge2},${apartAge3},${apartAge4},${apartAge5},${apartAge6}),quantity:1)),searchOnRequestRooms:!f,stars:(max:5,min:0))`;
 
 
 });
@@ -317,7 +317,7 @@ var isValidDate2 = isValidDateFormat(CarRentalDropDate);
   }
 
 
- window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/O257055/1/0/-/(category:24)`;
+// window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/O257055/1/0/-/(category:24)`;
  
 });
 
@@ -372,7 +372,7 @@ var isValidDate = isValidDateFormat(GetTransferPickDate);
         alert("Please select the number of adults for the reservation.");
       };
 
-  window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/O257055/${GetTransferAdult}/0/-/(category:23)`;
+ // window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/O257055/${GetTransferAdult}/0/-/(category:23)`;
  
 });
 
@@ -426,7 +426,7 @@ Reservations.addEventListener('submit', (event) => {
       
 
 
- window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/O257055/${ReservationsAdults}/0/-/(category:${Category})`
+// window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/O257055/${ReservationsAdults}/0/-/(category:${Category})`
 
 });
 
@@ -475,7 +475,7 @@ if (Category.value === "") {
 };
 
 
-  window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/O257055/${ActivityAdults}/0/-/(category:${Category})`
+ // window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${yearout}~2F${monthout}~2F${dayout}/Mykonos%20Island/O257055/${ActivityAdults}/0/-/(category:${Category})`
 
 });
 
@@ -530,7 +530,7 @@ const ServicesDays = Services.elements['servicesdays'].value;
   const ServicesAdults = Services.elements['services_adults'].value;
  // console.log(`${ServicesAdults}`)
 
- window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${newYear}~2F${newMonth}~2F${newDayOfMonth}/Mykonos%20Island/O257055/${ServicesAdults}/0/-/(category:${Category})`
+// window.location.href = `https://bookings.mykonosbooker.com/#/en/activities/${year}~2F${month}~2F${day}/${newYear}~2F${newMonth}~2F${newDayOfMonth}/Mykonos%20Island/O257055/${ServicesAdults}/0/-/(category:${Category})`
 
 
 });

@@ -1396,7 +1396,7 @@ width: 100%;
 	.search_button
 	{
 		margin-top: 9px;
-		background: linear-gradient(to right, rgb(127, 131, 240) 0%, rgb(90, 210, 212) 35%);
+		background: var(--primary-color);
 	}
 	.intro_col
 	{
@@ -3585,22 +3585,22 @@ table {
 
 
 .menu-nav a:nth-child(1):hover{
-	background: var(--darker-color);
+	background: var(--primary-color);
 	color: #ffffff;
 	transition: background-color 1s ease;
 }
 .menu-nav a:nth-child(2):hover{
-	background: var(--darker-color);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 .menu-nav a:nth-child(3):hover{
-	background: var(--darker-color);
+	background: var(--primary-color);
 	color: #ffffff;
 }
 
 .menu-nav a:nth-child(1):active {
 	width: 100%;
-	background: var(--darker-color);
+	background: var(--primary-color);
 	transition: background-color 1s ease;
 	color: #ffffff;
 	
@@ -3749,7 +3749,7 @@ table {
 	.search_button
 	{
 		line-height: 44px;
-		background: linear-gradient(to right, rgb(127, 131, 240) 0%, rgb(90, 210, 212) 35%);
+		background: var(--primary-color);
 	}
 	.intro_item
 	{
