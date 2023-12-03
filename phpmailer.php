@@ -29,7 +29,7 @@ $phone = $_POST['subject'];
    $mail->SMTPSecure = 'ssl';
    $mail->isHTML(true);
    $mail->setFrom('no-reply@mykonosbooker.com', 'Mykonos Booker');
-   $mail->addAddress('info@mykonosbooker.com', $name);
+   $mail->addAddress('dubaibooker@gmail.com', $name);
    $mail->Subject = 'Client Has been submit on MykonosBooker';
 
    $mail->Body = "Name: $name <br>Email: $email<br>Phone: $phone<br>Comment: $comments";
