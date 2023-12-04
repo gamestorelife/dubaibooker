@@ -3385,7 +3385,7 @@ console.log(`Today is ${day}/${month}/${year}`);
 
 
 	
-window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:villa,nationality:75,rooms:!(('$$hashKey':'object:46',adults:4,children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!t,stars:(max:5,min:0))`
+// window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:villa,nationality:75,rooms:!(('$$hashKey':'object:46',adults:4,children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!t,stars:(max:5,min:0))`
 
 })
 
@@ -3408,7 +3408,7 @@ const dayOut = todayOut.getDate();
 const monthOut = todayOut.getMonth() + 2;
 const yearOut = today.getFullYear();
 
-window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:hotel,nationality:75,rooms:!(('$$hashKey':'object:46',adults:4,children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!t,stars:(max:5,min:0))`
+// window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:hotel,nationality:75,rooms:!(('$$hashKey':'object:46',adults:4,children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!t,stars:(max:5,min:0))`
 
 
 })
@@ -3431,7 +3431,7 @@ const dayOut = todayOut.getDate();
 const monthOut = todayOut.getMonth() + 2;
 const yearOut = today.getFullYear();
 
-window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:apartment,nationality:75,rooms:!(('$$hashKey':'object:46',adults:4,children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!t,stars:(max:5,min:0))`
+// window.location.href = `https://bookings.mykonosbooker.com/#/search/${year}~2F${month}~2F${day}/${yearOut}~2F${monthOut}~2F${dayOut}/Mykonos%20Island/OT-LOC-GEO-257055/(category:apartment,nationality:75,rooms:!(('$$hashKey':'object:46',adults:4,children:0,childrenAges:!(),quantity:1)),searchOnRequestRooms:!t,stars:(max:5,min:0))`
 
 })
 

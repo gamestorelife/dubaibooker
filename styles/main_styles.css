@@ -1382,7 +1382,7 @@ qty {
 	outline: none;
 	padding-left: 15px;
 	padding-right: 15px;
-	font-size: 13px;
+	font-size: 16px;
 	font-weight: 600;
 	color: #eee8e8;
 }
@@ -3528,7 +3528,7 @@ table {
 
 	#roundedk.active
 	{
-		background:var(--darker-color);;
+		background:var(--primary-color);;
 		color: #ffffff;
 	}
 
@@ -3571,7 +3571,7 @@ table {
 }
 
 .search_tab_lil.active {
-	background: var(--darker-color);;
+	background: var(--primary-color);
 	color: #ffffff;
 	
 }
