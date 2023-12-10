@@ -3624,7 +3624,7 @@ table {
 
 
 
-	p{font-size: 13px;}
+	p{font-size: 14px;}
 	.top_bar
 	{
 		display: none;
@@ -3927,10 +3927,9 @@ table {
 
 
 	h2{font-size: 24px;}
-	p{font-size: 13px;}
+	p{font-size: 14px;}
 	.intro_center h1
 	{
-		
 		font-size: 34px;
 	}
 	.intro_text p
