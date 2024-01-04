@@ -438,7 +438,9 @@
 		
 		<div id="api-data-container">
 			<h2>API Data:</h2>
-			<pre id="api-data"></pre>
+			<div id="tour-container"></div> 
+
+			<!-- <pre id="api-data"></pre> -->
 		  </div>
 
 	
@@ -585,11 +587,19 @@
 </div>
 
 <script>
-    async function handleFormSubmit(event) {
-      event.preventDefault();
 
-      const countryId = document.getElementById('countryId').value;
-      const cityId = document.getElementById('cityId').value;
+document.addEventListener("DOMContentLoaded", function() {
+    const apiForm = document.getElementById("api-form");
+    const apiDataContainer = document.getElementById("api-data-container");
+    const tourContainer = document.getElementById("tour-container");
+
+    apiForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        // Your existing code to handle form submission and API request
+
+		const countryId = document.getElementById('countryId').value;
+      	const cityId = document.getElementById('cityId').value;
 
       // Make a POST request with the form data
       try {
@@ -602,14 +612,73 @@
         });
 
         const data = await response.json();
-        document.getElementById('api-data').textContent = JSON.stringify(data, null, 2);
+        //document.getElementById('api-data').textContent = JSON.stringify(data, null, 2);
+
+		// Assuming 'responseData' is the parsed JSON data from the API response
+        const responseData = data;
+
+        // Clear previous content in tourContainer
+        tourContainer.innerHTML = "";
+
+        // Create div elements dynamically for each tour
+        responseData.result.forEach(tour => {
+            const tourDiv = document.createElement("div");
+            tourDiv.className = "tour";
+            tourDiv.innerHTML = `
+				<h3>${tour.tourName}</h3>
+                <p>Country: ${tour.countryName}</p>
+                <p>City: ${tour.cityName}</p>
+                <!-- Add more details as needed -->
+            `;
+
+            // Create a unique container for each tourId
+            const tourIdContainer = document.createElement("div");
+            tourIdContainer.id = `tourId-${tour.tourId}`;
+            tourIdContainer.className = "tour-id-container";
+            tourIdContainer.appendChild(tourDiv);
+
+            // Append the tour container to the main container
+            tourContainer.appendChild(tourIdContainer);
+        });
+
+
       } catch (error) {
         console.error('Error submitting form:', error);
-      }
-    }
+      };
+        
+    });
+});
 
-    // Attach the form submission handler
-    document.getElementById('api-form').addEventListener('submit', handleFormSubmit);
+
+
+
+
+
+    // async function handleFormSubmit(event) {
+    //   event.preventDefault();
+
+    //   const countryId = document.getElementById('countryId').value;
+    //   const cityId = document.getElementById('cityId').value;
+
+    //   // Make a POST request with the form data
+    //   try {
+    //     const response = await fetch('/api-data', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ CountryId: countryId, cityId: cityId }),
+    //     });
+
+    //     const data = await response.json();
+    //     document.getElementById('api-data').textContent = JSON.stringify(data, null, 2);
+    //   } catch (error) {
+    //     console.error('Error submitting form:', error);
+    //   }
+    // }
+
+    // // Attach the form submission handler
+    // document.getElementById('api-form').addEventListener('submit', handleFormSubmit);
 
 	
   </script>

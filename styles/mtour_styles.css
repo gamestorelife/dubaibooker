@@ -1362,6 +1362,21 @@ section
 9.2 Offers Grid
 *********************************/
 
+
+/*********************************
+API CSS
+*********************************/
+
+.tour {
+	border-style: solid;
+	border-radius: 25px;
+    padding: 10px;
+}
+
+
+
+
+
 .offers_grid
 {
 	width: 100%;

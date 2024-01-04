@@ -20,7 +20,7 @@ const server = http.createServer(async (req, res) => {
         const requestData = JSON.parse(body);
 
         // Make a POST request to the API
-        const apiUrl = 'http://raynaapi.raynatours.com/api/Tour/tourstaticdata'; // Replace with the actual API endpoint
+        const apiUrl = 'http://raynaapi.raynatours.com/api/Tour/tourstaticdata'; 
         const response = await axios.post(apiUrl, requestData, {
           headers: {
             'Content-Type': 'application/json',
