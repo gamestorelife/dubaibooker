@@ -427,11 +427,17 @@
 
 	<div class="container"> 
 		<form id="api-form">
-			<label for="countryId">Country ID:</label>
-			<input type="number" id="countryId" name="countryId" required>
+			<!-- <label for="countryId">Country ID:</label>
+			<input type="number" id="countryId" name="countryId" > -->
 		
 			<label for="cityId">City ID:</label>
-			<input type="number" id="cityId" name="cityId" required>
+			<select id="cityId" name="cityId" type="number" required>
+				<option value="" disabled selected>Select a country</option>
+				<option value="13236">Abu Dhabi</option>
+				<option value="13668">Dubai City</option>
+				<option value="14644">Ras al Khaimah</option>
+				<!-- Add more options as needed -->
+			  </select>
 		
 			<button type="submit">Submit POST Request</button>
 		  </form>
@@ -598,7 +604,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Your existing code to handle form submission and API request
 
-		const countryId = document.getElementById('countryId').value;
+		// const countryId = document.getElementById('countryId').value;
       	const cityId = document.getElementById('cityId').value;
 
       // Make a POST request with the form data
@@ -608,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ CountryId: countryId, cityId: cityId }),
+          body: JSON.stringify({ CountryId: 13063, cityId: cityId }),
         });
 
         const data = await response.json();
@@ -626,8 +632,9 @@ document.addEventListener("DOMContentLoaded", function() {
             tourDiv.className = "tour";
             tourDiv.innerHTML = `
 				<h3>${tour.tourName}</h3>
-                <p>Country: ${tour.countryName}</p>
-                <p>City: ${tour.cityName}</p>
+				<p>City: ${tour.cityName}</p>
+                <p>Tour Description: ${tour.tourShortDescription}</p>
+                
                 <!-- Add more details as needed -->
             `;
 
