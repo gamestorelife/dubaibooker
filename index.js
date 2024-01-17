@@ -1,8 +1,14 @@
-const http = require('http');
+
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const { parse } = require('querystring');
+
+const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
 
 const API_KEY = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MWE4MjhjMC1iNzI0LTQwMWEtYmM3NS0wZTcxZjUzYjJjZjkiLCJVc2VySWQiOiI0NDU0MCIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoiZHluYW1pc2NhcGl0YWx1YWVAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIiwiYXVkIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIn0.TD-kr0ILWSyo-NTm-LE3SfnRuM_Xa5qXwxs5BgjTz8Y'; // Replace with your actual API key
 
@@ -32,6 +38,7 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(response.data));
       } catch (error) {
+        console.error('Error making API request:', error.message);
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Error processing POST request');
       }
@@ -80,8 +87,13 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3001;
+// const HOST = 'www.dubaibooker.com';
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+// server.listen(PORT, '0.0.0.0', () => {
+//   console.log(`Server running at http://localhost:${PORT}`);
+// });
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
