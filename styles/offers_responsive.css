@@ -20,13 +20,24 @@
 13. 400px
 
 ******************************/
-
+@media screen and (max-width: 4100px) and (min-width: 992px), (min-width: 4200px)
+{
+	#downlogo {
+    width: 150px;
+	}
+}
 /************
 0. 1730px
 ************/
 
 @media only screen and (max-width: 1730px)
 {
+
+	#downlogo {
+		width: 150px;
+		}
+
+		
 	.temp_col
 	{
 		display: none !important;

@@ -2521,65 +2521,24 @@
 					<!-- Activity Search Panel -->
 
 					<div class="search_panel">
-						<form method="post" id="activity_form" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+						<form method="post" id="api-form-newpage" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
 							<div class="search_item" id="activity-pcv">
 								<div>Location</div>
-								<select name="activitycategory" id="roundedk-ferry" class="dropdown_item_select search_input" required>
+								<select id="cityIdNewPage" name="cityId"  class="dropdown_item_select search_input" required>
 									<option value="" selected="selected" disabled="disabled">Select Location</option>
 									<option value="13668">Dubai City</option>
-									<option value="13236">Abu Dhabi</option>
-									
-									
+									<option value="13236">Abu Dhabi</option>		
 								</select>
 							</div>
 
 								<div id="sub-activity" style="display: contents;">
-
-									<!-- <div class="search_item d-none" id="activity-pcv">
-										<div>Book a day</div>
-										<input name="activitydate" type="text" id="roundedk-activity" class="check_out search_input" placeholder="Activity Date">
-									</div> -->
-
-									
-
-									<div class="search_item activity_adult d-none">
-										<div>Adults</div>
-										<select name="activityadults" id="roundedk" class="dropdown_item_select search_input" >
-											<option value="">0</option>
-											<option value="1">1</option>
-											<option value="2" selected="selected">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
-											<option value="11">11</option>
-											<option value="12">12</option>
-											<option value="13">13</option>
-											<option value="14">14</option>
-											<option value="15">15</option>
-											<option value="16">16</option>
-											<option value="17">17</option>
-											<option value="18">18</option>
-											<option value="19">19</option>
-											<option value="20">20</option>
-										</select>
-									</div>
-
-									<!-- <div class="search_item d-none" id="activity-pcv">
-										<div>Special request</div>
-										<input type="text"  id="roundedk" class="check_out search_input" placeholder="Note any special request">
-									</div> -->
-									
 									<button class="button search_button" type="submit">search<span></span><span></span><span></span></button>
 								</div>
 
-
-				
 						</form>
+
+						
+					</div>
 					</div>
 
 					<!--Services Search Panel -->
@@ -3926,9 +3885,37 @@ const myDialog = document.getElementById('my-dialog');
 //    });
 
 
+//Activity redirection for API
+document.addEventListener("DOMContentLoaded", function() {
+    const apiFormNewPage = document.getElementById("api-form-newpage");
+	
+	
+
+    apiFormNewPage.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const cityIdNewPage = document.getElementById('cityIdNewPage').value;
+		sessionStorage.setItem('selectedCity', cityIdNewPage);
+
+        // Check if the city parameter is already present in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('city')) {
+          // If not present, construct the redirect URL with the selected city
+          const redirectUrl = `/tourrender.html`;
+
+          // Redirect to the constructed URL
+          window.location.href = redirectUrl;
+        } else {
+          // If the city parameter is already present, you can choose to display a message or take other actions
+          console.log('City parameter already present in the URL.');
+        }
+    });
+});
 
 
 
+
+//Contact Form Submiesion 
 const form = document.getElementById('contact_form');
 	
 form.addEventListener('submit', (event) => {
