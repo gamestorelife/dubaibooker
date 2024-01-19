@@ -620,9 +620,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const tourDiv = document.createElement("div");
                 tourDiv.className = "tour";
                 tourDiv.innerHTML = `
-                    <h3>${tour.tourName}</h3>
-                    <p>City: ${tour.cityName}</p>
-                    <p>Tour Description: ${tour.tourShortDescription}</p>
+				<img src="images/${tour.tourName.toLowerCase().replace(/\s+/g, '-')}.jpg" 
+				alt="${tour.imageCaptionName}" style="width: 100%; border-radius: 25px;" />
+					<div>
+						<h3>${tour.tourName}</h3>
+                    	<p>City: ${tour.cityName}</p>
+                   		 <p>Tour Description: ${tour.tourShortDescription}</p>
+					</div>
+                 
                     <!-- Add more details as needed -->
                 `;
 
@@ -671,9 +676,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const tourDiv = document.createElement("div");
                 tourDiv.className = "tour";
                 tourDiv.innerHTML = `
-                    <h3>${tour.tourName}</h3>
-                    <p>City: ${tour.cityName}</p>
-                    <p>Tour Description: ${tour.tourShortDescription}</p>
+					<img src="images/${tour.tourName.toLowerCase().replace(/\s+/g, '-')}.jpg" 
+					alt="${tour.imageCaptionName}" style="width: 100%; border-radius: 25px;" />
+					<div>
+						<h3>${tour.tourName}</h3>
+                    	<p>City: ${tour.cityName}</p>
+                   		 <p>Tour Description: ${tour.tourShortDescription}</p>
+					</div>
+                 
                     <!-- Add more details as needed -->
                 `;
 
