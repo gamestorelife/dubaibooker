@@ -20,7 +20,18 @@
 13. 400px
 
 ******************************/
+@media screen and (max-width: 4100px) and (min-width: 992px), (min-width: 4200px)
+{
+	#tour-container {
+		display: inline-flex;
+		flex-wrap: wrap;
+	}
 
+	.tour-id-container {
+		width: 370px;
+	}
+
+}
 /************
 0. 1730px
 ************/
@@ -28,7 +39,7 @@
 @media only screen and (max-width: 1730px)
 {
 
-
+	
 
 	.offer_name {
 		color: #FFFFFF;
