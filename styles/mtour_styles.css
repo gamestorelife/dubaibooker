@@ -506,7 +506,7 @@ section
 	bottom: -11px;
 	width: calc(100% + 2px);
 	height: 2px;
-	background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+	background: var(--darker-color);
 	content: '';
 	opacity: 0;
 	-webkit-transition: all 200ms ease;
@@ -1377,13 +1377,17 @@ API CSS
     padding-bottom: 30px;
 }
 
-
+#tour-container {
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
 
 .tour {
-	border-style: solid;
+	box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
 	border-radius: 25px;
-    padding: 10px;
 	margin: 10px;
+	
 }
 
 
