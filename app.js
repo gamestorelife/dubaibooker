@@ -91,8 +91,6 @@ const server = http.createServer(async (req, res) => {
   } else if (req.url === '/tourrender.html') {
     // Serve the HTML file
     
-    
-
     const htmlPath = path.join(__dirname, 'tourrender.html');
     fs.readFile(htmlPath, 'utf-8', (err, html) => {
       if (err) {
