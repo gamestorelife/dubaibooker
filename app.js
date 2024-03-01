@@ -6,8 +6,8 @@ const { parse } = require('querystring');
 const send = require('send');
 const http = require('http');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+//const hostname = '127.0.0.109';
+
 
 
 const API_KEY = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MWE4MjhjMC1iNzI0LTQwMWEtYmM3NS0wZTcxZjUzYjJjZjkiLCJVc2VySWQiOiI0NDU0MCIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoiZHluYW1pc2NhcGl0YWx1YWVAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIiwiYXVkIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIn0.TD-kr0ILWSyo-NTm-LE3SfnRuM_Xa5qXwxs5BgjTz8Y'; 
@@ -66,6 +66,7 @@ const server = http.createServer(async (req, res) => {
         });
 
         // Redirect to tourrender.html with the selected city information in the query parameters
+
         const selectedCity = requestData.cityId; // Assuming cityId is present in the requestData
         const redirectUrl = `/tourrender.html?city=${encodeURIComponent(selectedCity)}`;
         res.writeHead(302, { 'Location': redirectUrl });
@@ -134,12 +135,12 @@ const server = http.createServer(async (req, res) => {
 });
 
  const PORT = process.env.PORT || 443;
- const HOST = 'www.dubaibooker.com';
+ //const HOST = 'dubaibooker.com';
 
-// server.listen(PORT, '0.0.0.0', () => {
-//   console.log(`Server running at http://localhost:${PORT}`);
-// });
+ server.listen(PORT, '0.0.0.0', () => {
+   console.log(`Server running at http://localhost:${PORT}`);
+ });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+//server.listen(port, hostname, () => {
+ // console.log(`Server running at https://${hostname}:${port}/`);
+//});
