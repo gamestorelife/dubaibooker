@@ -133,8 +133,8 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-// const PORT = process.env.PORT || 3001;
-// const HOST = 'www.dubaibooker.com';
+ const PORT = process.env.PORT || 443;
+ const HOST = 'www.dubaibooker.com';
 
 // server.listen(PORT, '0.0.0.0', () => {
 //   console.log(`Server running at http://localhost:${PORT}`);
