@@ -51,6 +51,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 // Append the tour container to the main container
                 tourContainer.appendChild(tourIdContainer);
+                 // Add click event listener to each tour container
+                 tourIdContainer.addEventListener('click', function() {
+                    // Extract tourId and contractId from the container's ID
+                    const tourId = tour.tourId;
+                    const contractId = tour.contractId; // Assuming you have contractId in your tour object
+                    console.log(`Clicked on tourId: ${tourId}, contractId: ${contractId}`);
+                });
             });
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -118,6 +125,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.error('Error submitting form:', error);
         };
     });
+
+
+
+
+
+
 });
 
 // <p>Tour Description: ${tour.tourShortDescription}</p>
