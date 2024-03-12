@@ -98,12 +98,23 @@ const server = http.createServer(async (req, res) => {
       if (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Internal Server Error');
-      } else {
+  } else {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(html);
       }
     });
-  } else  {
+  } else if (req.url === '/tour-option.html') {
+    // Serve the tour-option.html file
+    const htmlPath = path.join(__dirname, 'tour-option.html');
+    fs.readFile(htmlPath, 'utf-8', (err, html) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(html);
+      }
+    });} else  {
     // Serve other files (CSS, etc.)
     const filePath = req.url.slice(1);
     const extname = path.extname(filePath);
@@ -132,8 +143,10 @@ const server = http.createServer(async (req, res) => {
         res.end(data);
       }
     });
-  }
+  } 
 });
+
+
 
  const PORT = process.env.PORT || 3000;
  const HOST = 'dubaibooker.com';
@@ -142,6 +155,8 @@ const server = http.createServer(async (req, res) => {
    console.log(`Server running at http://localhost:${PORT}`);
  });
 
+
+ 
 //server.listen(port, hostname, () => {
  // console.log(`Server running at https://${hostname}:${port}/`);
 //});
