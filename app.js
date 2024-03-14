@@ -6,21 +6,16 @@ const { parse } = require('querystring');
 const send = require('send');
 const http = require('http');
 
-//const hostname = '127.0.0.109';
-
-
 
 const API_KEY = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MWE4MjhjMC1iNzI0LTQwMWEtYmM3NS0wZTcxZjUzYjJjZjkiLCJVc2VySWQiOiI0NDU0MCIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoiZHluYW1pc2NhcGl0YWx1YWVAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIiwiYXVkIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIn0.TD-kr0ILWSyo-NTm-LE3SfnRuM_Xa5qXwxs5BgjTz8Y'; 
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'POST' && req.url === '/api-data') {
+  if        (req.method === 'POST' && req.url === '/api-data') {
     // Handle POST request for API data
     let body = '';
-
     req.on('data', (chunk) => {
       body += chunk.toString();
     });
-
     req.on('end', async () => {
       try {
         const requestData = JSON.parse(body);
@@ -44,7 +39,7 @@ const server = http.createServer(async (req, res) => {
       }
     });
 
-  } else if (req.method === 'POST' && req.url === '/form-submit') {
+  } else if (req.method === 'POST' && req.url === '/activity-click') {
     
     // Handle form submission from newpage.html
     let body = '';
@@ -58,7 +53,7 @@ const server = http.createServer(async (req, res) => {
         const requestData = JSON.parse(body);
 
         // Make a POST request to the API
-        const apiUrl = 'http://raynaapi.raynatours.com/api/Tour/tourstaticdata';
+        const apiUrl = 'http://raynaapi.raynatours.com/api/Tour/tourStaticDataById';
         const response = await axios.post(apiUrl, requestData, {
           headers: {
             'Content-Type': 'application/json',
@@ -68,10 +63,8 @@ const server = http.createServer(async (req, res) => {
 
         // Redirect to tourrender.html with the selected city information in the query parameters
 
-        const selectedCity = requestData.cityId; // Assuming cityId is present in the requestData
-        const redirectUrl = `/tourrender.html?city=${encodeURIComponent(selectedCity)}`;
-        res.writeHead(302, { 'Location': redirectUrl });
-        res.end();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(response.data));
       } catch (error) {
         console.error('Error making API request:', error.message);
         res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -114,7 +107,8 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(html);
       }
-    });} else  {
+    });
+  } else  {
     // Serve other files (CSS, etc.)
     const filePath = req.url.slice(1);
     const extname = path.extname(filePath);
