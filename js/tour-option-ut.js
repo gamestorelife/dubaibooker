@@ -1,57 +1,61 @@
-
 document.addEventListener("DOMContentLoaded", async function () {
+  const tourContainer = document.getElementById("act-mainInfo");
 
-    const tourContainer = document.getElementById("act-mainInfo");
+  const tourId = sessionStorage.getItem("tourId");
+  const contractId = sessionStorage.getItem("contractId");
+  const countryId = sessionStorage.getItem("countryId");
+  const cityId = sessionStorage.getItem("cityId");
+  const travelDate = sessionStorage.getItem("travelDate");
 
-    const tourId = sessionStorage.getItem('tourId');
-    const contractId = sessionStorage.getItem('contractId');
-    const countryId = sessionStorage.getItem('countryId');
-    const cityId = sessionStorage.getItem('cityId');
-    const travelDate = sessionStorage.getItem('travelDate');
+  console.log(
+    `Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`
+  );
+  console.log(travelDate);
 
-   
-    console.log(`Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`);
-    console.log(travelDate);
+  if (tourId) {
+    try {
+      const response = await fetch("/activity-click", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          CountryId: countryId,
+          cityId: cityId,
+          tourId: tourId,
+          contractId: contractId,
+          travelDate: travelDate,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-    if (tourId) {
-        try {
-            const response = await fetch('/activity-click', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ CountryId: countryId, cityId: cityId, tourId: tourId, contractId: contractId, travelDate: travelDate }),
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+      const data = await response.json();
+      const tour = data.result[0]; // Define the tour variable here
+      // const tourImages = tour.tourImages; // Extract the tourImages array
+      const tourImages = tour.tourImages || []; // Extract the tourImages array, or set it to an empty array if undefined
 
-            const data = await response.json();
-            const tour = data.result[0]; // Define the tour variable here
-           // const tourImages = tour.tourImages; // Extract the tourImages array
-            const tourImages = tour.tourImages || []; // Extract the tourImages array, or set it to an empty array if undefined
+      const responseData = data;
 
-            const responseData = data;
+      // Clear previous content in tourContainer
+      tourContainer.innerHTML = "";
 
-            // Clear previous content in tourContainer
-            tourContainer.innerHTML = "";
+      const tourDiv = document.createElement("div");
+      tourDiv.className = "tour";
 
-            const tourDiv = document.createElement("div");
-            tourDiv.className = "tour";
+      if (tourImages.length > 0 && tourImages[0].imagePath) {
+        let slideshowItems = "";
 
-           
-            if (tourImages.length > 0 && tourImages[0].imagePath) {
-                let slideshowItems = '';
-            
-                tourImages.forEach(image => {
-                    slideshowItems += `
+        tourImages.forEach((image) => {
+          slideshowItems += `
                         <li>
                             <img src="${image.imagePath}" alt="${image.imageCaptionName}" uk-cover>
                         </li>
                     `;
-                });
-            
-                tourDiv.innerHTML = `
+        });
+
+        tourDiv.innerHTML = `
                     <div>
                         <div class="hotel_slider_container">
                             <div class="m-grid">
@@ -70,9 +74,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                         </div>
                     </div>
                 `;
-            }
+      }
 
-            tourDiv.innerHTML += `
+      tourDiv.innerHTML += `
                     <div style="padding:10px;">
                     <h3 class="tourname hotel_title">${tour.tourName}</h3>
                     <p>City: ${tour.cityName}</p>
@@ -84,22 +88,18 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <!-- Add more details here -->
                 </div>
             `;
-              // Create a unique container for the tourId
-              const tourIdContainer = document.createElement("div");
-              tourIdContainer.id = `tourId-${tour.tourId}`;
-              tourIdContainer.className = "tour-id-container";
-              tourIdContainer.appendChild(tourDiv);
-  
-              // Append the tour container to the main container
-              tourContainer.appendChild(tourIdContainer);
+      // Create a unique container for the tourId
+      const tourIdContainer = document.createElement("div");
+      tourIdContainer.id = `tourId-${tour.tourId}`;
+      tourIdContainer.className = "tour-id-container";
+      tourIdContainer.appendChild(tourDiv);
 
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    } else {
-        console.log('No selected city found.');
+      // Append the tour container to the main container
+      tourContainer.appendChild(tourIdContainer);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-
-
+  } else {
+    console.log("No selected city found.");
+  }
 });
