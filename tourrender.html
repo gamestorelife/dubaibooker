@@ -1,620 +1,918 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Tour Avail</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<meta charset="utf-8">
-<meta name="Rental Car" content="Car Rental Serives">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Travelix Project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet"  type="text/css" href="styles/mtour_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/tour_responsive.css">
+  <head>
+    <title>Tour Avail</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="Rental Car" content="Car Rental Serives" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Travelix Project" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="styles/bootstrap4/bootstrap.min.css"
+    />
+    <link
+      href="plugins/font-awesome-4.7.0/css/font-awesome.min.css"
+      type="text/css"
+    />
+    <link rel="stylesheet" type="text/css" href="styles/mtour_styles.css" />
+    <link rel="stylesheet" type="text/css" href="styles/tour_responsive.css" />
 
-<script src="https://kit.fontawesome.com/016f3a8fdd.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script
+      src="https://kit.fontawesome.com/016f3a8fdd.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+    />
 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-563X24TG');</script>
-	<!-- End Google Tag Manager -->
-</head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-563X24TG");
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
 
-<body>
+  <body>
+    <div class="super_container">
+      <!-- Header -->
 
-<div class="super_container">
-	
-	<!-- Header -->
+      <header class="header">
+        <!-- Top Bar -->
 
-	<header class="header">
+        <div class="top_bar">
+          <div class="container">
+            <div class="row">
+              <div class="col d-flex flex-row">
+                <div class="phone">+971 58 58 10 650</div>
+                <div class="social">
+                  <ul class="social_list">
+                    <li class="social_list_item">
+                      <a href="https://www.instagram.com/mykonosbooker/?hl=en"
+                        ><i class="fa fa-instagram"></i
+                      ></a>
+                    </li>
+                    <li class="social_list_item d-none">
+                      <a href="#"
+                        ><i class="fa fa-facebook" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <li class="social_list_item d-none">
+                      <a href="#"
+                        ><i class="fa fa-twitter" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <li class="social_list_item d-none">
+                      <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="user_box ml-auto d-none">
+                  <div class="user_box_login user_box_link">
+                    <a href="#">login</a>
+                  </div>
+                  <div class="user_box_register user_box_link">
+                    <a href="#">register</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-		<!-- Top Bar -->
+        <!-- Main Navigation -->
 
-		<div class="top_bar">
-			<div class="container">
-				<div class="row">
-					<div class="col d-flex flex-row">
-						<div class="phone">+971 58 58 10 650</div>
-						<div class="social">
-							<ul class="social_list">
-								<li class="social_list_item"><a href="https://www.instagram.com/mykonosbooker/?hl=en"><i class="fa fa-instagram"></i></a></li>
-								<li class="social_list_item d-none"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-								<li class="social_list_item d-none"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-								<li class="social_list_item d-none"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-								
-							</ul>
-						</div>
-						<div class="user_box ml-auto d-none">
-							<div class="user_box_login user_box_link"><a href="#">login</a></div>
-							<div class="user_box_register user_box_link"><a href="#">register</a></div>
-						</div>
-					</div>
-				</div>
-			</div>		
-		</div>
+        <nav class="main_nav">
+          <div class="container">
+            <div class="row">
+              <div
+                class="col main_nav_col d-flex flex-row align-items-center justify-content-start"
+              >
+                <div class="logo_container">
+                  <div class="logo">
+                    <a href="index.html"
+                      ><img id="up-logo" src="images/logo.png" alt=""
+                    /></a>
+                  </div>
+                </div>
+                <div class="main_nav_container ml-auto">
+                  <ul class="main_nav_list">
+                    <li class="main_nav_item"><a href="index.html">home</a></li>
+                    <li class="main_nav_item">
+                      <a href="#">about us</a>
+                    </li>
 
-		<!-- Main Navigation -->
-
-		<nav class="main_nav">
-			<div class="container">
-				<div class="row">
-					<div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
-						<div class="logo_container">
-							<div class="logo"><a href="index.html"><img id="up-logo" src="images/logo.png" alt=""></a></div>
-						</div>
-						<div class="main_nav_container ml-auto">
-							<ul class="main_nav_list">
-								<li class="main_nav_item"><a href="index.html">home</a></li>
-								<li class="main_nav_item"><a href="about.html">about us</a></li>
-								
-								<li class="main_nav_item"><a href="blog.html">news</a></li>
-								<li class="main_nav_item"><a href="contact.html">contact</a></li>
-							</ul>
-						</div>
-						<div class="content_search ml-lg-0 ml-auto">
-							<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							width="17px" height="17px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
-								<g>
-									<g>
-										<g>
-											<path class="mag_glass" fill="#FFFFFF" d="M78.438,216.78c0,57.906,22.55,112.343,63.493,153.287c40.945,40.944,95.383,63.494,153.287,63.494
+                    <li class="main_nav_item"><a href="#">news</a></li>
+                    <li class="main_nav_item">
+                      <a href="#">contact</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="content_search ml-lg-0 ml-auto">
+                  <svg
+                    version="1.1"
+                    id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    width="17px"
+                    height="17px"
+                    viewBox="0 0 512 512"
+                    enable-background="new 0 0 512 512"
+                    xml:space="preserve"
+                  >
+                    <g>
+                      <g>
+                        <g>
+                          <path
+                            class="mag_glass"
+                            fill="#FFFFFF"
+                            d="M78.438,216.78c0,57.906,22.55,112.343,63.493,153.287c40.945,40.944,95.383,63.494,153.287,63.494
 											s112.344-22.55,153.287-63.494C489.451,329.123,512,274.686,512,216.78c0-57.904-22.549-112.342-63.494-153.286
 											C407.563,22.549,353.124,0,295.219,0c-57.904,0-112.342,22.549-153.287,63.494C100.988,104.438,78.439,158.876,78.438,216.78z
 											M119.804,216.78c0-96.725,78.69-175.416,175.415-175.416s175.418,78.691,175.418,175.416
-											c0,96.725-78.691,175.416-175.416,175.416C198.495,392.195,119.804,313.505,119.804,216.78z"/>
-										</g>
-									</g>
-									<g>
-										<g>
-											<path class="mag_glass" fill="#FFFFFF" d="M6.057,505.942c4.038,4.039,9.332,6.058,14.625,6.058s10.587-2.019,14.625-6.058L171.268,369.98
+											c0,96.725-78.691,175.416-175.416,175.416C198.495,392.195,119.804,313.505,119.804,216.78z"
+                          />
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path
+                            class="mag_glass"
+                            fill="#FFFFFF"
+                            d="M6.057,505.942c4.038,4.039,9.332,6.058,14.625,6.058s10.587-2.019,14.625-6.058L171.268,369.98
 											c8.076-8.076,8.076-21.172,0-29.248c-8.076-8.078-21.172-8.078-29.249,0L6.057,476.693
-											C-2.019,484.77-2.019,497.865,6.057,505.942z"/>
-										</g>
-									</g>
-								</g>
-							</svg>
-						</div>
+											C-2.019,484.77-2.019,497.865,6.057,505.942z"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
 
-						<form id="search_form" class="search_form bez_1">
-							<input type="search" class="search_content_input bez_1">
-						</form>
-						
-						<div class="hamburger">
-							<i class="fa fa-bars trans_200"></i>
-						</div>
-					</div>
-				</div>
-			</div>	
-		</nav>
+                <form id="search_form" class="search_form bez_1">
+                  <input type="search" class="search_content_input bez_1" />
+                </form>
 
-	</header>
+                <div class="hamburger">
+                  <i class="fa fa-bars trans_200"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
 
-	<div class="menu trans_500">
-		<div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">
-			<div class="menu_close_container"><div class="menu_close"></div></div>
-			<div class="logo menu_logo"><a href="#"><img src="images/logo.png" alt=""></a></div>
-			<ul>
-				<li class="menu_item"><a href="index.php">home</a></li>
-				<li class="menu_item"><a href="about.html">about us</a></li>
-				
-				<li class="menu_item"><a href="blog.html">news</a></li>
-				<li class="menu_item"><a href="contact.html">contact</a></li>
-			</ul>
-		</div>
-	</div>
+      <div class="menu trans_500">
+        <div
+          class="menu_content d-flex flex-column align-items-center justify-content-center text-center"
+        >
+          <div class="menu_close_container"><div class="menu_close"></div></div>
+          <div class="logo menu_logo">
+            <a href="#"><img src="images/logo.png" alt="" /></a>
+          </div>
+          <ul>
+            <li class="menu_item"><a href="index.php">home</a></li>
+            <li class="menu_item"><a href="#">about us</a></li>
 
-	<!-- Home -->
+            <li class="menu_item"><a href="#">news</a></li>
+            <li class="menu_item"><a href="#">contact</a></li>
+          </ul>
+        </div>
+      </div>
 
-	<div class="home">
-		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/m-tour.jpg"></div>
-		<div class="home_content">
-			<div class="home_title">Our top activies</div>
-		</div>
-	</div>
+      <!-- Home -->
 
-	<!-- Offers -->
+      <div class="home">
+        <div
+          class="home_background parallax-window"
+          data-parallax="scroll"
+          data-image-src="images/m-tour.jpg"
+        ></div>
+        <div class="home_content">
+          <div class="home_title">Our top activies</div>
+        </div>
+      </div>
 
-	<div class="offers">
+      <!-- Offers -->
 
-	
-		
+      <div class="offers">
+        <!-- Offers -->
 
-		<!-- Offers -->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-1 temp_col"></div>
+            <div class="col-lg-11">
+              <!-- Offers Sorting -->
+            </div>
 
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-1 temp_col"></div>
-				<div class="col-lg-11">				
-					<!-- Offers Sorting -->	
-				</div>
+            <div class="col-lg-12 d-none">
+              <!-- Offers Grid -->
 
-				<div class="col-lg-12 d-none">
-					<!-- Offers Grid -->
+              <div class="offers_grid">
+                <!-- Offers Item -->
 
-					<div class="offers_grid">
+                <div class="offers_item rating_4">
+                  <div class="row">
+                    <div class="col-lg-1 temp_col"></div>
+                    <div class="col-lg-3 col-1680-4">
+                      <div class="offers_image_container">
+                        <a href="jeepwrangler.html">
+                          <div
+                            class="offers_image_background"
+                            style="
+                              background-image: url(images/Jeep\ Wrangler\ 4\ door-7.png);
+                            "
+                          ></div>
+                          <div class="offer_name">
+                            <a href="jeepwrangler.html">Jeep wrangler</a>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="offers_content">
+                        <div class="offers_price"><span></span></div>
+                        <div
+                          class="rating_r rating_r_5 offers_rating"
+                          data-rating="4"
+                        >
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                        </div>
+                        <p class="offers_text">
+                          Looking for a fun and exciting way to explore Mykonos?
+                          Look no further than JEEP WRANGLER rental car
+                          services! Our rugged and reliable vehicles are perfect
+                          for exploring the island's beautiful beaches, charming
+                          villages, and scenic countryside. With easy pickup and
+                          dropoff locations throughout Mykonos, renting a JEEP
+                          WRANGLER is the perfect way to make the most of your
+                          vacation. So why wait? Book your JEEP WRANGLER rental
+                          today and start exploring all that Mykonos has to
+                          offer!
+                        </p>
+                        <div class="offers_icons">
+                          <ul class="offers_icons_list d-none">
+                            <li class="offers_icons_item">
+                              <img src="images/post.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/compass.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/bicycle.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/sailboat.png" alt="" />
+                            </li>
+                          </ul>
+                        </div>
+                        <a href="#">
+                          <div class="button book_button">
+                            <a href="jeepwrangler.html"
+                              >book<span></span><span></span><span></span
+                            ></a>
+                          </div>
+                        </a>
+                        <div class="offer_reviews">
+                          <div class="offer_reviews_content d-none">
+                            <div class="offer_reviews_title">very good</div>
+                            <div class="offer_reviews_subtitle">
+                              100 reviews
+                            </div>
+                          </div>
+                          <div class="offer_reviews_rating text-center d-none">
+                            9.9
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-						<!-- Offers Item -->
+                <!-- Offers Item -->
 
-						<div class="offers_item rating_4">
-							<div class="row">
-								<div class="col-lg-1 temp_col"></div>
-								<div class="col-lg-3 col-1680-4">
-									<div class="offers_image_container">
-										<a href="jeepwrangler.html">
-											<div class="offers_image_background" style="background-image:url(images/Jeep\ Wrangler\ 4\ door-7.png)"></div>
-											<div class="offer_name"><a href="jeepwrangler.html">Jeep wrangler</a></div>
+                <div class="offers_item rating_3">
+                  <div class="row">
+                    <div class="col-lg-1 temp_col"></div>
+                    <div class="col-lg-3 col-1680-4">
+                      <div class="offers_image_container">
+                        <a href="jw-rubicon.html">
+                          <div
+                            class="offers_image_background"
+                            style="background-image: url(images/room_2.png)"
+                          ></div>
+                          <div class="offer_name"><a>Rubicon Hybrid</a></div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="offers_content">
+                        <div class="offers_price"><span> </span></div>
+                        <div
+                          class="rating_r rating_r_5 offers_rating"
+                          data-rating="3"
+                        >
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                        </div>
+                        <p class="offers_text">
+                          Looking for an adventure-ready vehicle that's also
+                          eco-friendly? Look no further than the Jeep Wrangler
+                          Rubicon Hybrid! With its hybrid powertrain, this
+                          rugged SUV is capable of taking you off-road while
+                          still being fuel-efficient. At our car rental service,
+                          we're proud to offer the Jeep Wrangler Rubicon Hybrid
+                          as one of our top vehicles. Whether you're planning a
+                          camping trip or just want to explore the great
+                          outdoors, this SUV is the perfect choice for your next
+                          adventure.
+                        </p>
+                        <div class="offers_icons">
+                          <ul class="offers_icons_list d-none">
+                            <li class="offers_icons_item">
+                              <img src="images/post.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/compass.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/bicycle.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/sailboat.png" alt="" />
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="button book_button">
+                          <a href="jw-rubicon.html"
+                            >book<span></span><span></span><span></span
+                          ></a>
+                        </div>
+                        <div class="offer_reviews">
+                          <div class="offer_reviews_content d-none">
+                            <div class="offer_reviews_title">very good</div>
+                            <div class="offer_reviews_subtitle">
+                              100 reviews
+                            </div>
+                          </div>
+                          <div class="offer_reviews_rating text-center d-none">
+                            9.8
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-										</a>
-										
-									</div>
-								</div>
-								<div class="col-lg-8">
-									<div class="offers_content">
-										<div class="offers_price"><span></span></div>
-										<div class="rating_r rating_r_5 offers_rating" data-rating="4">
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-										</div>
-										<p class="offers_text">Looking for a fun and exciting way to explore Mykonos? 
-											Look no further than JEEP WRANGLER rental car services! Our rugged 
-											and reliable vehicles are perfect for exploring the island's beautiful beaches, charming villages, 
-											and scenic countryside. With easy pickup and dropoff locations throughout Mykonos, 
-											renting a JEEP WRANGLER is the perfect way to make the most of your vacation. 
-											So why wait? Book your JEEP WRANGLER rental today and start exploring all that Mykonos has to offer!</p>
-										<div class="offers_icons">
-											<ul class="offers_icons_list d-none">
-												<li class="offers_icons_item"><img src="images/post.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/bicycle.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/sailboat.png" alt=""></li>
-											</ul>
-										</div>
-										<a href="#">
-										<div class="button book_button"><a href="jeepwrangler.html">book<span></span><span></span><span></span></a></div>
-										</a>
-										<div class="offer_reviews">
-											<div class="offer_reviews_content d-none">
-												<div class="offer_reviews_title">very good</div>
-												<div class="offer_reviews_subtitle">100 reviews</div>
-											</div>
-											<div class="offer_reviews_rating text-center d-none">9.9</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+                <!-- Offers Item -->
 
-						<!-- Offers Item -->
+                <div class="offers_item rating_5">
+                  <div class="row">
+                    <div class="col-lg-1 temp_col"></div>
+                    <div class="col-lg-3 col-1680-4">
+                      <div class="offers_image_container">
+                        <a href="rubicon-jk.html">
+                          <div
+                            class="offers_image_background"
+                            style="
+                              background-image: url(images/Wrangler-JK3.png);
+                            "
+                          ></div>
+                          <div class="offer_name"><a>Jeep Wrangler JK</a></div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="offers_content">
+                        <div class="offers_price"><span> </span></div>
+                        <div
+                          class="rating_r rating_r_5 offers_rating"
+                          data-rating="5"
+                        >
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                        </div>
+                        <p class="offers_text">
+                          Explore the stunning beaches, winding coastal roads,
+                          and hidden gems of Mykonos in style and comfort. The
+                          Jeep Wrangler JK is the perfect companion for your
+                          island adventures, with its rugged design and off-road
+                          capabilities.<br />
+                          With its spacious interior and modern features,
+                          including air conditioning and a premium sound system,
+                          you'll enjoy every moment of your journey. Plus, the
+                          removable roof and doors allow you to fully embrace
+                          the island vibes and feel the refreshing sea breeze as
+                          you drive.
+                        </p>
+                        <div class="offers_icons">
+                          <ul class="offers_icons_list d-none">
+                            <li class="offers_icons_item">
+                              <img src="images/post.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/compass.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/bicycle.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/sailboat.png" alt="" />
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="button book_button">
+                          <a href="rubicon-jk.html"
+                            >book<span></span><span></span><span></span
+                          ></a>
+                        </div>
+                        <div class="offer_reviews d-none">
+                          <div class="offer_reviews_content">
+                            <div class="offer_reviews_title">very good</div>
+                            <div class="offer_reviews_subtitle">
+                              100 reviews
+                            </div>
+                          </div>
+                          <div class="offer_reviews_rating text-center">
+                            9.9
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-						<div class="offers_item rating_3">
-							<div class="row">
-								<div class="col-lg-1 temp_col"></div>
-								<div class="col-lg-3 col-1680-4">
-									<div class="offers_image_container">
-										<a href="jw-rubicon.html">
-										
-										<div class="offers_image_background" style="background-image:url(images/room_2.png)"></div>
-										<div class="offer_name"><a>Rubicon Hybrid</a></div>
-										
-										</a>
+                <!-- Offers Item -->
 
-									</div>
-								</div>
-								<div class="col-lg-8">
-									<div class="offers_content">
-										<div class="offers_price"><span> </span></div>
-										<div class="rating_r rating_r_5 offers_rating" data-rating="3">
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-										</div>
-										<p class="offers_text">
-											Looking for an adventure-ready vehicle that's also eco-friendly? Look no 
-											further than the Jeep Wrangler Rubicon Hybrid! With its hybrid powertrain,
-											 this rugged SUV is capable of taking you off-road while still being fuel-efficient.
-												At our car rental service, 
-											we're proud to offer the Jeep Wrangler Rubicon Hybrid as one of our top vehicles.
- 												Whether you're planning a camping trip or just want to explore the great outdoors, 
-												this SUV is the perfect choice for your next adventure.
-										</p>
-										<div class="offers_icons">
-											<ul class="offers_icons_list d-none">
-												<li class="offers_icons_item"><img src="images/post.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/bicycle.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/sailboat.png" alt=""></li>
-											</ul>
-										</div>
-										<div class="button book_button"><a href="jw-rubicon.html">book<span></span><span></span><span></span></a></div>
-										<div class="offer_reviews">
-											<div class="offer_reviews_content d-none">
-												<div class="offer_reviews_title">very good</div>
-												<div class="offer_reviews_subtitle">100 reviews</div>
-											</div>
-											<div class="offer_reviews_rating text-center d-none">9.8</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+                <div class="offers_item rating_4">
+                  <div class="row">
+                    <div class="col-lg-1 temp_col"></div>
+                    <div class="col-lg-3 col-1680-4">
+                      <div class="offers_image_container">
+                        <a href="sedan-mercedes.html">
+                          <div
+                            class="offers_image_background"
+                            style="background-image: url(images/Mercedes-3.png)"
+                          ></div>
+                          <div class="offer_name"><a>Mercedes Benz</a></div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="offers_content">
+                        <div class="offers_price"><span> </span></div>
+                        <div
+                          class="rating_r rating_r_5 offers_rating"
+                          data-rating="4"
+                        >
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                        </div>
+                        <p class="offers_text">
+                          Indulge in luxury and style while exploring the
+                          stunning island of Mykonos with our Mercedes-Benz car
+                          rental service!<br />
+                          Experience the epitome of elegance and performance
+                          with our wide selection of Mercedes-Benz vehicles.
+                          Whether you're looking for a sleek sedan, a stylish
+                          convertible, or a spacious SUV, we have the perfect
+                          Mercedes-Benz model to suit your needs. Don't wait to
+                          experience the luxury and sophistication of driving a
+                          Mercedes-Benz in Mykonos. Reserve your Mercedes-Benz
+                          rental today and elevate your travel experience to a
+                          whole new level!
+                        </p>
+                        <div class="offers_icons">
+                          <ul class="offers_icons_list d-none">
+                            <li class="offers_icons_item">
+                              <img src="images/post.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/compass.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/bicycle.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/sailboat.png" alt="" />
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="button book_button">
+                          <a href="sedan-mercedes.html"
+                            >book<span></span><span></span><span></span
+                          ></a>
+                        </div>
+                        <div class="offer_reviews d-none">
+                          <div class="offer_reviews_content">
+                            <div class="offer_reviews_title">very good</div>
+                            <div class="offer_reviews_subtitle">
+                              100 reviews
+                            </div>
+                          </div>
+                          <div class="offer_reviews_rating text-center">
+                            9.7
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-						<!-- Offers Item -->
+                <!-- Offers Item -->
 
-						<div class="offers_item rating_5">
-							<div class="row">
-								<div class="col-lg-1 temp_col"></div>
-								<div class="col-lg-3 col-1680-4">
-									<div class="offers_image_container">
-										<a href="rubicon-jk.html">
-										<div class="offers_image_background" style="background-image:url(images/Wrangler-JK3.png)"></div>
-										<div class="offer_name"><a>Jeep Wrangler JK</a></div>
-										</a>
-									</div>
-								</div>
-								<div class="col-lg-8">
-									<div class="offers_content">
-										<div class="offers_price"><span> </span></div>
-										<div class="rating_r rating_r_5 offers_rating"  data-rating="5">
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-										</div>
-										<p class="offers_text">Explore the stunning beaches, winding coastal roads, 
-											and hidden gems of Mykonos in style and comfort. The Jeep Wrangler JK is the perfect companion for your island adventures, 
-											with its rugged design and off-road capabilities.<br>
-											With its spacious interior and modern features, including air conditioning and a premium sound system, you'll enjoy every moment of your journey.
-											 Plus, the removable roof and doors allow you to fully embrace the island vibes and feel the refreshing sea breeze as you drive.
-										</p>
-										<div class="offers_icons">
-											<ul class="offers_icons_list d-none">
-												<li class="offers_icons_item"><img src="images/post.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/bicycle.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/sailboat.png" alt=""></li>
-											</ul>
-										</div>
-										<div class="button book_button"><a href="rubicon-jk.html">book<span></span><span></span><span></span></a></div>
-										<div class="offer_reviews d-none">
-											<div class="offer_reviews_content">
-												<div class="offer_reviews_title">very good</div>
-												<div class="offer_reviews_subtitle">100 reviews</div>
-											</div>
-											<div class="offer_reviews_rating text-center">9.9</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+                <div class="offers_item rating_5">
+                  <div class="row">
+                    <div class="col-lg-1 temp_col"></div>
+                    <div class="col-lg-3 col-1680-4">
+                      <div class="offers_image_container">
+                        <div
+                          class="offers_image_background"
+                          style="
+                            background-image: url(images/Fiat-500-Cabrio.png);
+                          "
+                        ></div>
+                        <div class="offer_name">
+                          <a href="fiat-500.html">Fiat 500 Cabrio</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="offers_content">
+                        <div class="offers_price"><span></span></div>
+                        <div
+                          class="rating_r rating_r_5 offers_rating"
+                          data-rating="3"
+                        >
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                        </div>
+                        <p class="offers_text">
+                          Experience the charm and excitement of driving a
+                          classic Italian car with our Fiat 500 Cabrio rentals.
+                          With its compact size and convertible top, this car is
+                          perfect for navigating the narrow streets and soaking
+                          up the sun on the island's scenic roads. Whether
+                          you're heading to Little Venice, Agios Ioannis Beach,
+                          or any other stunning location, the Fiat 500 Cabrio
+                          will get you there in style. Enjoy the fresh sea
+                          breeze and sunshine as you cruise along the coast with
+                          the top down. Inside, you'll find a surprisingly
+                          spacious and comfortable interior, with modern
+                          amenities such as air conditioning and a premium sound
+                          system. And with its efficient engine, you can explore
+                          the island without worrying about fuel costs.
+                        </p>
+                        <div class="offers_icons">
+                          <ul class="offers_icons_list d-none">
+                            <li class="offers_icons_item">
+                              <img src="images/post.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/compass.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/bicycle.png" alt="" />
+                            </li>
+                            <li class="offers_icons_item">
+                              <img src="images/sailboat.png" alt="" />
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="button book_button">
+                          <a href="fiat-500.html"
+                            >book<span></span><span></span><span></span
+                          ></a>
+                        </div>
+                        <div class="offer_reviews d-none">
+                          <div class="offer_reviews_content">
+                            <div class="offer_reviews_title">very good</div>
+                            <div class="offer_reviews_subtitle">
+                              100 reviews
+                            </div>
+                          </div>
+                          <div class="offer_reviews_rating text-center">
+                            8.1
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-						<!-- Offers Item -->
+      <div class="container">
+        <form id="api-form" method="post" action="/api-data">
+          <div class="d-none">
+            <button
+              type="submit"
+              style="
+                background-image: url('/images/m-hotel.jpg');
+                background-size: cover;
+                width: 150px;
+                height: 150px;
+              "
+            >
+              <input
+                type="hidden"
+                id="cityId"
+                name="cityId"
+                value="13668"
+              />Dubai
+            </button>
+            <button
+              type="submit"
+              style="
+                background-image: url('/images/abu-dhabi.jpg');
+                background-size: cover;
+                width: 150px;
+                height: 150px;
+              "
+            >
+              <input type="hidden" id="cityId" name="cityId" value="13236" />Abu
+              Dhabi
+            </button>
+          </div>
+        </form>
 
-						<div class="offers_item rating_4">
-							<div class="row">
-								<div class="col-lg-1 temp_col"></div>
-								<div class="col-lg-3 col-1680-4">
-									<div class="offers_image_container">
-										<a href="sedan-mercedes.html" >
-											<div class="offers_image_background" style="background-image:url(images/Mercedes-3.png)"></div>
-											<div class="offer_name"><a>Mercedes Benz</a></div>
-										</a>
-										
-										
-									</div>
-								</div>
-								<div class="col-lg-8">
-									<div class="offers_content">
-										<div class="offers_price"><span> </span></div>
-										<div class="rating_r rating_r_5 offers_rating" data-rating="4">
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-										</div>
-										<p class="offers_text">
-											Indulge in luxury and style while exploring the stunning island of Mykonos with our Mercedes-Benz car rental service!<br>
-											Experience the epitome of elegance and performance with our wide selection of Mercedes-Benz vehicles. 
-											Whether you're looking for a sleek sedan, a stylish convertible, or a spacious SUV, we have the perfect Mercedes-Benz model to suit your needs.
-											Don't wait to experience the luxury and sophistication of driving a Mercedes-Benz in Mykonos. 
-											Reserve your Mercedes-Benz rental today and elevate your travel experience to a whole new level!
-										</p>
-										<div class="offers_icons">
-											<ul class="offers_icons_list d-none">
-												<li class="offers_icons_item"><img src="images/post.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/bicycle.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/sailboat.png" alt=""></li>
-											</ul>
-										</div>
-										<div class="button book_button"><a href="sedan-mercedes.html">book<span></span><span></span><span></span></a></div>
-										<div class="offer_reviews d-none">
-											<div class="offer_reviews_content">
-												<div class="offer_reviews_title">very good</div>
-												<div class="offer_reviews_subtitle">100 reviews</div>
-											</div>
-											<div class="offer_reviews_rating text-center">9.7</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+        <div>
+          <div id="api-data-container">
+            <h2>Tours Available:</h2>
+            <div class="tour-items">
+              <div id="tour-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-						<!-- Offers Item -->
+      <!-- Footer -->
 
-						<div class="offers_item rating_5">
-							<div class="row">
-								<div class="col-lg-1 temp_col"></div>
-								<div class="col-lg-3 col-1680-4">
-									<div class="offers_image_container">
-										
-										<div class="offers_image_background" style="background-image:url(images/Fiat-500-Cabrio.png)"></div>
-										<div class="offer_name"><a href="fiat-500.html">Fiat 500 Cabrio</a></div>
-									</div>
-								</div>
-								<div class="col-lg-8">
-									<div class="offers_content">
-										<div class="offers_price"><span></span></div>
-										<div class="rating_r rating_r_5 offers_rating" data-rating="3">
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-											<i></i>
-										</div>
-										<p class="offers_text">Experience the charm and excitement of driving a classic Italian car with our Fiat 500 Cabrio rentals. 
-											With its compact size and convertible top, this car is perfect for navigating the narrow streets and soaking up the sun on 
-											the island's scenic roads.
-											Whether you're heading to Little Venice, Agios Ioannis Beach, or any other stunning location, the Fiat 500 Cabrio will get 
-											you there in style. Enjoy the fresh sea breeze and sunshine as you cruise along the coast with the top down.
-											Inside, you'll find a surprisingly spacious and comfortable interior, with modern amenities such as air conditioning and a premium sound system. 
-											And with its efficient engine, you can explore the island without worrying about fuel costs.</p>
-										<div class="offers_icons">
-											<ul class="offers_icons_list d-none">
-												<li class="offers_icons_item"><img src="images/post.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/bicycle.png" alt=""></li>
-												<li class="offers_icons_item"><img src="images/sailboat.png" alt=""></li>
-											</ul>
-										</div>
-										<div class="button book_button"><a href="fiat-500.html">book<span></span><span></span><span></span></a></div>
-										<div class="offer_reviews d-none">
-											<div class="offer_reviews_content">
-												<div class="offer_reviews_title">very good</div>
-												<div class="offer_reviews_subtitle">100 reviews</div>
-											</div>
-											<div class="offer_reviews_rating text-center">8.1</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+      <footer class="footer">
+        <div class="container">
+          <div class="row">
+            <!-- Footer Column -->
+            <div class="col-lg-3 footer_column">
+              <div class="footer_col">
+                <div class="footer_content footer_about">
+                  <div class="logo_container footer_logo">
+                    <div class="logo">
+                      <a href="#"
+                        ><img
+                          id="down-logo"
+                          src="images/logo.png"
+                          alt=""
+                          style="width: 200px"
+                      /></a>
+                    </div>
+                  </div>
+                  <p class="footer_about_text">
+                    Be prepared to learn so much while enjoying the amazing
+                    views and the best tours Dubai has to offer!
+                  </p>
+                  <ul class="footer_social_list">
+                    <li class="">
+                      <a href="https://api.whatsapp.com/send?phone=971585810650"
+                        ><i class="whatsapp_item fa-brands fa-whatsapp"></i
+                      ></a>
+                    </li>
+                    <li class="footer_social_item d-none">
+                      <a href="#"><i class="fa fa-facebook-f"></i></a>
+                    </li>
+                    <li class="footer_social_item d-none">
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="footer_social_item d-none">
+                      <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-					</div>
-				</div>
-			</div>
-		</div>		
-	</div>
+            <!-- Footer Column -->
+            <div class="col-lg-3 footer_column">
+              <div class="footer_col">
+                <div class="footer_title">blog posts</div>
+                <div class="footer_content footer_blog">
+                  <!-- Footer blog item -->
+                  <div class="footer_blog_item clearfix">
+                    <div class="footer_blog_image">
+                      <img
+                        src="images/footer_blog_1.jpg"
+                        alt="https://unsplash.com/@avidenov"
+                      />
+                    </div>
+                    <div class="footer_blog_content">
+                      <div class="footer_blog_title">
+                        <a href="blog.html">Travel with us this year</a>
+                      </div>
+                      <div class="footer_blog_date">2024</div>
+                    </div>
+                  </div>
 
+                  <!-- Footer blog item -->
+                  <div class="footer_blog_item clearfix">
+                    <div class="footer_blog_image">
+                      <img
+                        src="images/footer_blog_2.jpg"
+                        alt="https://unsplash.com/@deannaritchie"
+                      />
+                    </div>
+                    <div class="footer_blog_content">
+                      <div class="footer_blog_title">
+                        <a href="blog.html">New destinations for you</a>
+                      </div>
+                      <div class="footer_blog_date">2024</div>
+                    </div>
+                  </div>
 
-	<div class="container"> 
-		<form id="api-form" method="post" action="/api-data">
-		
-		
+                  <!-- Footer blog item -->
+                  <div class="footer_blog_item clearfix">
+                    <div class="footer_blog_image">
+                      <img
+                        src="images/footer_blog_3.jpg"
+                        alt="https://unsplash.com/@bergeryap87"
+                      />
+                    </div>
+                    <div class="footer_blog_content">
+                      <div class="footer_blog_title">
+                        <a href="blog.html">Travel with us this year</a>
+                      </div>
+                      <div class="footer_blog_date">2024</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-			<div class="d-flex">
-				<button type="submit"   
-			style="background-image: url('/images/m-hotel.jpg'); background-size: cover; width: 150px; height: 150px;">
-				<input type="hidden" id="cityId" name="cityId" value="13668">Dubai</button>
-    		<button type="submit"  
-			style="background-image: url('/images/abu-dhabi.jpg'); background-size: cover; width: 150px; height: 150px;">
-				<input type="hidden" id="cityId" name="cityId" value="13236">Abu Dhabi</button>
-			</div>
+            <!-- Footer Column -->
+            <div class="col-lg-3 footer_column">
+              <div class="footer_col">
+                <div class="footer_title">tags</div>
+                <div class="footer_content footer_tags">
+                  <ul class="tags_list clearfix">
+                    <li class="tag_item"><a href="#">music</a></li>
+                    <li class="tag_item"><a href="#">video</a></li>
+                    <li class="tag_item"><a href="#">party</a></li>
+                    <li class="tag_item"><a href="#">photography</a></li>
+                    <li class="tag_item"><a href="#">adventure</a></li>
+                    <li class="tag_item"><a href="#">travel</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-		
-		  </form>
+            <!-- Footer Column -->
+            <div class="col-lg-3 footer_column">
+              <div class="footer_col">
+                <div class="footer_title">contact info</div>
+                <div class="footer_content footer_contact">
+                  <ul class="contact_info_list">
+                    <li class="contact_info_item d-flex flex-row">
+                      <div>
+                        <div class="contact_info_icon">
+                          <img src="images/placeholder.svg" alt="" />
+                        </div>
+                      </div>
+                      <div class="contact_info_text">
+                        Creative City Tower 4422 - Office 1309 Fujairah UAE
+                      </div>
+                    </li>
+                    <li class="contact_info_item d-flex flex-row">
+                      <div>
+                        <div class="contact_info_icon">
+                          <img src="images/phone-call.svg" alt="" />
+                        </div>
+                      </div>
+                      <div class="contact_info_text">
+                        <a href="tel: +971585810650">+971 58 58 10 650</a>
+                      </div>
+                    </li>
+                    <li class="contact_info_item d-flex flex-row">
+                      <div>
+                        <div class="contact_info_icon">
+                          <img src="images/message.svg" alt="" />
+                        </div>
+                      </div>
+                      <div class="contact_info_text">
+                        <a href="mailto: info@dubaibooker.com"
+                          >info@dubaibooker.com</a
+                        >
+                      </div>
+                    </li>
+                    <li class="contact_info_item d-flex flex-row">
+                      <div>
+                        <div class="contact_info_icon">
+                          <img src="images/planet-earth.svg" alt="" />
+                        </div>
+                      </div>
+                      <div class="contact_info_text">
+                        <a href="https://dubaibooker.com/"
+                          >www.dubaibooker.com</a
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
 
-		  <div >
-			<div id="api-data-container">
-				<h2>Tours Available:</h2>
-				<div class="tour-items">
-					<div id="tour-container"></div> 
-				</div>
-				
-			  </div>
-		  </div>
-		
-		
+      <!-- Copyright -->
 
-	
-	</div>
+      <div class="copyright">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 order-lg-1 order-2">
+              <div class="copyright_content d-flex flex-row align-items-center">
+                <div>
+                  DubaiBooker, is not responsible for content on external web
+                  sites. © 2024 DubaiBooker, powered by DYNAMIS CAPITAL FZ LLE
+                  All rights reserved.
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-9 order-lg-2 order-1">
+              <div
+                class="footer_nav_container d-flex flex-row align-items-center justify-content-lg-end"
+              >
+                <div class="footer_nav">
+                  <ul class="footer_nav_list">
+                    <li class="footer_nav_item">
+                      <a href="index.html">home</a>
+                    </li>
+                    <li class="footer_nav_item">
+                      <a href="about.html">about us</a>
+                    </li>
+                    <li class="footer_nav_item">
+                      <a href="blog.html">news</a>
+                    </li>
+                    <li class="footer_nav_item">
+                      <a href="contact.html">contact</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<!-- Footer -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="styles/bootstrap4/popper.js"></script>
+    <script src="styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="plugins/easing/easing.js"></script>
+    <script src="plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="js/offers_custom.js"></script>
+    <script src="js/renderapi.js"></script>
 
-	<footer class="footer">
-		<div class="container">
-			<div class="row">
-
-				<!-- Footer Column -->
-				<div class="col-lg-3 footer_column">
-					<div class="footer_col">
-						<div class="footer_content footer_about">
-							<div class="logo_container footer_logo">
-								<div class="logo" ><a href="#"><img id="down-logo" src="images/logo.png" alt="" style="width: 200px;"></a></div>
-							</div>
-							<p class="footer_about_text">Be prepared to learn so much while enjoying the amazing views and the best tours Dubai has to offer!</p>
-							<ul class="footer_social_list">
-								<li class=""><a href="https://api.whatsapp.com/send?phone=971585810650" ><i class=" whatsapp_item fa-brands fa-whatsapp"></i></a></li>	
-								<li class="footer_social_item d-none"><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-								<li class="footer_social_item d-none"><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li class="footer_social_item d-none"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-		
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<!-- Footer Column -->
-				<div class="col-lg-3 footer_column">
-					<div class="footer_col">
-						<div class="footer_title">blog posts</div>
-						<div class="footer_content footer_blog">
-							
-							<!-- Footer blog item -->
-							<div class="footer_blog_item clearfix">
-								<div class="footer_blog_image"><img src="images/footer_blog_1.jpg" alt="https://unsplash.com/@avidenov"></div>
-								<div class="footer_blog_content">
-									<div class="footer_blog_title"><a href="blog.html">Travel with us this year</a></div>
-									<div class="footer_blog_date">2024</div>
-								</div>
-							</div>
-							
-							<!-- Footer blog item -->
-							<div class="footer_blog_item clearfix">
-								<div class="footer_blog_image"><img src="images/footer_blog_2.jpg" alt="https://unsplash.com/@deannaritchie"></div>
-								<div class="footer_blog_content">
-									<div class="footer_blog_title"><a href="blog.html">New destinations for you</a></div>
-									<div class="footer_blog_date">2024</div>
-								</div>
-							</div>
-
-							<!-- Footer blog item -->
-							<div class="footer_blog_item clearfix">
-								<div class="footer_blog_image"><img src="images/footer_blog_3.jpg" alt="https://unsplash.com/@bergeryap87"></div>
-								<div class="footer_blog_content">
-									<div class="footer_blog_title"><a href="blog.html">Travel with us this year</a></div>
-									<div class="footer_blog_date">2024</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-
-				<!-- Footer Column -->
-				<div class="col-lg-3 footer_column">
-					<div class="footer_col">
-						<div class="footer_title">tags</div>
-						<div class="footer_content footer_tags">
-							<ul class="tags_list clearfix">
-								
-								<li class="tag_item"><a href="#">music</a></li>
-								<li class="tag_item"><a href="#">video</a></li>
-								<li class="tag_item"><a href="#">party</a></li>
-								<li class="tag_item"><a href="#">photography</a></li>
-								<li class="tag_item"><a href="#">adventure</a></li>
-								<li class="tag_item"><a href="#">travel</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<!-- Footer Column -->
-				<div class="col-lg-3 footer_column">
-					<div class="footer_col">
-						<div class="footer_title">contact info</div>
-						<div class="footer_content footer_contact">
-							<ul class="contact_info_list">
-								<li class="contact_info_item d-flex flex-row">
-									<div><div class="contact_info_icon"><img src="images/placeholder.svg" alt=""></div></div>
-									<div class="contact_info_text">Creative City Tower 4422 - Office 1309 Fujairah UAE</div>
-								</li>
-								<li class="contact_info_item d-flex flex-row">
-									<div><div class="contact_info_icon"><img src="images/phone-call.svg" alt=""></div></div>
-									<div class="contact_info_text"><a href="tel: +971585810650">+971 58 58 10 650</a></div>
-								</li>
-								<li class="contact_info_item d-flex flex-row">
-									<div><div class="contact_info_icon"><img src="images/message.svg" alt=""></div></div>
-									<div class="contact_info_text"><a href="mailto: info@dubaibooker.com">info@dubaibooker.com</a></div>
-								</li>
-								<li class="contact_info_item d-flex flex-row">
-									<div><div class="contact_info_icon"><img src="images/planet-earth.svg" alt=""></div></div>
-									<div class="contact_info_text"><a href="https://dubaibooker.com/">www.dubaibooker.com</a></div>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</footer>
-
-	<!-- Copyright -->
-
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 order-lg-1 order-2  ">
-					<div class="copyright_content d-flex flex-row align-items-center">
-						<div>DubaiBooker, is not responsible for content on external web sites. 
-							© 2024 DubaiBooker, powered by DYNAMIS CAPITAL FZ LLE All rights reserved.</div>
-					</div>
-				</div>
-				<div class="col-lg-9 order-lg-2 order-1">
-					<div class="footer_nav_container d-flex flex-row align-items-center justify-content-lg-end">
-						<div class="footer_nav">
-							<ul class="footer_nav_list">
-								<li class="footer_nav_item"><a href="index.html">home</a></li>
-								<li class="footer_nav_item"><a href="about.html">about us</a></li>
-								<li class="footer_nav_item"><a href="blog.html">news</a></li>
-								<li class="footer_nav_item"><a href="contact.html">contact</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-</div>
-
-
-
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap4/popper.js"></script>
-<script src="styles/bootstrap4/bootstrap.min.js"></script>
-<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="js/offers_custom.js"></script>
-<script src="js/renderapi.js"></script>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-563X24TG"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<!-- End Google Tag Manager (noscript) -->
-</body>
-
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-563X24TG"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </body>
 </html>
