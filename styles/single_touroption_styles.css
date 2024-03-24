@@ -1986,3 +1986,9 @@ center {
 .notify-4 {
   color: white;
 }
+
+.tour-head-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

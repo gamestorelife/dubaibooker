@@ -77,14 +77,31 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       tourDiv.innerHTML += `
-                    <div style="padding:10px;">
+                    <div style="padding:5px;">
+                    <div class="tour-head-name">
                     <h3 class="tourname hotel_title">${tour.tourName}</h3>
+                    <a href="${tour.googleMapUrl}"><i class="fa-sharp fa-solid fa-location-dot" style="font-size:30px;"></i></a>
+                    
+                    </div>
+                    
                     <p>City: ${tour.cityName}</p>
                     <p>Duration: ${tour.duration}</p>
                     <p>Departure Point: ${tour.departurePoint}</p>
                     <p>Reporting Time: ${tour.reportingTime}</p>
                     <p>Tour Language: ${tour.tourLanguage}</p>
                     <p><b>Tour Description:</b> ${tour.tourDescription}</p>
+                    <p><b>Tour Inclusion:</b> ${tour.tourInclusion}</p>
+                    <p><b>Tour Exclusion:</b> ${tour.tourExclusion}</p>
+                    <p><b>Important Information:</b> ${tour.importantInformation}</p>
+                    <p><b>Itenarary Description:</b> ${tour.itenararyDescription}</p>
+                    <p><b>Useful Information:</b> ${tour.usefulInformation}</p>  
+                    <p><b>Cancellation Policy:</b> ${tour.cancellationPolicyName}</p>
+                    <p><b>Child Cancellation Policy Description:</b> ${tour.childCancellationPolicyDescription}</p>
+                    <p><b>Child Age:</b> ${tour.childAge}</p>
+                    <p><b>Infant Age:</b> ${tour.infantAge}</p>
+                    <p><b>FAQ Details:</b> ${tour.faqDetails}</p>
+                    <p><b>Terms And Conditions:</b> ${tour.termsAndConditions}</p>
+
                     <!-- Add more details here -->
                 </div>
             `;
