@@ -6,14 +6,17 @@ document.addEventListener("DOMContentLoaded", async function () {
   const countryId = sessionStorage.getItem("countryId");
   const cityId = sessionStorage.getItem("cityId");
   const travelDate = sessionStorage.getItem("travelDate");
+  const travelDateForm = sessionStorage.getItem("travelDateForm");
 
   console.log(
     `Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`
   );
   console.log(travelDate);
+  console.log(travelDateForm);
 
   if (tourId) {
     try {
+      // 1st POST
       const response = await fetch("/activity-click", {
         method: "POST",
         headers: {
@@ -32,6 +35,31 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       const data = await response.json();
+
+      // 2nd Price POST
+      const priceResponse = await fetch("/tour-price", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tourId: tourId,
+          contractId: contractId,
+          travelDate: travelDateForm,
+          noOfAdult: "1",
+        }),
+      });
+
+      if (!priceResponse.ok) {
+        throw new Error("Network response for price was not ok");
+      }
+
+      const priceData = await priceResponse.json();
+
+      // Extract adult price from the response
+      const adultPrice = priceData.result[0].adultPrice;
+      console.log("Adult Price:", adultPrice);
+
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
       const tourImages = tour.tourImages || []; // Extract the tourImages array, or set it to an empty array if undefined
@@ -105,10 +133,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <!-- Add more details here -->
                 </div>
             `;
+
+      // Create a separate div for displaying adult price
+      const adultPriceDiv = document.createElement("div");
+      adultPriceDiv.innerHTML = `<div class="price-tag"><h3 style="font-weight: 600;">${adultPrice} AED</h3></div>`;
       // Create a unique container for the tourId
       const tourIdContainer = document.createElement("div");
       tourIdContainer.id = `tourId-${tour.tourId}`;
       tourIdContainer.className = "tour-id-container";
+      tourIdContainer.appendChild(adultPriceDiv);
       tourIdContainer.appendChild(tourDiv);
 
       // Append the tour container to the main container

@@ -67,12 +67,14 @@ document.addEventListener("DOMContentLoaded", async function () {
           const month = toDayDate.getMonth() + 2; // Note: month is zero-indexed, so add 1 to get the correct month
           const year = toDayDate.getFullYear();
           const travelDate = `${day}-${month}-${year}`;
+          const travelDateForm = `${year}-${month}-${day}`;
 
           sessionStorage.setItem("tourId", tourId);
           sessionStorage.setItem("contractId", contractId);
           sessionStorage.setItem("countryId", countryId);
           sessionStorage.setItem("cityId", cityId);
           sessionStorage.setItem("travelDate", travelDate);
+          sessionStorage.setItem("travelDateForm", travelDateForm);
 
           console.log(`Today is ${day}-${month}-${year}`);
           console.log(
