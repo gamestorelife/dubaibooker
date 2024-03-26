@@ -1992,3 +1992,13 @@ center {
   justify-content: space-between;
   align-items: baseline;
 }
+
+.explore_button {
+  display: flex;
+  width: max-content;
+  color: white !important;
+  background: var(--primary-color) !important;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 22px;
+}

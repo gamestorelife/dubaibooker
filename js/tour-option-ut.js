@@ -109,7 +109,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div class="tour-head-name">
                     <h3 class="tourname hotel_title">${tour.tourName}</h3>
                     <a href="${tour.googleMapUrl}"><i class="fa-sharp fa-solid fa-location-dot" style="font-size:30px;"></i></a>
-                    
+                    </div>
+                    <div class="explore_button">
+                   Explore now
                     </div>
                     
                     <p>City: ${tour.cityName}</p>
