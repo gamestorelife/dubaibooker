@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           const toDayDate = new Date();
 
           const day = toDayDate.getDate();
-          const month = toDayDate.getMonth() + 2; // Note: month is zero-indexed, so add 1 to get the correct month
+          const month = toDayDate.getMonth() + 1; // Note: month is zero-indexed, so add 1 to get the correct month
           const year = toDayDate.getFullYear();
           const travelDate = `${day}-${month}-${year}`;
           const travelDateForm = `${year}-${month}-${day}`;

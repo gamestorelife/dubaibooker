@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const tourContainer = document.getElementById("act-mainInfo");
+  const DateContainer = document.getElementById("date-container");
 
   const tourId = sessionStorage.getItem("tourId");
   const contractId = sessionStorage.getItem("contractId");
@@ -51,14 +52,29 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
 
       if (!priceResponse.ok) {
-        throw new Error("Network response for price was not ok");
+        throw new Error("Price data or adult price is not available");
+      } else {
+        console.log(priceResponse);
       }
 
       const priceData = await priceResponse.json();
 
+      console.log("Response from server:", priceData);
+      if (
+        !priceData.result ||
+        priceData.result.length === 0 ||
+        !priceData.result[0].adultPrice
+      ) {
+        throw new Error(
+          "Price data or adult price is not available in the response"
+        );
+      }
+
       // Extract adult price from the response
       const adultPrice = priceData.result[0].adultPrice;
+      const childPrice = priceData.result[0].childPrice;
       console.log("Adult Price:", adultPrice);
+      console.log("Child Price:", childPrice);
 
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
@@ -110,7 +126,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <h3 class="tourname hotel_title">${tour.tourName}</h3>
                     <a href="${tour.googleMapUrl}"><i class="fa-sharp fa-solid fa-location-dot" style="font-size:30px;"></i></a>
                     </div>
-                    <div class="explore_button">
+                    <div class="explore_button" id="explore-button">
                    Explore now
                     </div>
                     
@@ -148,6 +164,139 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       // Append the tour container to the main container
       tourContainer.appendChild(tourIdContainer);
+
+      // Add event listener to the explore button
+      const exploreButton = tourDiv.querySelector("#explore-button");
+      exploreButton.addEventListener("click", function () {
+        $(".date-menu").show();
+
+        // Create popup content
+        DateContainer.innerHTML = "";
+        const popupContent = document.createElement("div");
+        popupContent.innerHTML = `
+        <div class="popup-content">
+        <div class="popup-header">
+          <div class="fonticon" id="popup-button">
+            <i class="fa-regular fa-arrow-left"></i>
+          </div>
+          <div><h2>${tour.tourName}</h2></div>
+          <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
+        </div>
+      
+        <div class="datecontainer">
+          <div class="datecontainer-title"><h4>Select travel date</h4></div>
+          <div class="calandercontainer">
+            <input
+              type="text"
+              id="traveldate"
+              placeholder="Check In Date"
+              class="d-none"
+            />
+          </div>
+        </div>
+        <div class="travller-title">
+          <h2>Select Travellers</h2>
+        </div>
+      
+        
+         
+            <div class="adultprice-details">
+              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+      
+              <div>
+                <p><b>Adult</b></p>
+                <p>${adultPrice} AED</p>
+              </div>
+      
+              <div class="adultcounter">
+               
+                <div><button id="decrement" class="countericon"><i class="fa-solid fa-circle-minus"></i></button></div>
+                <div class="adultnumber">
+                <h2><span id="counter">0</span></h2>
+               </div>
+                <div><button id="increment" class="countericon"><i class="fa-solid fa-circle-plus"></i></button></div>
+              </div>
+            </div>
+            <div class="adultprice-details">
+                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+        
+                <div>
+                <p><b>Child(2-11Yrs)</b></p> 
+                  <p>${childPrice} AED</p>
+                </div>
+        
+                <div class="adultcounter">
+                 
+                  <div><button id="childdecrement" class="countericon"><i class="fa-solid fa-circle-minus"></i></button></div>
+                  <div class="adultnumber">
+                  <h2><span id="childcounter">0</span></h2>
+                 </div>
+                  <div><button id="childincrement" class="countericon"><i class="fa-solid fa-circle-plus"></i></button></div>
+                </div>
+              </div>
+          
+       
+      </div>
+              
+    `;
+
+        // Append popup content to body
+        DateContainer.appendChild(popupContent);
+
+        // Initialize datepicker for dynamically added input
+        $("#traveldate").Zebra_DatePicker({
+          direction: true,
+          always_visible: $(".calandercontainer"),
+        });
+
+        // Add event listener to popup button
+        const popupButton = popupContent.querySelector("#popup-button");
+        popupButton.addEventListener("click", function () {
+          console.log("Popup button clicked!");
+          // Remove popup content from body
+          $(".date-menu").hide();
+        });
+
+        // Add event listeners for increment and decrement Adult buttons
+        const incrementButton = DateContainer.querySelector("#increment");
+        const decrementButton = DateContainer.querySelector("#decrement");
+        const counterSpan = DateContainer.querySelector("#counter");
+
+        let counterValue = 0;
+
+        incrementButton.addEventListener("click", function () {
+          counterValue++;
+          counterSpan.textContent = counterValue;
+        });
+
+        decrementButton.addEventListener("click", function () {
+          if (counterValue > 0) {
+            counterValue--;
+            counterSpan.textContent = counterValue;
+          }
+        });
+
+        // Add event listeners for increment and decrement Child buttons
+        const incrementChildButton =
+          DateContainer.querySelector("#childincrement");
+        const decrementChildButton =
+          DateContainer.querySelector("#childdecrement");
+        const counterChildSpan = DateContainer.querySelector("#childcounter");
+
+        let ChildcounterValue = 0;
+
+        incrementChildButton.addEventListener("click", function () {
+          ChildcounterValue++;
+          counterChildSpan.textContent = ChildcounterValue;
+        });
+
+        decrementChildButton.addEventListener("click", function () {
+          if (ChildcounterValue > 0) {
+            ChildcounterValue--;
+            counterChildSpan.textContent = ChildcounterValue;
+          }
+        });
+      });
     } catch (error) {
       console.error("Error fetching data:", error);
     }

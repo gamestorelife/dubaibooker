@@ -615,6 +615,16 @@ section {
   opacity: 0.95;
   visibility: visible;
 }
+
+.date-menu {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 100;
+  opacity: 1;
+}
+
 .menu_content {
   width: 100%;
   height: 100%;
@@ -2001,4 +2011,72 @@ center {
   font-weight: bold;
   padding: 15px;
   border-radius: 22px;
+}
+
+.popup-header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.fonticon {
+  padding: 6px;
+  font-size: 26px;
+}
+.datecontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+}
+
+.calandercontainer {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 31vh;
+}
+.Zebra_DatePicker {
+  width: 93% !important;
+}
+.datecontainer-title {
+  padding-left: 10px;
+}
+
+.adultprice-details {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.adultprice-icon {
+  font-size: 40px;
+  padding: 10px;
+}
+.travller-title {
+  padding: 10px;
+}
+
+.adultcounter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.countericon {
+  padding: 10px;
+  background: #f0f8ff00;
+  border-style: none;
+  font-size: 24px;
+}
+.adultnumber {
+  padding: 10px;
 }
