@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             <i class="fa-regular fa-arrow-left"></i>
           </div>
           <div class="midtourname">
-          <p class="tourheadername">${tour.tourName}</p>
+            <p class="tourheadername">${tour.tourName}</p>
           </div>
           <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
         </div>
@@ -200,46 +200,62 @@ document.addEventListener("DOMContentLoaded", async function () {
           <h2>Select Travellers</h2>
         </div>
       
-        
-         
-            <div class="adultprice-details">
-              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-      
+        <div class="adultprice-details">
+          <div class="price-details">
+            <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+            <div class="mini-detail-container">
               <div>
-                <p><b>Adult</b></p>
-                <p>${adultPrice} AED</p>
+                <p class="mini-detail"><b>Adult</b></p>
               </div>
-      
-              <div class="adultcounter">
-               
-                <div><button id="decrement" class="countericon"><i class="fa-solid fa-circle-minus"></i></button></div>
-                <div class="adultnumber">
-                <h2><span id="counter">0</span></h2>
-               </div>
-                <div><button id="increment" class="countericon"><i class="fa-solid fa-circle-plus"></i></button></div>
-              </div>
+              <div><p class="mini-detail">${adultPrice} AED</p></div>
             </div>
-            <div class="adultprice-details">
-                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-        
-                <div>
-                <p><b>Child(2-11Yrs)</b></p> 
-                  <p>${childPrice} AED</p>
-                </div>
-        
-                <div class="adultcounter">
-                 
-                  <div><button id="childdecrement" class="countericon"><i class="fa-solid fa-circle-minus"></i></button></div>
-                  <div class="adultnumber">
-                  <h2><span id="childcounter">0</span></h2>
-                 </div>
-                  <div><button id="childincrement" class="countericon"><i class="fa-solid fa-circle-plus"></i></button></div>
-                </div>
-              </div>
-          
-       
+          </div>
+      
+          <div class="adultcounter">
+            <div>
+              <button id="decrement" class="countericon">
+                <i class="fa-solid fa-circle-minus"></i>
+              </button>
+            </div>
+            <div class="adultnumber">
+              <h2><span id="counter">0</span></h2>
+            </div>
+            <div>
+              <button id="increment" class="countericon">
+                <i class="fa-solid fa-circle-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="adultprice-details">
+          <div class="price-details">
+            <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+      
+            <div class="mini-detail-container">
+              <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
+              <p class="mini-detail">${childPrice} AED</p>
+            </div>
+          </div>
+      
+          <div class="adultcounter">
+            <div>
+              <button id="childdecrement" class="countericon">
+                <i class="fa-solid fa-circle-minus"></i>
+              </button>
+            </div>
+            <div class="adultnumber">
+              <h2><span id="childcounter">0</span></h2>
+            </div>
+            <div>
+              <button id="childincrement" class="countericon">
+                <i class="fa-solid fa-circle-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-              
+      
+
     `;
 
         // Append popup content to body

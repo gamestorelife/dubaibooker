@@ -2019,7 +2019,7 @@ center {
   flex-wrap: nowrap;
   justify-content: space-between;
   box-shadow: 0 0 10px #30617d9e;
-  height: 8vh;
+  height: 7vh;
 }
 
 .fonticon {
@@ -2061,7 +2061,7 @@ center {
 
 .adultprice-icon {
   font-size: 34px;
-  padding: 10px;
+  padding: 5px;
 }
 .travller-title {
   padding: 10px;
@@ -2073,13 +2073,15 @@ center {
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: center;
+  align-items: baseline;
 }
 
 .countericon {
-  padding: 10px;
+  padding: 8px;
   background: #f0f8ff00;
   border-style: none;
   font-size: 24px;
+  color: cornflowerblue;
 }
 .adultnumber {
   padding: 10px;
@@ -2090,4 +2092,13 @@ center {
 }
 .midtourname {
   padding: 10px;
+}
+.price-details {
+  display: flex;
+}
+.mini-detail {
+  margin: 0;
+}
+.mini-detail-container {
+  padding: 5px;
 }
