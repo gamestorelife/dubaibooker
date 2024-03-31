@@ -623,6 +623,7 @@ section {
   background: #ffffff;
   z-index: 100;
   opacity: 1;
+  overflow-x: hidden;
 }
 
 .menu_content {
@@ -2017,12 +2018,13 @@ center {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
-  padding: 10px;
+  box-shadow: 0 0 10px #30617d9e;
+  height: 8vh;
 }
 
 .fonticon {
-  padding: 6px;
-  font-size: 26px;
+  padding: 10px;
+  font-size: 20px;
 }
 .datecontainer {
   display: flex;
@@ -2030,6 +2032,7 @@ center {
   justify-content: center;
   flex-direction: column;
   align-content: center;
+  margin-top: 10px;
 }
 
 .calandercontainer {
@@ -2057,7 +2060,7 @@ center {
 }
 
 .adultprice-icon {
-  font-size: 40px;
+  font-size: 34px;
   padding: 10px;
 }
 .travller-title {
@@ -2079,5 +2082,12 @@ center {
   font-size: 24px;
 }
 .adultnumber {
+  padding: 10px;
+}
+.tourheadername {
+  font-size: medium;
+  font-weight: 500;
+}
+.midtourname {
   padding: 10px;
 }
