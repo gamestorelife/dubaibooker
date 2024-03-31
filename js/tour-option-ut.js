@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           <div class="fonticon" id="popup-button">
             <i class="fa-regular fa-arrow-left"></i>
           </div>
-          <div><h2>${tour.tourName}</h2></div>
+          <div><h4>${tour.tourName}</h4></div>
           <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
         </div>
       
