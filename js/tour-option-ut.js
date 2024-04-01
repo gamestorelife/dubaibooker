@@ -261,8 +261,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
       
             <div class="mini-detail-container">
-              <p class="mini-detail"><b>Infant(2-11Yrs)</b></p>
-              <p class="mini-detail">${childPrice} AED</p>
+              <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
+              <p class="mini-detail">${infantPrice} AED</p>
             </div>
           </div>
       
