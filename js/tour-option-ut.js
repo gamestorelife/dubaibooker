@@ -73,8 +73,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       // Extract adult price from the response
       const adultPrice = priceData.result[0].adultPrice;
       const childPrice = priceData.result[0].childPrice;
+      const infantPrice = priceData.result[0].infantPrice;
       console.log("Adult Price:", adultPrice);
       console.log("Child Price:", childPrice);
+      console.log("infant Price:", infantPrice);
 
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
@@ -193,6 +195,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               id="traveldate"
               placeholder="Check In Date"
               class="d-none"
+              value=""
             />
           </div>
         </div>
@@ -218,7 +221,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               </button>
             </div>
             <div class="adultnumber">
-              <h2><span id="counter">0</span></h2>
+              <h2><span id="counter" value="">0</span></h2>
             </div>
             <div>
               <button id="increment" class="countericon">
@@ -244,7 +247,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               </button>
             </div>
             <div class="adultnumber">
-              <h2><span id="childcounter">0</span></h2>
+              <h2><span id="childcounter" value="">0</span></h2>
             </div>
             <div>
               <button id="childincrement" class="countericon">
@@ -252,6 +255,35 @@ document.addEventListener("DOMContentLoaded", async function () {
               </button>
             </div>
           </div>
+        </div>
+        <div class="adultprice-details">
+          <div class="price-details">
+            <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+      
+            <div class="mini-detail-container">
+              <p class="mini-detail"><b>Infant(2-11Yrs)</b></p>
+              <p class="mini-detail">${childPrice} AED</p>
+            </div>
+          </div>
+      
+          <div class="adultcounter">
+            <div>
+              <button id="infantdecrement" class="countericon">
+                <i class="fa-solid fa-circle-minus"></i>
+              </button>
+            </div>
+            <div class="adultnumber">
+              <h2><span id="infantcounter" value="">0</span></h2>
+            </div>
+            <div>
+              <button id="infantincrement" class="countericon">
+                <i class="fa-solid fa-circle-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="adultsubmession">
+       <div id="adultnumbersubmit" class="submit-button">Next</div>
         </div>
       </div>
       
@@ -312,6 +344,27 @@ document.addEventListener("DOMContentLoaded", async function () {
           if (ChildcounterValue > 0) {
             ChildcounterValue--;
             counterChildSpan.textContent = ChildcounterValue;
+          }
+        });
+
+        // Add event listeners for increment and decrement Infant buttons
+        const incrementInfantButton =
+          DateContainer.querySelector("#infantincrement");
+        const decrementInfantButton =
+          DateContainer.querySelector("#infantdecrement");
+        const counterInfantSpan = DateContainer.querySelector("#infantcounter");
+
+        let InfantcounterValue = 0;
+
+        incrementInfantButton.addEventListener("click", function () {
+          InfantcounterValue++;
+          counterInfantSpan.textContent = InfantcounterValue;
+        });
+
+        decrementInfantButton.addEventListener("click", function () {
+          if (InfantcounterValue > 0) {
+            InfantcounterValue--;
+            counterInfantSpan.textContent = InfantcounterValue;
           }
         });
       });

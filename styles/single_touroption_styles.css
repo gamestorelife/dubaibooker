@@ -2102,3 +2102,29 @@ center {
 .mini-detail-container {
   padding: 5px;
 }
+
+.icrese_icon {
+  box-shadow: 0 0 10px #8ab8d2;
+  border-radius: 17px;
+}
+
+.submit-button {
+  display: flex;
+  width: 92%;
+  color: white !important;
+  background: var(--primary-color) !important;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 22px;
+  text-align: center;
+  justify-content: center;
+}
+
+.adultsubmession {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  padding: 10px;
+}
