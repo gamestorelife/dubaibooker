@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const tourContainer = document.getElementById("act-mainInfo");
   const DateContainer = document.getElementById("date-container");
-
+  // Session Variables
   const tourId = sessionStorage.getItem("tourId");
   const contractId = sessionStorage.getItem("contractId");
   const countryId = sessionStorage.getItem("countryId");
@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   console.log(
     `Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`
   );
-  console.log(travelDate);
-  console.log(travelDateForm);
+  //console.log(travelDate);
+  //console.log(travelDateForm);
 
   if (tourId) {
     try {
@@ -53,13 +53,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       if (!priceResponse.ok) {
         throw new Error("Price data or adult price is not available");
-      } else {
-        console.log(priceResponse);
       }
 
       const priceData = await priceResponse.json();
 
-      console.log("Response from server:", priceData);
       if (
         !priceData.result ||
         priceData.result.length === 0 ||
@@ -71,12 +68,26 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       // Extract adult price from the response
-      const adultPrice = priceData.result[0].adultPrice;
-      const childPrice = priceData.result[0].childPrice;
-      const infantPrice = priceData.result[0].infantPrice;
-      console.log("Adult Price:", adultPrice);
-      console.log("Child Price:", childPrice);
-      console.log("infant Price:", infantPrice);
+      const increasedadultPrice = priceData.result[0].adultPrice;
+      const increasedchildPrice = priceData.result[0].childPrice;
+      const increasedinfantPrice = priceData.result[0].infantPrice;
+      console.log("Original Adult Price:", increasedadultPrice);
+      console.log("Original Child Price:", increasedchildPrice);
+      console.log("Original infant Price:", increasedinfantPrice);
+
+      // Increase the price by 12%
+      let adultPrice = increasedadultPrice * 1.12;
+      let childPrice = increasedchildPrice * 1.12;
+      let infantPrice = increasedinfantPrice * 1.12;
+
+      // Remove the decimal part
+      adultPrice = Math.floor(adultPrice);
+      childPrice = Math.floor(childPrice);
+      infantPrice = Math.floor(infantPrice);
+
+      console.log("Adult 12% Price:", adultPrice);
+      console.log("Child 12% Price:", childPrice);
+      console.log("infant 12% Price:", infantPrice);
 
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
@@ -92,6 +103,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       if (tourImages.length > 0 && tourImages[0].imagePath) {
         let slideshowItems = "";
+        let smallslideshowItems = "";
 
         tourImages.forEach((image) => {
           slideshowItems += `
@@ -101,23 +113,74 @@ document.addEventListener("DOMContentLoaded", async function () {
                     `;
         });
 
+        tourImages.forEach((image) => {
+          smallslideshowItems += `
+
+                        <li class="uk-width-1-4" uk-slideshow-item="0">
+														<div class="uk-panel">
+                            <img src="${image.imagePath}" alt="${image.imageCaptionName}" uk-cover>
+															<div class="uk-position-center uk-panel"><h1></h1></div>
+														</div>
+													</li>
+                    `;
+        });
+
         tourDiv.innerHTML = `
                     <div>
-                        <div class="hotel_slider_container">
-                            <div class="m-grid">
-                                <div uk-grid>
-                                    <div class="uk-width-1-2">
-                                        <div id="slideshow" class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
-                                            <ul class="uk-slideshow-items">
-                                                ${slideshowItems}
-                                            </ul>
-                                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="hotel_slider_container">
+                    <div class="m-grid">
+                      <div uk-grid>
+                        <div class="uk-width-1-2">
+                          <div
+                            id="slideshow"
+                            class="uk-position-relative uk-visible-toggle uk-light"
+                            tabindex="-1"
+                            uk-slideshow
+                          >
+                            <ul class="uk-slideshow-items">
+                              ${slideshowItems}
+                            </ul>
+                            <a
+                              class="uk-position-center-left uk-position-small uk-hidden-hover"
+                              href="#"
+                              uk-slidenav-previous
+                              uk-slideshow-item="previous"
+                            ></a>
+                            <a
+                              class="uk-position-center-right uk-position-small uk-hidden-hover"
+                              href="#"
+                              uk-slidenav-next
+                              uk-slideshow-item="next"
+                            ></a>
+                          </div>
+                          <div
+                            id="slider"
+                            class="uk-position-relative uk-visible-toggle uk-light"
+                            tabindex="-1"
+                            uk-slider="center: true"
+                          >
+                            <ul class="uk-slider-items uk-grid uk-thumbnav">
+                            ${slideshowItems}
+                            </ul>
+                  
+                            <a
+                              class="uk-position-center-left uk-position-small uk-hidden-hover"
+                              href="#"
+                              uk-slidenav-previous
+                              uk-slider-item="previous"
+                            ></a>
+                            <a
+                              class="uk-position-center-right uk-position-small uk-hidden-hover"
+                              href="#"
+                              uk-slidenav-next
+                              uk-slider-item="next"
+                            ></a>
+                          </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+
                     </div>
                 `;
       }
@@ -200,7 +263,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           </div>
         </div>
         <div class="travller-title">
-          <h2>Select Travellers</h2>
+          <h4>Select Travellers</h4>
         </div>
       
         <div class="adultprice-details">
@@ -217,7 +280,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           <div class="adultcounter">
             <div>
               <button id="decrement" class="countericon">
-                <i class="fa-solid fa-circle-minus"></i>
+                <i class="fa-solid fa-circle-minus customico"></i>
               </button>
             </div>
             <div class="adultnumber">
@@ -225,7 +288,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             </div>
             <div>
               <button id="increment" class="countericon">
-                <i class="fa-solid fa-circle-plus"></i>
+                <i class="fa-solid fa-circle-plus customico"></i>
               </button>
             </div>
           </div>
@@ -243,7 +306,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           <div class="adultcounter">
             <div>
               <button id="childdecrement" class="countericon">
-                <i class="fa-solid fa-circle-minus"></i>
+                <i class="fa-solid fa-circle-minus customico"></i>
               </button>
             </div>
             <div class="adultnumber">
@@ -251,7 +314,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             </div>
             <div>
               <button id="childincrement" class="countericon">
-                <i class="fa-solid fa-circle-plus"></i>
+                <i class="fa-solid fa-circle-plus customico"></i>
               </button>
             </div>
           </div>
@@ -269,7 +332,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           <div class="adultcounter">
             <div>
               <button id="infantdecrement" class="countericon">
-                <i class="fa-solid fa-circle-minus"></i>
+                <i class="fa-solid fa-circle-minus customico"></i>
               </button>
             </div>
             <div class="adultnumber">
@@ -277,13 +340,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             </div>
             <div>
               <button id="infantincrement" class="countericon">
-                <i class="fa-solid fa-circle-plus"></i>
+                <i class="fa-solid fa-circle-plus customico"></i>
               </button>
             </div>
           </div>
         </div>
         <div class="adultsubmession">
-       <div id="adultnumbersubmit" class="submit-button">Next</div>
+       <div id="adultnumbersubmit" class="submit-button customico">Next</div>
         </div>
       </div>
       
@@ -302,7 +365,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Add event listener to popup button
         const popupButton = popupContent.querySelector("#popup-button");
         popupButton.addEventListener("click", function () {
-          console.log("Popup button clicked!");
           // Remove popup content from body
           $(".date-menu").hide();
         });
@@ -366,6 +428,31 @@ document.addEventListener("DOMContentLoaded", async function () {
             InfantcounterValue--;
             counterInfantSpan.textContent = InfantcounterValue;
           }
+        });
+
+        // Add event listener to the "Next" button
+        const submitButton = DateContainer.querySelector("#adultnumbersubmit");
+
+        submitButton.addEventListener("click", function () {
+          const selectedDate = document.getElementById("traveldate").value;
+          const selectedAdults = parseInt(
+            document.getElementById("counter").textContent
+          );
+          const selectedChild = parseInt(
+            document.getElementById("childcounter").textContent
+          );
+          const selectedInfant = parseInt(
+            document.getElementById("infantcounter").textContent
+          );
+
+          console.log("Selected Date:", selectedDate);
+          console.log("Selected Adult:", selectedAdults);
+          console.log("selected Child:", selectedChild);
+          console.log("selected Infant:", selectedInfant);
+
+          // Close the popup or perform any other action
+
+          // For now, let's hide the popup
         });
       });
     } catch (error) {

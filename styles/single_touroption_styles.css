@@ -2129,3 +2129,8 @@ center {
   padding: 10px;
   padding-bottom: 40px;
 }
+
+.customico {
+  box-shadow: 0 0 10px #888;
+  border-radius: 30px;
+}
