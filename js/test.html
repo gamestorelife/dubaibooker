@@ -1,53 +1,112 @@
-<div class="hotel_slider_container">
-  <div class="m-grid">
-    <div uk-grid>
-      <div class="uk-width-1-2">
-        <div
-          id="slideshow"
-          class="uk-position-relative uk-visible-toggle uk-light"
-          tabindex="-1"
-          uk-slideshow
-        >
-          <ul class="uk-slideshow-items">
-            ${slideshowItems}
-          </ul>
-          <a
-            class="uk-position-center-left uk-position-small uk-hidden-hover"
-            href="#"
-            uk-slidenav-previous
-            uk-slideshow-item="previous"
-          ></a>
-          <a
-            class="uk-position-center-right uk-position-small uk-hidden-hover"
-            href="#"
-            uk-slidenav-next
-            uk-slideshow-item="next"
-          ></a>
-        </div>
-        <div
-          id="slider"
-          class="uk-position-relative uk-visible-toggle uk-light"
-          tabindex="-1"
-          uk-slider="center: true"
-        >
-          <ul class="uk-slider-items uk-grid uk-thumbnav">
-            ${slideshowItems}
-          </ul>
+<div class="popup-content">
+  <div class="popup-header">
+    <div class="fonticon" id="popup-button">
+      <i class="fa-regular fa-arrow-left"></i>
+    </div>
+    <div class="midtourname">
+      <p class="tourheadername">${tour.tourName}</p>
+    </div>
+    <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
+  </div>
 
-          <a
-            class="uk-position-center-left uk-position-small uk-hidden-hover"
-            href="#"
-            uk-slidenav-previous
-            uk-slider-item="previous"
-          ></a>
-          <a
-            class="uk-position-center-right uk-position-small uk-hidden-hover"
-            href="#"
-            uk-slidenav-next
-            uk-slider-item="next"
-          ></a>
+  <form class="d-flex">
+    <div class="datecontainer">
+      <div class="datecontainer-title"><h4>Select travel date</h4></div>
+      <div class="calandercontainer">
+        <input
+          type="text"
+          id="traveldate"
+          placeholder="Check In Date"
+          class="d-none"
+          value=""
+        />
+      </div>
+    </div>
+    <div class="travller-title">
+      <h4>Select Travellers</h4>
+    </div>
+
+    <div class="adultprice-details">
+      <div class="price-details">
+        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+        <div class="mini-detail-container">
+          <div>
+            <p class="mini-detail"><b>Adult</b></p>
+          </div>
+          <div><p class="mini-detail">${adultPrice} AED</p></div>
+        </div>
+      </div>
+
+      <div class="adultcounter">
+        <div>
+          <button id="decrement" class="countericon">
+            <i class="fa-solid fa-circle-minus customico"></i>
+          </button>
+        </div>
+        <div class="adultnumber">
+          <h2><span id="counter" value="">0</span></h2>
+        </div>
+        <div>
+          <button id="increment" class="countericon">
+            <i class="fa-solid fa-circle-plus customico"></i>
+          </button>
         </div>
       </div>
     </div>
-  </div>
+    <div class="adultprice-details">
+      <div class="price-details">
+        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+
+        <div class="mini-detail-container">
+          <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
+          <p class="mini-detail">${childPrice} AED</p>
+        </div>
+      </div>
+
+      <div class="adultcounter">
+        <div>
+          <button id="childdecrement" class="countericon">
+            <i class="fa-solid fa-circle-minus customico"></i>
+          </button>
+        </div>
+        <div class="adultnumber">
+          <h2><span id="childcounter" value="">0</span></h2>
+        </div>
+        <div>
+          <button id="childincrement" class="countericon">
+            <i class="fa-solid fa-circle-plus customico"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="adultprice-details">
+      <div class="price-details">
+        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+
+        <div class="mini-detail-container">
+          <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
+          <p class="mini-detail">${infantPrice} AED</p>
+        </div>
+      </div>
+
+      <div class="adultcounter">
+        <div>
+          <button id="infantdecrement" class="countericon">
+            <i class="fa-solid fa-circle-minus customico"></i>
+          </button>
+        </div>
+        <div class="adultnumber">
+          <h2><span id="infantcounter" value="">0</span></h2>
+        </div>
+        <div>
+          <button id="infantincrement" class="countericon">
+            <i class="fa-solid fa-circle-plus customico"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="adultsubmession">
+      <div id="adultnumbersubmit" class="submit-button customico">Next</div>
+    </div>
+  </form>
 </div>

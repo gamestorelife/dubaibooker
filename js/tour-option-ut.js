@@ -250,103 +250,105 @@ document.addEventListener("DOMContentLoaded", async function () {
           <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
         </div>
       
-        <div class="datecontainer">
-          <div class="datecontainer-title"><h4>Select travel date</h4></div>
-          <div class="calandercontainer">
-            <input
-              type="text"
-              id="traveldate"
-              placeholder="Check In Date"
-              class="d-none"
-              value=""
-            />
+        <div>
+          <div class="datecontainer">
+            <div class="datecontainer-title"><h4>Select travel date</h4></div>
+            <div class="calandercontainer">
+              <input
+                type="text"
+                id="traveldate"
+                placeholder="Check In Date"
+                class="d-none"
+                value=""
+              />
+            </div>
           </div>
-        </div>
-        <div class="travller-title">
-          <h4>Select Travellers</h4>
-        </div>
+          <div class="travller-title">
+            <h4>Select Travellers</h4>
+          </div>
       
-        <div class="adultprice-details">
-          <div class="price-details">
-            <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-            <div class="mini-detail-container">
-              <div>
-                <p class="mini-detail"><b>Adult</b></p>
+          <div class="adultprice-details">
+            <div class="price-details">
+              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+              <div class="mini-detail-container">
+                <div>
+                  <p class="mini-detail"><b>Adult</b></p>
+                </div>
+                <div><p class="mini-detail">${adultPrice} AED</p></div>
               </div>
-              <div><p class="mini-detail">${adultPrice} AED</p></div>
             </div>
-          </div>
       
-          <div class="adultcounter">
-            <div>
-              <button id="decrement" class="countericon">
-                <i class="fa-solid fa-circle-minus customico"></i>
-              </button>
-            </div>
-            <div class="adultnumber">
-              <h2><span id="counter" value="">0</span></h2>
-            </div>
-            <div>
-              <button id="increment" class="countericon">
-                <i class="fa-solid fa-circle-plus customico"></i>
-              </button>
+            <div class="adultcounter">
+              <div>
+                <button id="decrement" class="countericon">
+                  <i class="fa-solid fa-circle-minus customico"></i>
+                </button>
+              </div>
+              <div class="adultnumber">
+                <h2><span id="counter" value="">0</span></h2>
+              </div>
+              <div>
+                <button id="increment" class="countericon">
+                  <i class="fa-solid fa-circle-plus customico"></i>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="adultprice-details">
-          <div class="price-details">
-            <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+          <div class="adultprice-details">
+            <div class="price-details">
+              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
       
-            <div class="mini-detail-container">
-              <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
-              <p class="mini-detail">${childPrice} AED</p>
+              <div class="mini-detail-container">
+                <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
+                <p class="mini-detail">${childPrice} AED</p>
+              </div>
             </div>
-          </div>
       
-          <div class="adultcounter">
-            <div>
-              <button id="childdecrement" class="countericon">
-                <i class="fa-solid fa-circle-minus customico"></i>
-              </button>
-            </div>
-            <div class="adultnumber">
-              <h2><span id="childcounter" value="">0</span></h2>
-            </div>
-            <div>
-              <button id="childincrement" class="countericon">
-                <i class="fa-solid fa-circle-plus customico"></i>
-              </button>
+            <div class="adultcounter">
+              <div>
+                <button id="childdecrement" class="countericon">
+                  <i class="fa-solid fa-circle-minus customico"></i>
+                </button>
+              </div>
+              <div class="adultnumber">
+                <h2><span id="childcounter" value="">0</span></h2>
+              </div>
+              <div>
+                <button id="childincrement" class="countericon">
+                  <i class="fa-solid fa-circle-plus customico"></i>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="adultprice-details">
-          <div class="price-details">
-            <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+          <div class="adultprice-details">
+            <div class="price-details">
+              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
       
-            <div class="mini-detail-container">
-              <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
-              <p class="mini-detail">${infantPrice} AED</p>
+              <div class="mini-detail-container">
+                <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
+                <p class="mini-detail">${infantPrice} AED</p>
+              </div>
             </div>
-          </div>
       
-          <div class="adultcounter">
-            <div>
-              <button id="infantdecrement" class="countericon">
-                <i class="fa-solid fa-circle-minus customico"></i>
-              </button>
-            </div>
-            <div class="adultnumber">
-              <h2><span id="infantcounter" value="">0</span></h2>
-            </div>
-            <div>
-              <button id="infantincrement" class="countericon">
-                <i class="fa-solid fa-circle-plus customico"></i>
-              </button>
+            <div class="adultcounter">
+              <div>
+                <button id="infantdecrement" class="countericon">
+                  <i class="fa-solid fa-circle-minus customico"></i>
+                </button>
+              </div>
+              <div class="adultnumber">
+                <h2><span id="infantcounter" value="">0</span></h2>
+              </div>
+              <div>
+                <button id="infantincrement" class="countericon">
+                  <i class="fa-solid fa-circle-plus customico"></i>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="adultsubmession">
-       <div id="adultnumbersubmit" class="submit-button customico">Next</div>
+          <div class="adultsubmession">
+            <button id="adultnumbersubmit" class="submit-button customico">Next</button>
+          </div>
         </div>
       </div>
       
@@ -373,35 +375,28 @@ document.addEventListener("DOMContentLoaded", async function () {
         const incrementButton = DateContainer.querySelector("#increment");
         const decrementButton = DateContainer.querySelector("#decrement");
         const counterSpan = DateContainer.querySelector("#counter");
-
         let counterValue = 0;
-
         incrementButton.addEventListener("click", function () {
           counterValue++;
           counterSpan.textContent = counterValue;
         });
-
         decrementButton.addEventListener("click", function () {
           if (counterValue > 0) {
             counterValue--;
             counterSpan.textContent = counterValue;
           }
         });
-
         // Add event listeners for increment and decrement Child buttons
         const incrementChildButton =
           DateContainer.querySelector("#childincrement");
         const decrementChildButton =
           DateContainer.querySelector("#childdecrement");
         const counterChildSpan = DateContainer.querySelector("#childcounter");
-
         let ChildcounterValue = 0;
-
         incrementChildButton.addEventListener("click", function () {
           ChildcounterValue++;
           counterChildSpan.textContent = ChildcounterValue;
         });
-
         decrementChildButton.addEventListener("click", function () {
           if (ChildcounterValue > 0) {
             ChildcounterValue--;
@@ -415,21 +410,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         const decrementInfantButton =
           DateContainer.querySelector("#infantdecrement");
         const counterInfantSpan = DateContainer.querySelector("#infantcounter");
-
         let InfantcounterValue = 0;
-
         incrementInfantButton.addEventListener("click", function () {
           InfantcounterValue++;
           counterInfantSpan.textContent = InfantcounterValue;
         });
-
         decrementInfantButton.addEventListener("click", function () {
           if (InfantcounterValue > 0) {
             InfantcounterValue--;
             counterInfantSpan.textContent = InfantcounterValue;
           }
         });
-
         // Add event listener to the "Next" button
         const submitButton = DateContainer.querySelector("#adultnumbersubmit");
 
