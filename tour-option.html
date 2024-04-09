@@ -247,8 +247,6 @@
 
                   <!-- Image carousel -->
 
-                  <div class="hotel_gallery d-none"></div>
-
                   <!-- Activity Info Text -->
 
                   <div class="hotel_info_text">
@@ -590,6 +588,19 @@
 
     <script src="js/single_listing_custom.js"></script>
     <script src="./js/uikit.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".owl-carousel").owlCarousel({
+          loop: true,
+          autoplayTimeout: 3000,
+          autoplay: true,
+          margin: 10,
+          nav: false,
+          items: 1,
+        });
+      });
+    </script>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript

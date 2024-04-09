@@ -4,6 +4,7 @@ const axios = require("axios");
 const { parse } = require("querystring");
 const send = require("send");
 const http = require("http");
+const $ = require("jquery");
 
 const API_KEY =
   "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MWE4MjhjMC1iNzI0LTQwMWEtYmM3NS0wZTcxZjUzYjJjZjkiLCJVc2VySWQiOiI0NDU0MCIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoiZHluYW1pc2NhcGl0YWx1YWVAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIiwiYXVkIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIn0.TD-kr0ILWSyo-NTm-LE3SfnRuM_Xa5qXwxs5BgjTz8Y";
