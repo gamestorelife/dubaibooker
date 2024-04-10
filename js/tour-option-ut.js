@@ -89,17 +89,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.log("Child 12% Price:", childPrice);
       console.log("infant 12% Price:", infantPrice);
 
-      $(".owl-carousel").owlCarousel({
-        loop: true,
-        autoplayTimeout: 3000,
-        autoplay: true,
-        margin: 10,
-        nav: false,
-        items: 1,
-      });
-
-      console.log("should this let the caruosel work");
-
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
       const tourImages = tour.tourImages || []; // Extract the tourImages array, or set it to an empty array if undefined
@@ -129,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <div class="m-grid">
                     <div uk-grid>
                         <div class="uk-width-1-2">
-                            <div id="slideshow" class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
+                            <div id="slideshow" class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 8:4; animation: push; autoplay: true; autoplay-interval: 3000">
                                 <ul class="uk-slideshow-items">
                                     ${slideshowItems}
                                 </ul>
