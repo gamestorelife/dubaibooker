@@ -24,8 +24,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       // Clear previous content in tourContainer
       tourContainer.innerHTML = "";
 
+      // Create a Set to store unique tour IDs
+      const uniqueTourIds = new Set();
+
       // Create div elements dynamically for each tour
       responseData.result.forEach((tour) => {
+        // Check if the tour ID is already in the set, if so, skip rendering
+        if (uniqueTourIds.has(tour.tourId)) {
+          return;
+        }
         const tourDiv = document.createElement("div");
         tourDiv.className = "tour";
         tourDiv.innerHTML = `
@@ -44,6 +51,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                  
                     <!-- Add more details as needed -->
                `;
+        // Add the tour ID to the set of unique tour IDs
+        uniqueTourIds.add(tour.tourId);
 
         // Create a unique container for each tourId
         const tourIdContainer = document.createElement("div");
