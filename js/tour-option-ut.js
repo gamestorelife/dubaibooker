@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const tourContainer = document.getElementById("act-mainInfo");
   const DateContainer = document.getElementById("date-container");
+
   // Session Variables
   const tourId = sessionStorage.getItem("tourId");
   const contractId = sessionStorage.getItem("contractId");
@@ -31,10 +32,10 @@ document.addEventListener("DOMContentLoaded", async function () {
           travelDate: travelDate,
         }),
       });
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       const data = await response.json();
 
       // 2nd Price POST
@@ -67,13 +68,30 @@ document.addEventListener("DOMContentLoaded", async function () {
         );
       }
 
+      // 3nd Price POST
+      const TourOptionsResponse = await fetch("/tour-options", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tourId: tourId,
+          contractId: contractId,
+        }),
+      });
+
+      if (!TourOptionsResponse.ok) {
+        throw new Error("Tour OPtion data  is not available");
+      }
+
+      const tourOptionsData = await TourOptionsResponse.json();
+
       // Extract adult price from the response
       const increasedadultPrice = priceData.result[0].adultPrice;
       const increasedchildPrice = priceData.result[0].childPrice;
       const increasedinfantPrice = priceData.result[0].infantPrice;
       console.log("Original Adult Price:", increasedadultPrice);
       console.log("Original Child Price:", increasedchildPrice);
-      console.log("Original infant Price:", increasedinfantPrice);
 
       // Increase the price by 12%
       let adultPrice = increasedadultPrice * 1.12;
@@ -87,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       console.log("Adult 12% Price:", adultPrice);
       console.log("Child 12% Price:", childPrice);
-      console.log("infant 12% Price:", infantPrice);
+      $("#secondoptionscontainer").hide();
 
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
@@ -165,19 +183,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </div>
             `;
 
-      // Append slideshow items to the carousel container
-
-      // Initialize Owl Carousel
-      // const owl = $(".tour_slider");
-      // $(".tour_slider").owlCarousel({
-      //   items: 1,
-      //   loop: true,
-      //   margin: 10,
-      //   autoplay: true,
-      //   autoplayTimeout: 3000,
-      //   autoplayHoverPause: true,
-      // });
-
       // Create a separate div for displaying adult price
       const adultPriceDiv = document.createElement("div");
       adultPriceDiv.innerHTML = `<div class="price-tag"><h3 style="font-weight: 600;">${adultPrice} AED</h3></div>`;
@@ -199,124 +204,158 @@ document.addEventListener("DOMContentLoaded", async function () {
         DateContainer.innerHTML = "";
         const popupContent = document.createElement("div");
         popupContent.innerHTML = `
-        <div class="popup-content">
-        <div class="popup-header">
-          <div class="fonticon" id="popup-button">
-            <i class="fa-regular fa-arrow-left"></i>
-          </div>
-          <div class="midtourname">
-            <p class="tourheadername">${tour.tourName}</p>
-          </div>
-          <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
-        </div>
-      
-        <div>
-          <div class="datecontainer">
-            <div class="datecontainer-title"><h4>Select travel date</h4></div>
-            <div class="calandercontainer">
-              <input
-                type="text"
-                id="traveldate"
-                placeholder="Check In Date"
-                class="d-none"
-                value=""
-              />
-            </div>
-          </div>
-          <div class="travller-title">
-            <h4>Select Travellers</h4>
-          </div>
-      
-          <div class="adultprice-details">
-            <div class="price-details">
-              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-              <div class="mini-detail-container">
-                <div>
-                  <p class="mini-detail"><b>Adult</b></p>
+        <div  class="popup-content">
+              <div class="popup-header">
+                  <div class="fonticon" id="popup-button">
+                         <i class="fa-regular fa-arrow-left"></i>
+                  </div>
+                <div class="midtourname">
+                       <p class="tourheadername">${tour.tourName}</p>
                 </div>
-                <div><p class="mini-detail">${adultPrice} AED</p></div>
-              </div>
-            </div>
-      
-            <div class="adultcounter">
-              <div>
-                <button id="decrement" class="countericon">
-                  <i class="fa-solid fa-circle-minus customico"></i>
-                </button>
-              </div>
-              <div class="adultnumber">
-                <h2><span id="counter" value="">0</span></h2>
-              </div>
-              <div>
-                <button id="increment" class="countericon">
-                  <i class="fa-solid fa-circle-plus customico"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="adultprice-details">
-            <div class="price-details">
-              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-      
-              <div class="mini-detail-container">
-                <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
-                <p class="mini-detail">${childPrice} AED</p>
-              </div>
-            </div>
-      
-            <div class="adultcounter">
-              <div>
-                <button id="childdecrement" class="countericon">
-                  <i class="fa-solid fa-circle-minus customico"></i>
-                </button>
-              </div>
-              <div class="adultnumber">
-                <h2><span id="childcounter" value="">0</span></h2>
-              </div>
-              <div>
-                <button id="childincrement" class="countericon">
-                  <i class="fa-solid fa-circle-plus customico"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="adultprice-details">
-            <div class="price-details">
-              <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-      
-              <div class="mini-detail-container">
-                <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
-                <p class="mini-detail">${infantPrice} AED</p>
-              </div>
-            </div>
-      
-            <div class="adultcounter">
-              <div>
-                <button id="infantdecrement" class="countericon">
-                  <i class="fa-solid fa-circle-minus customico"></i>
-                </button>
-              </div>
-              <div class="adultnumber">
-                <h2><span id="infantcounter" value="">0</span></h2>
-              </div>
-              <div>
-                <button id="infantincrement" class="countericon">
-                  <i class="fa-solid fa-circle-plus customico"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="adultsubmession">
-            <button id="adultnumbersubmit" class="submit-button customico">Next</button>
-          </div>
-        </div>
-      </div>
-      
+                <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
+               </div>
 
-    `;
+          <div id="mfirstcontainer">
+            <div class="datecontainer">
+              <div class="datecontainer-title"><h4>Select travel date</h4></div>
+              <div class="calandercontainer">
+                <input
+                  type="text"
+                  id="traveldate"
+                  placeholder="Check In Date"
+                  class="d-none"
+                  value=""
+                />
+              </div>
+            </div>
+            <div class="travller-title">
+              <h4>Select Travellers</h4>
+            </div>
+
+            <div class="adultprice-details">
+              <div class="price-details">
+                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+                <div class="mini-detail-container">
+                  <div>
+                    <p class="mini-detail"><b>Adult</b></p>
+                  </div>
+                  <div><p class="mini-detail">${adultPrice} AED</p></div>
+                </div>
+              </div>
+
+              <div class="adultcounter">
+                <div>
+                  <button id="decrement" class="countericon">
+                    <i class="fa-solid fa-circle-minus customico"></i>
+                  </button>
+                </div>
+                <div class="adultnumber">
+                  <h2><span id="counter" value="">0</span></h2>
+                </div>
+                <div>
+                  <button id="increment" class="countericon">
+                    <i class="fa-solid fa-circle-plus customico"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="adultprice-details">
+              <div class="price-details">
+                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+
+                <div class="mini-detail-container">
+                  <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
+                  <p class="mini-detail">${childPrice} AED</p>
+                </div>
+              </div>
+
+              <div class="adultcounter">
+                <div>
+                  <button id="childdecrement" class="countericon">
+                    <i class="fa-solid fa-circle-minus customico"></i>
+                  </button>
+                </div>
+                <div class="adultnumber">
+                  <h2><span id="childcounter" value="">0</span></h2>
+                </div>
+                <div>
+                  <button id="childincrement" class="countericon">
+                    <i class="fa-solid fa-circle-plus customico"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="adultprice-details">
+              <div class="price-details">
+                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+
+                <div class="mini-detail-container">
+                  <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
+                  <p class="mini-detail">${infantPrice} AED</p>
+                </div>
+              </div>
+
+              <div class="adultcounter">
+                <div>
+                  <button id="infantdecrement" class="countericon">
+                    <i class="fa-solid fa-circle-minus customico"></i>
+                  </button>
+                </div>
+                <div class="adultnumber">
+                  <h2><span id="infantcounter" value="">0</span></h2>
+                </div>
+                <div>
+                  <button id="infantincrement" class="countericon">
+                    <i class="fa-solid fa-circle-plus customico"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="adultsubmession">
+              <button id="adultnumbersubmit" class="submit-button customico">
+                Next
+              </button>
+            </div>
+          </div>
+          <div id="secondoptionscontainer">
+            <div id="act-options" class="tourOptioncont"></div>
+          </div>
+          
+        </div>
+
+            `;
+
+        // Add the HTML to the page
 
         // Append popup content to body
         DateContainer.appendChild(popupContent);
+
+        const actOptionsDiv = popupContent.querySelector("#act-options");
+
+        if (actOptionsDiv) {
+          // Now, you can safely manipulate the act-options div
+          // For example, you can set its innerHTML to display tour options
+          actOptionsDiv.innerHTML = "";
+
+          // Iterate over each tour option in the response and create HTML elements
+          tourOptionsData.result.touroption.forEach((option) => {
+            const optionDiv = document.createElement("div");
+            optionDiv.className = "tour-option";
+            optionDiv.innerHTML = `
+                  <p><b> ${option.optionName}</b></p>
+                  <p><strong>Duration:</strong> ${option.duration}</p>
+                  <p><strong>Child Age:</strong> ${option.childAge}</p>
+                  <p><strong>Infant Age:</strong> ${option.infantAge}</p>
+                  <p><strong>Description:</strong> ${option.optionDescription}</p>
+                  <p><strong>Cancellation Policy:</strong> ${option.cancellationPolicy}</p>
+                  
+                `;
+            actOptionsDiv.appendChild(optionDiv);
+          });
+          // Rest of your code for displaying tour options goes here
+        } else {
+          console.error("act-options div not found inside DateContainer");
+        }
 
         // Initialize datepicker for dynamically added input
         $("#traveldate").Zebra_DatePicker({
@@ -404,6 +443,8 @@ document.addEventListener("DOMContentLoaded", async function () {
           // Close the popup or perform any other action
 
           // For now, let's hide the popup
+          $("#mfirstcontainer").hide();
+          $("#secondoptionscontainer").show();
         });
       });
     } catch (error) {

@@ -300,4 +300,5 @@ $(document).ready(function () {
   });
 
   $(".date-menu").hide();
+  $("#secondoptionscontainer").hide();
 });

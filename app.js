@@ -66,6 +66,35 @@ const server = http.createServer(async (req, res) => {
         res.end("Error processing POST request");
       }
     });
+  } else if (req.method === "POST" && req.url === "/tour-options") {
+    // Handle POST request for API data
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+    req.on("end", async () => {
+      try {
+        const requestData = JSON.parse(body);
+
+        // Make a POST request to the API
+        const apiUrl =
+          "http://raynaapi.raynatours.com/api/Tour/touroptionstaticdata";
+        const response = await axios.post(apiUrl, requestData, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${API_KEY}`,
+          },
+        });
+
+        // Serve the API response as JSON
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(response.data));
+      } catch (error) {
+        console.error("Error making API request:", error.message);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Error processing POST request");
+      }
+    });
   } else if (req.method === "POST" && req.url === "/activity-click") {
     // Handle form submission from newpage.html
     let body = "";
