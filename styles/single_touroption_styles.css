@@ -249,6 +249,7 @@ section {
 .super_container {
   width: 100%;
   overflow: hidden;
+  display: none;
 }
 .prlx_parent {
   overflow: hidden;
@@ -2161,4 +2162,11 @@ center {
 .tour-option p {
   padding: 0;
   margin: 0;
+}
+
+.loading-mainicon {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
 }

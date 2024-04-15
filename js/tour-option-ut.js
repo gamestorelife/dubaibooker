@@ -351,6 +351,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                   
                 `;
             actOptionsDiv.appendChild(optionDiv);
+
+            //Event listiner to every tour Option
+
+            optionDiv.addEventListener("click", function () {
+              console.log("option get clicked");
+              // Extract
+            });
           });
           // Rest of your code for displaying tour options goes here
         } else {
@@ -447,8 +454,14 @@ document.addEventListener("DOMContentLoaded", async function () {
           $("#secondoptionscontainer").show();
         });
       });
+
+      // Hide loading GIF and show content
+      document.getElementById("loading-container").style.display = "none";
+      document.getElementById("content-container").style.display = "block";
     } catch (error) {
       console.error("Error fetching data:", error);
+      // Hide loading GIF even in case of error
+      document.getElementById("loading-container").style.display = "none";
     }
   } else {
     console.log("No selected city found.");
