@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                   </button>
                 </div>
                 <div class="adultnumber">
-                  <h2><span id="counter" value="">0</span></h2>
+                  <h2><span id="counter" value="">1</span></h2>
                 </div>
                 <div>
                   <button id="increment" class="countericon">
@@ -441,6 +441,12 @@ document.addEventListener("DOMContentLoaded", async function () {
           const selectedInfant = parseInt(
             document.getElementById("infantcounter").textContent
           );
+
+          if (selectedDate.trim() === "") {
+            // Display an alert message if no date is selected
+            alert("Please select a travel date.");
+            return; // Prevent further execution
+          }
 
           console.log("Selected Date:", selectedDate);
           console.log("Selected Adult:", selectedAdults);
