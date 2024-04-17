@@ -86,12 +86,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       const tourOptionsData = await TourOptionsResponse.json();
 
+      const tourOptions = tourOptionsData.result.touroption;
+      // Log each tourOptionId
+      tourOptions.forEach((option) => {
+        console.log(`tourOptionId: ${option.tourOptionId}`);
+      });
+
       // Extract adult price from the response
       const increasedadultPrice = priceData.result[0].adultPrice;
       const increasedchildPrice = priceData.result[0].childPrice;
       const increasedinfantPrice = priceData.result[0].infantPrice;
-      console.log("Original Adult Price:", increasedadultPrice);
-      console.log("Original Child Price:", increasedchildPrice);
+      // console.log("Original Adult Price:", increasedadultPrice);
+      // console.log("Original Child Price:", increasedchildPrice);
 
       // Increase the price by 12%
       let adultPrice = increasedadultPrice * 1.12;
@@ -103,8 +109,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       childPrice = Math.floor(childPrice);
       infantPrice = Math.floor(infantPrice);
 
-      console.log("Adult 12% Price:", adultPrice);
-      console.log("Child 12% Price:", childPrice);
+      // console.log("Adult 12% Price:", adultPrice);
+      //console.log("Child 12% Price:", childPrice);
       $("#secondoptionscontainer").hide();
 
       const tour = data.result[0]; // Define the tour variable here
@@ -340,22 +346,29 @@ document.addEventListener("DOMContentLoaded", async function () {
           // Iterate over each tour option in the response and create HTML elements
           tourOptionsData.result.touroption.forEach((option) => {
             const optionDiv = document.createElement("div");
+
             optionDiv.className = "tour-option";
+            optionDiv.id = `tour-option-${option.tourOptionId}`;
             optionDiv.innerHTML = `
+                  <div>
                   <p><b> ${option.optionName}</b></p>
                   <p><strong>Duration:</strong> ${option.duration}</p>
                   <p><strong>Child Age:</strong> ${option.childAge}</p>
                   <p><strong>Infant Age:</strong> ${option.infantAge}</p>
                   <p><strong>Description:</strong> ${option.optionDescription}</p>
                   <p><strong>Cancellation Policy:</strong> ${option.cancellationPolicy}</p>
+                  </div>
                   
                 `;
+
+            // Append optionDiv to actOptionsDiv
             actOptionsDiv.appendChild(optionDiv);
 
             //Event listiner to every tour Option
 
             optionDiv.addEventListener("click", function () {
               console.log("option get clicked");
+
               // Extract
             });
           });
@@ -363,6 +376,81 @@ document.addEventListener("DOMContentLoaded", async function () {
         } else {
           console.error("act-options div not found inside DateContainer");
         }
+
+        tourOptionsData.result.touroption.forEach(async (option) => {
+          try {
+            const optionDiv = document.querySelector(
+              `#tour-option-${option.tourOptionId}`
+            );
+            console.log("Option Div:", optionDiv); // Ensure optionDiv is found
+
+            // Make a new POST request for the current tourOptionId
+            const optionPriceResponse = await fetch("/tour-price", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                tourId: tourId,
+                contractId: contractId,
+                travelDate: travelDateForm,
+                noOfAdult: "1",
+                tourOptionId: option.tourOptionId, // Send tourOptionId in the request
+              }),
+            });
+
+            if (!optionPriceResponse.ok) {
+              throw new Error(
+                "Price data or adult price is not available for the tour option"
+              );
+            }
+
+            const optionPriceData = await optionPriceResponse.json();
+
+            // Check if adultPrice and childPrice are available in the response
+            if (
+              !optionPriceData.result ||
+              optionPriceData.result.length === 0 ||
+              !optionPriceData.result[0].adultPrice ||
+              !optionPriceData.result[0].childPrice
+            ) {
+              throw new Error(
+                "Price data or adult/child price is not available in the response for the tour option"
+              );
+            }
+
+            const increasedadultPrice = optionPriceData.result[0].adultPrice;
+            const increasedchildPrice = optionPriceData.result[0].childPrice;
+
+            // Increase the price by 12%
+            let adultPrice = increasedadultPrice * 1.12;
+            let childPrice = increasedchildPrice * 1.12;
+
+            // Remove the decimal part
+            adultPrice = Math.floor(adultPrice);
+            childPrice = Math.floor(childPrice);
+
+            // Create HTML elements to display adultPrice and childPrice alongside tour option
+            const priceInfoDiv = document.createElement("div");
+            priceInfoDiv.innerHTML = `
+                <p><strong>Adult Price:</strong> ${adultPrice} AED</p>
+                <p><strong>Child Price:</strong> ${childPrice} AED</p>
+            `;
+
+            console.log(
+              `Fetching prices for tour option: ${option.tourOptionId}`
+            );
+
+            // Append priceInfoDiv to optionDiv
+            if (optionDiv) {
+              optionDiv.appendChild(priceInfoDiv);
+            }
+
+            console.log("Appending price info to:", optionDiv);
+          } catch (error) {
+            console.error("Error fetching price data for tour option:", error);
+          }
+        });
 
         // Initialize datepicker for dynamically added input
         $("#traveldate").Zebra_DatePicker({
