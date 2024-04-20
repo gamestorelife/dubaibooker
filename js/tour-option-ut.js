@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const tourOptions = tourOptionsData.result.touroption;
       // Log each tourOptionId
       tourOptions.forEach((option) => {
-        console.log(`tourOptionId: ${option.tourOptionId}`);
+        //  console.log(`tourOptionId: ${option.tourOptionId}`);
       });
 
       // Extract adult price from the response
@@ -350,13 +350,20 @@ document.addEventListener("DOMContentLoaded", async function () {
             optionDiv.className = "tour-option";
             optionDiv.id = `tour-option-${option.tourOptionId}`;
             optionDiv.innerHTML = `
+                  <div  class="option-contain">
+                  <div class="option-m-name">
+                  <div><h3><b> ${option.optionName}</b></h3></div>
+                  </div>
+                  
                   <div>
-                  <p><b> ${option.optionName}</b></p>
+                  <p><strong>Description:</strong> ${option.optionDescription}</p>
                   <p><strong>Duration:</strong> ${option.duration}</p>
                   <p><strong>Child Age:</strong> ${option.childAge}</p>
                   <p><strong>Infant Age:</strong> ${option.infantAge}</p>
-                  <p><strong>Description:</strong> ${option.optionDescription}</p>
+                  <p><strong>Child Policy Description:</strong> ${option.childPolicyDescription}</p>
                   <p><strong>Cancellation Policy:</strong> ${option.cancellationPolicy}</p>
+                  </div>
+                  
                   </div>
                   
                 `;
@@ -366,10 +373,45 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             //Event listiner to every tour Option
 
-            optionDiv.addEventListener("click", function () {
+            optionDiv.addEventListener("click", async function () {
               console.log("option get clicked");
+              var TourOption = option.tourOptionId;
+              console.log("Tour Option ID:", TourOption);
+              let selectedDate = sessionStorage.getItem("selectedDate"),
+                selectedAdults = sessionStorage.getItem("selectedAdults"),
+                selectedChild = sessionStorage.getItem("selectedChild"),
+                selectedInfant = sessionStorage.getItem("selectedInfant");
 
-              // Extract
+              try {
+                // Make the POST request for the clicked tourOptionId
+                const FinalResponse = await fetch("/tour-price", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    tourId: tourId,
+                    tourOptionId: TourOption,
+                    contractId: contractId,
+                    travelDate: selectedDate,
+                    noOfAdult: selectedAdults,
+                    noOfChild: selectedChild,
+                    noOfInfant: selectedInfant,
+                    // Add any other parameters needed for the request
+                  }),
+                });
+
+                if (!FinalResponse.ok) {
+                  throw new Error("Network response was not ok");
+                }
+
+                const fineResponseData = await FinalResponse.json();
+
+                console.log(fineResponseData);
+                // Process the responseData as needed
+              } catch (error) {
+                console.error("Error:", error);
+              }
             });
           });
           // Rest of your code for displaying tour options goes here
@@ -382,7 +424,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const optionDiv = document.querySelector(
               `#tour-option-${option.tourOptionId}`
             );
-            console.log("Option Div:", optionDiv); // Ensure optionDiv is found
+            //  console.log("Option Div:", optionDiv); // Ensure optionDiv is found
 
             // Make a new POST request for the current tourOptionId
             const optionPriceResponse = await fetch("/tour-price", {
@@ -433,20 +475,23 @@ document.addEventListener("DOMContentLoaded", async function () {
             // Create HTML elements to display adultPrice and childPrice alongside tour option
             const priceInfoDiv = document.createElement("div");
             priceInfoDiv.innerHTML = `
-                <p><strong>Adult Price:</strong> ${adultPrice} AED</p>
-                <p><strong>Child Price:</strong> ${childPrice} AED</p>
+                <div class="d-flex flex-nowrap justify-content-between">
+                    <p><strong>Adult Price:</strong> ${adultPrice} AED</p>
+                    <p><strong>Child Price:</strong> ${childPrice} AED</p>
+                </div>
+               
             `;
 
-            console.log(
-              `Fetching prices for tour option: ${option.tourOptionId}`
-            );
+            // console.log(
+            //   `Fetching prices for tour option: ${option.tourOptionId}`
+            //);
 
             // Append priceInfoDiv to optionDiv
             if (optionDiv) {
               optionDiv.appendChild(priceInfoDiv);
             }
 
-            console.log("Appending price info to:", optionDiv);
+            // console.log("Appending price info to:", optionDiv);
           } catch (error) {
             console.error("Error fetching price data for tour option:", error);
           }
@@ -540,6 +585,11 @@ document.addEventListener("DOMContentLoaded", async function () {
           console.log("Selected Adult:", selectedAdults);
           console.log("selected Child:", selectedChild);
           console.log("selected Infant:", selectedInfant);
+
+          sessionStorage.setItem("selectedDate", selectedDate);
+          sessionStorage.setItem("selectedAdults", selectedAdults);
+          sessionStorage.setItem("selectedChild", selectedChild);
+          sessionStorage.setItem("selectedInfant", selectedInfant);
 
           // Close the popup or perform any other action
 

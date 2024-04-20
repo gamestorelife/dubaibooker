@@ -2171,3 +2171,26 @@ center {
   justify-content: center;
   padding-top: 50%;
 }
+.option-contain {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.option-m-name {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.option-m-name h3 {
+  font-size: 15px;
+  color: #134988;
+  font-family: "Open Sans", sans-serif;
+}
+
+.option-contain ul {
+  padding: 0;
+  margin: 0;
+}

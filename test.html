@@ -1,15 +1,16 @@
 <div class="popup-content">
-  <div class="popup-header">
-    <div class="fonticon" id="popup-button">
-      <i class="fa-regular fa-arrow-left"></i>
-    </div>
-    <div class="midtourname">
-      <p class="tourheadername">${tour.tourName}</p>
-    </div>
-    <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
-  </div>
-
   <div id="mfirstcontainer">
+    <div class="popup-header">
+      <div class="fonticon" id="popup-button">
+        <i class="fa-regular fa-arrow-left"></i>
+      </div>
+      <div class="midtourname">
+        <p class="tourheadername">${tour.tourName}</p>
+      </div>
+      <div class="fonticon">
+        <i class="fa-regular fa-cart-shopping-fast"></i>
+      </div>
+    </div>
     <div class="datecontainer">
       <div class="datecontainer-title"><h4>Select travel date</h4></div>
       <div class="calandercontainer">
@@ -44,7 +45,7 @@
           </button>
         </div>
         <div class="adultnumber">
-          <h2><span id="counter" value="">0</span></h2>
+          <h2><span id="counter" value="">1</span></h2>
         </div>
         <div>
           <button id="increment" class="countericon">
@@ -112,5 +113,7 @@
     </div>
   </div>
 
-  <div id="act-options"></div>
+  <div id="secondoptionscontainer">
+    <div id="act-options" class="tourOptioncont"></div>
+  </div>
 </div>
