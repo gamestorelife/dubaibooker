@@ -2194,3 +2194,13 @@ center {
   padding: 0;
   margin: 0;
 }
+.transfer-option {
+  box-shadow: 0 0 10px #888;
+  border-radius: 30px;
+  display: flex;
+  padding: 14px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-bottom: 21px;
+}

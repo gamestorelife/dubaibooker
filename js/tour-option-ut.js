@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       // console.log("Adult 12% Price:", adultPrice);
       //console.log("Child 12% Price:", childPrice);
       $("#secondoptionscontainer").hide();
+      $("#transferoptionscontainer").hide();
 
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
@@ -326,6 +327,10 @@ document.addEventListener("DOMContentLoaded", async function () {
           <div id="secondoptionscontainer">
             <div id="act-options" class="tourOptioncont"></div>
           </div>
+
+          <div id="transferoptionscontainer">
+          <div id="act-tranfer" class="tourOptioncont"></div>
+        </div>
           
         </div>
 
@@ -382,6 +387,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                 selectedChild = sessionStorage.getItem("selectedChild"),
                 selectedInfant = sessionStorage.getItem("selectedInfant");
 
+              $("#transferoptionscontainer").show();
+              $("#mfirstcontainer").hide();
+              $("#secondoptionscontainer").hide();
+
               try {
                 // Make the POST request for the clicked tourOptionId
                 const FinalResponse = await fetch("/tour-price", {
@@ -409,6 +418,29 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 console.log(fineResponseData);
                 // Process the responseData as needed
+                const actTransferDiv = document.getElementById("act-tranfer");
+                actTransferDiv.innerHTML = "";
+                fineResponseData.result.forEach((transferOption) => {
+                  // Create HTML elements for each transfer option
+                  const transferOptionDiv = document.createElement("div");
+                  transferOptionDiv.className = "transfer-option";
+
+                  // Populate the transfer option details
+                  transferOptionDiv.innerHTML = `
+                  <div>
+                      <h4>${transferOption.transferName}</h4>
+                      <p><strong>Adult Price:</strong> ${transferOption.adultPrice} ${fineResponseData.currency}</p>
+                      <p><strong>Child Price:</strong> ${transferOption.childPrice} ${fineResponseData.currency}</p>
+                      <p>${transferOption.departureTime}</p>
+                      <p><strong>Total Amount:</strong> ${transferOption.finalAmount} ${fineResponseData.currency}</p>
+                      <!-- Add more details here -->
+                  </div>
+                      
+                  `;
+
+                  // Append the transfer option div to the act-transfer div
+                  actTransferDiv.appendChild(transferOptionDiv);
+                });
               } catch (error) {
                 console.error("Error:", error);
               }
@@ -593,7 +625,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
           // Close the popup or perform any other action
 
-          // For now, let's hide the popup
           $("#mfirstcontainer").hide();
           $("#secondoptionscontainer").show();
         });
