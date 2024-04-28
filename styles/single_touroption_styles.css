@@ -2204,3 +2204,7 @@ center {
   width: 100%;
   margin-bottom: 21px;
 }
+
+.transferoption-container p {
+  margin: 0;
+}

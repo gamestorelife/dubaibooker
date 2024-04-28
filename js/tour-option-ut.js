@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       // console.log("Adult 12% Price:", adultPrice);
       //console.log("Child 12% Price:", childPrice);
       $("#secondoptionscontainer").hide();
+      $("#popup-button-option").hide();
       $("#transferoptionscontainer").hide();
 
       const tour = data.result[0]; // Define the tour variable here
@@ -205,7 +206,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       // Add event listener to the explore button
       const exploreButton = tourDiv.querySelector("#explore-button");
       exploreButton.addEventListener("click", function () {
-        $(".date-menu").show();
+        $(".date-menu").show(200);
 
         // Create popup content
         DateContainer.innerHTML = "";
@@ -214,6 +215,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         <div  class="popup-content">
               <div class="popup-header">
                   <div class="fonticon" id="popup-button">
+                         <i class="fa-regular fa-arrow-left"></i>
+                  </div>
+
+                  <div class="fonticon" id="popup-button-option">
+                         <i class="fa-regular fa-arrow-left"></i>
+                  </div>
+                  <div class="fonticon" id="popup-button-tranfer">
                          <i class="fa-regular fa-arrow-left"></i>
                   </div>
                 <div class="midtourname">
@@ -387,9 +395,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 selectedChild = sessionStorage.getItem("selectedChild"),
                 selectedInfant = sessionStorage.getItem("selectedInfant");
 
-              $("#transferoptionscontainer").show();
+              $("#transferoptionscontainer").show(500);
+              $("#popup-button-tranfer").show(200);
               $("#mfirstcontainer").hide();
               $("#secondoptionscontainer").hide();
+              $("#popup-button-option").hide();
 
               try {
                 // Make the POST request for the clicked tourOptionId
@@ -416,10 +426,42 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 const fineResponseData = await FinalResponse.json();
 
-                console.log(fineResponseData);
+                //  console.log(fineResponseData);
+
+                // Extract adult price from the response
+                const increasedadultPriceFin =
+                  fineResponseData.result[0].adultPrice;
+                const increasedchildPrice =
+                  fineResponseData.result[0].childPrice;
+                const increasedinfantPrice =
+                  fineResponseData.result[0].infantPrice;
+                const originaltotalAmount =
+                  fineResponseData.result[0].finalAmount;
+
+                //  console.log("Original Adult Price:", increasedadultPriceFin);
+                //   console.log("Original Child Price:", increasedchildPrice);
+
+                //   console.log("Original Total Amount:::::", originaltotalAmount);
+
+                // Increase the price by 12%
+                let adultPrice = increasedadultPriceFin * 1.12,
+                  childPrice = increasedchildPrice * 1.12,
+                  infantPrice = increasedinfantPrice * 1.12,
+                  finalAmount = originaltotalAmount * 1.12;
+
+                // console.log("Original Adult Price:", adultPrice);
+
+                // Remove the decimal part
+                adultPrice = Math.floor(adultPrice);
+                childPrice = Math.floor(childPrice);
+                infantPrice = Math.floor(infantPrice);
+                finalAmount = Math.floor(finalAmount);
+
+                console.log("Adult After Price:", adultPrice);
                 // Process the responseData as needed
                 const actTransferDiv = document.getElementById("act-tranfer");
                 actTransferDiv.innerHTML = "";
+
                 fineResponseData.result.forEach((transferOption) => {
                   // Create HTML elements for each transfer option
                   const transferOptionDiv = document.createElement("div");
@@ -427,13 +469,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                   // Populate the transfer option details
                   transferOptionDiv.innerHTML = `
+                  <div class="transferoption-container">
+                  <div class="option-m-name">
+                  <h4>${transferOption.transferName}</h4>
+                  </div>
                   <div>
-                      <h4>${transferOption.transferName}</h4>
-                      <p><strong>Adult Price:</strong> ${transferOption.adultPrice} ${fineResponseData.currency}</p>
-                      <p><strong>Child Price:</strong> ${transferOption.childPrice} ${fineResponseData.currency}</p>
+                  <p><strong>Adult Price:</strong> ${adultPrice} ${fineResponseData.currency}</p>
+                      <p><strong>Child Price:</strong> ${childPrice} ${fineResponseData.currency}</p>
+                      <p><strong>Infant Price:</strong> ${infantPrice} ${fineResponseData.currency}</p>
+                      <p><strong>Start Time:</strong> ${transferOption.startTime}</p>
                       <p>${transferOption.departureTime}</p>
-                      <p><strong>Total Amount:</strong> ${transferOption.finalAmount} ${fineResponseData.currency}</p>
+                  <div>
+                  <p><strong>Total Amount:</strong> ${finalAmount} ${fineResponseData.currency}</p>
+                  </div>
+                      
                       <!-- Add more details here -->
+                  </div>
+               
                   </div>
                       
                   `;
@@ -534,12 +586,33 @@ document.addEventListener("DOMContentLoaded", async function () {
           direction: true,
           always_visible: $(".calandercontainer"),
         });
-
+        $("#popup-button-option").hide();
+        $("#popup-button-tranfer").hide();
         // Add event listener to popup button
         const popupButton = popupContent.querySelector("#popup-button");
+        const popupButtonOtions = popupContent.querySelector(
+          "#popup-button-option"
+        );
+        const popupButtonTranfer = popupContent.querySelector(
+          "#popup-button-tranfer"
+        );
         popupButton.addEventListener("click", function () {
           // Remove popup content from body
           $(".date-menu").hide();
+        });
+        popupButtonOtions.addEventListener("click", function () {
+          // Remove popup content from body
+          $("#secondoptionscontainer").hide();
+          $("#mfirstcontainer").show(200);
+          $("#popup-button").show();
+          $("#popup-button-option").hide();
+          $("#transferoptionscontainer").hide();
+        });
+        popupButtonTranfer.addEventListener("click", function () {
+          $("#transferoptionscontainer").hide();
+          $("#popup-button-tranfer").hide();
+          $("#popup-button-option").show();
+          $("#secondoptionscontainer").show(300);
         });
 
         // Add event listeners for increment and decrement Adult buttons
@@ -626,7 +699,11 @@ document.addEventListener("DOMContentLoaded", async function () {
           // Close the popup or perform any other action
 
           $("#mfirstcontainer").hide();
-          $("#secondoptionscontainer").show();
+          $("#secondoptionscontainer").show(300);
+          $("#transferoptionscontainer").show(300);
+          $("#popup-button").hide();
+          $("#popup-button-option").show();
+          $("#transferoptionscontainer").hide();
         });
       });
 
@@ -642,3 +719,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log("No selected city found.");
   }
 });
+
+//
