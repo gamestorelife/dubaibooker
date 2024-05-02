@@ -426,43 +426,26 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 const fineResponseData = await FinalResponse.json();
 
-                //  console.log(fineResponseData);
+                console.log(fineResponseData);
 
-                // Extract adult price from the response
-                const increasedadultPriceFin =
-                  fineResponseData.result[0].adultPrice;
-                const increasedchildPrice =
-                  fineResponseData.result[0].childPrice;
-                const increasedinfantPrice =
-                  fineResponseData.result[0].infantPrice;
-                const originaltotalAmount =
-                  fineResponseData.result[0].finalAmount;
-
-                //  console.log("Original Adult Price:", increasedadultPriceFin);
-                //   console.log("Original Child Price:", increasedchildPrice);
-
-                //   console.log("Original Total Amount:::::", originaltotalAmount);
-
-                // Increase the price by 12%
-                let adultPrice = increasedadultPriceFin * 1.12,
-                  childPrice = increasedchildPrice * 1.12,
-                  infantPrice = increasedinfantPrice * 1.12,
-                  finalAmount = originaltotalAmount * 1.12;
-
-                // console.log("Original Adult Price:", adultPrice);
-
-                // Remove the decimal part
-                adultPrice = Math.floor(adultPrice);
-                childPrice = Math.floor(childPrice);
-                infantPrice = Math.floor(infantPrice);
-                finalAmount = Math.floor(finalAmount);
-
-                console.log("Adult After Price:", adultPrice);
                 // Process the responseData as needed
                 const actTransferDiv = document.getElementById("act-tranfer");
                 actTransferDiv.innerHTML = "";
 
                 fineResponseData.result.forEach((transferOption) => {
+                  // Increase prices by 12% and round down
+                  const increasedAdultPrice = Math.floor(
+                    transferOption.adultPrice * 1.12
+                  );
+                  const increasedChildPrice = Math.floor(
+                    transferOption.childPrice * 1.12
+                  );
+                  const increasedInfantPrice = Math.floor(
+                    transferOption.infantPrice * 1.12
+                  );
+                  const increasedFinalAmount = Math.floor(
+                    transferOption.finalAmount * 1.12
+                  );
                   // Create HTML elements for each transfer option
                   const transferOptionDiv = document.createElement("div");
                   transferOptionDiv.className = "transfer-option";
@@ -474,13 +457,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                   <h4>${transferOption.transferName}</h4>
                   </div>
                   <div>
-                  <p><strong>Adult Price:</strong> ${adultPrice} ${fineResponseData.currency}</p>
-                      <p><strong>Child Price:</strong> ${childPrice} ${fineResponseData.currency}</p>
-                      <p><strong>Infant Price:</strong> ${infantPrice} ${fineResponseData.currency}</p>
+                      <p><strong>Adult Price:</strong> ${increasedAdultPrice} ${fineResponseData.currency}</p>
+                      <p><strong>Child Price:</strong> ${increasedChildPrice} ${fineResponseData.currency}</p>
+                      <p><strong>Infant Price:</strong> ${increasedInfantPrice} ${fineResponseData.currency}</p>
                       <p><strong>Start Time:</strong> ${transferOption.startTime}</p>
                       <p>${transferOption.departureTime}</p>
                   <div>
-                  <p><strong>Total Amount:</strong> ${finalAmount} ${fineResponseData.currency}</p>
+                  <p><strong>Total Amount:</strong> ${increasedFinalAmount} ${fineResponseData.currency}</p>
                   </div>
                       
                       <!-- Add more details here -->
@@ -492,6 +475,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                   // Append the transfer option div to the act-transfer div
                   actTransferDiv.appendChild(transferOptionDiv);
+
+                  transferOptionDiv.addEventListener("click", function () {
+                    var transferId = transferOption.transferId;
+                    sessionStorage.setItem("transferId", transferId);
+                    console.log("tranfer clicked");
+                    console.log(transferId);
+                  });
                 });
               } catch (error) {
                 console.error("Error:", error);
@@ -719,5 +709,3 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log("No selected city found.");
   }
 });
-
-//

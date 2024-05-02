@@ -1,16 +1,15 @@
 <div class="popup-content">
-  <div id="mfirstcontainer">
-    <div class="popup-header">
-      <div class="fonticon" id="popup-button">
-        <i class="fa-regular fa-arrow-left"></i>
-      </div>
-      <div class="midtourname">
-        <p class="tourheadername">${tour.tourName}</p>
-      </div>
-      <div class="fonticon">
-        <i class="fa-regular fa-cart-shopping-fast"></i>
-      </div>
+  <div class="popup-header">
+    <div class="fonticon" id="popup-button">
+      <i class="fa-regular fa-arrow-left"></i>
     </div>
+    <div class="midtourname">
+      <p class="tourheadername">${tour.tourName}</p>
+    </div>
+    <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
+  </div>
+
+  <div id="mfirstcontainer">
     <div class="datecontainer">
       <div class="datecontainer-title"><h4>Select travel date</h4></div>
       <div class="calandercontainer">
@@ -112,8 +111,36 @@
       </button>
     </div>
   </div>
-
   <div id="secondoptionscontainer">
     <div id="act-options" class="tourOptioncont"></div>
   </div>
 </div>
+
+<script>
+  // Extract adult price from the response
+  const increasedadultPriceFin = fineResponseData.result[0].adultPrice;
+  const increasedchildPrice = fineResponseData.result[0].childPrice;
+  const increasedinfantPrice = fineResponseData.result[0].infantPrice;
+  const originaltotalAmount = fineResponseData.result[0].finalAmount;
+
+  //  console.log("Original Adult Price:", increasedadultPriceFin);
+  //   console.log("Original Child Price:", increasedchildPrice);
+
+  //   console.log("Original Total Amount:::::", originaltotalAmount);
+
+  // Increase the price by 12%
+  let adultPrice = increasedadultPriceFin * 1.12,
+    childPrice = increasedchildPrice * 1.12,
+    infantPrice = increasedinfantPrice * 1.12,
+    finalAmount = originaltotalAmount * 1.12;
+
+  // console.log("Original Adult Price:", adultPrice);
+
+  // Remove the decimal part
+  adultPrice = Math.floor(adultPrice);
+  childPrice = Math.floor(childPrice);
+  infantPrice = Math.floor(infantPrice);
+  finalAmount = Math.floor(finalAmount);
+
+  console.log("Adult After Price:", adultPrice);
+</script>
