@@ -117,30 +117,73 @@
 </div>
 
 <script>
-  // Extract adult price from the response
-  const increasedadultPriceFin = fineResponseData.result[0].adultPrice;
-  const increasedchildPrice = fineResponseData.result[0].childPrice;
-  const increasedinfantPrice = fineResponseData.result[0].infantPrice;
-  const originaltotalAmount = fineResponseData.result[0].finalAmount;
+  try {
+               // Make the POST request for the clicked tourOptionId
+               const TimeSlotResponse = await fetch("/time-slot", {
+                 method: "POST",
+                 headers: {
+                   "Content-Type": "application/json",
+                 },
+                 body: JSON.stringify({
+                   tourId: tourId,
+                   tourOptionId: TourOption,
+                   contractId: contractId,
+                   travelDate: selectedDate,
+                   transferId:transferId,
+                   adult: selectedAdults,
+                   child: selectedChild,
+                   noOfInfant: selectedInfant,
+                   // Add any other parameters needed for the request
+                 }),
+               });
 
-  //  console.log("Original Adult Price:", increasedadultPriceFin);
-  //   console.log("Original Child Price:", increasedchildPrice);
+               if (!TimeSlotResponse.ok) {
+                 throw new Error("Network response was not ok");
+               }
 
-  //   console.log("Original Total Amount:::::", originaltotalAmount);
+               const finTimmeResponse = await TimeSlotResponse.json();
 
-  // Increase the price by 12%
-  let adultPrice = increasedadultPriceFin * 1.12,
-    childPrice = increasedchildPrice * 1.12,
-    infantPrice = increasedinfantPrice * 1.12,
-    finalAmount = originaltotalAmount * 1.12;
+               //console.log(finTimmeResponse);
 
-  // console.log("Original Adult Price:", adultPrice);
+               // Process the responseData as needed
+               const actTransferDiv = document.getElementById("act-tranfer");
+               actTransferDiv.innerHTML = "";
 
-  // Remove the decimal part
-  adultPrice = Math.floor(adultPrice);
-  childPrice = Math.floor(childPrice);
-  infantPrice = Math.floor(infantPrice);
-  finalAmount = Math.floor(finalAmount);
+               finTimmeResponse.result.forEach((transferOption) => {
 
-  console.log("Adult After Price:", adultPrice);
+
+                 // Create HTML elements for each transfer option
+                 const transferOptionDiv = document.createElement("div");
+                 transferOptionDiv.className = "transfer-option";
+
+                 // Populate the transfer option details
+                 transferOptionDiv.innerHTML = `
+                 <div class="transferoption-container">
+                 <div class="option-m-name">
+                 <h4>${transferOption.transferName}</h4>
+                 </div>
+                 <div>
+                     <p><strong>Adult Price:</strong> ${increasedAdultPrice} ${fineResponseData.currency}</p>
+                     <p><strong>Child Price:</strong> ${increasedChildPrice} ${fineResponseData.currency}</p>
+                     <p><strong>Infant Price:</strong> ${increasedInfantPrice} ${fineResponseData.currency}</p>
+                     <p><strong>Start Time:</strong> ${transferOption.startTime}</p>
+                     <p>${transferOption.departureTime}</p>
+                 <div>
+                 <p><strong>Total Amount:</strong> ${increasedFinalAmount} ${fineResponseData.currency}</p>
+                 </div>
+
+                     <!-- Add more details here -->
+                 </div>
+
+                 </div>
+
+                 `;
+
+                 // Append the transfer option div to the act-transfer div
+                 actTransferDiv.appendChild(transferOptionDiv);
+
+  })
+             } catch (error) {
+               console.error("Error::::", error);
+             }
 </script>

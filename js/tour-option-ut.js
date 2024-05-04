@@ -114,6 +114,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#secondoptionscontainer").hide();
       $("#popup-button-option").hide();
       $("#transferoptionscontainer").hide();
+      $("#timeslotcontainer").hide();
 
       const tour = data.result[0]; // Define the tour variable here
       // const tourImages = tour.tourImages; // Extract the tourImages array
@@ -338,7 +339,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
           <div id="transferoptionscontainer">
           <div id="act-tranfer" class="tourOptioncont"></div>
-        </div>
+          </div>
+          <div id="timeslotcontainer">
+          <div id="time-slot" class="tourOptioncont"></div>
+          </div>
           
         </div>
 
@@ -426,7 +430,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 const fineResponseData = await FinalResponse.json();
 
-                console.log(fineResponseData);
+                //console.log(fineResponseData);
 
                 // Process the responseData as needed
                 const actTransferDiv = document.getElementById("act-tranfer");
@@ -476,15 +480,127 @@ document.addEventListener("DOMContentLoaded", async function () {
                   // Append the transfer option div to the act-transfer div
                   actTransferDiv.appendChild(transferOptionDiv);
 
-                  transferOptionDiv.addEventListener("click", function () {
-                    var transferId = transferOption.transferId;
-                    sessionStorage.setItem("transferId", transferId);
-                    console.log("tranfer clicked");
-                    console.log(transferId);
-                  });
+                  transferOptionDiv.addEventListener(
+                    "click",
+                    async function () {
+                      var transferId = transferOption.transferId;
+                      sessionStorage.setItem("transferId", transferId);
+                      let selectedDate = sessionStorage.getItem("selectedDate"),
+                        selectedAdults =
+                          sessionStorage.getItem("selectedAdults"),
+                        selectedChild = sessionStorage.getItem("selectedChild"),
+                        selectedInfant =
+                          sessionStorage.getItem("selectedInfant");
+
+                      console.log(
+                        tourId,
+                        TourOption,
+                        contractId,
+                        transferId,
+                        selectedDate,
+                        selectedAdults,
+                        selectedChild,
+                        selectedInfant
+                      );
+                      console.log(transferId);
+
+                      $("#transferoptionscontainer").hide();
+                      $("#timeslotcontainer").show();
+
+                      try {
+                        const TimeSlotResponse = await fetch("/time-slot", {
+                          method: "POST",
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify({
+                            tourId: tourId,
+                            tourOptionId: TourOption,
+                            contractId: contractId,
+                            travelDate: selectedDate,
+                            transferId: transferId,
+                            adult: selectedAdults,
+                            child: selectedChild,
+                            noOfInfant: selectedInfant,
+                            // Add any other parameters needed for the request
+                          }),
+                        });
+
+                        if (!TimeSlotResponse.ok) {
+                          if (TimeSlotResponse.status === 503) {
+                            // Service Unavailable error, display message to user
+                            const errorMessage = await TimeSlotResponse.text();
+                            console.error("Service Unavailable:", errorMessage);
+                            // Display error message to the user
+                            const actTimeSlotDiv =
+                              document.getElementById("time-slot");
+                            actTimeSlotDiv.innerHTML = `<p>Service Unavailable: ${errorMessage}</p>`;
+                          } else {
+                            // Other error, throw an error
+                            throw new Error("Network response was not ok");
+                          }
+                        } else {
+                          const finTimmeResponse =
+                            await TimeSlotResponse.json();
+                          console.log(finTimmeResponse);
+                          // Process the responseData as needed
+                          const actTimeSlotDiv =
+                            document.getElementById("time-slot");
+                          actTimeSlotDiv.innerHTML = ""; // Clear previous content
+
+                          if (finTimmeResponse.result.length === 0) {
+                            // No time slots available, display message to user
+                            actTimeSlotDiv.innerHTML =
+                              "<h3>No time slots available.</h3>";
+                          } else {
+                            // Render each time slot
+                            finTimmeResponse.result.forEach((slot) => {
+                              // Create HTML elements for each time slot
+                              const slotDiv = document.createElement("div");
+                              slotDiv.className = "time-slot-option";
+                              slotDiv.innerHTML = `
+                                    <div>
+                                        <p>UAE Time: ${slot.timeSlot}</p>
+                                        <p>Available: ${slot.available}</p>
+                                    </div>
+                                    `;
+
+                              // Append slotDiv to actTimeSlotDiv
+                              actTimeSlotDiv.appendChild(slotDiv);
+                              slotDiv.addEventListener("click", function () {
+                                sessionStorage.setItem(
+                                  "timeSlot",
+                                  slot.timeSlot
+                                );
+                                sessionStorage.setItem(
+                                  "available",
+                                  slot.available
+                                );
+
+                                sessionStorage.setItem(
+                                  "timeSlotId",
+                                  slot.timeSlotId
+                                );
+
+                                console.log(sessionStorage.getItem("timeSlot"));
+                                console.log(
+                                  sessionStorage.getItem("available")
+                                );
+                                console.log(
+                                  sessionStorage.getItem("timeSlotId")
+                                );
+                              });
+                            });
+                          }
+                        }
+                      } catch (error) {
+                        console.error("Error:", error);
+                      }
+                    }
+                  );
                 });
               } catch (error) {
-                console.error("Error:", error);
+                console.error("Error::::", error);
               }
             });
           });
@@ -602,6 +718,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           $("#transferoptionscontainer").hide();
           $("#popup-button-tranfer").hide();
           $("#popup-button-option").show();
+          $("#timeslotcontainer").hide();
           $("#secondoptionscontainer").show(300);
         });
 
