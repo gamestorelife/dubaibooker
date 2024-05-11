@@ -6,6 +6,8 @@ const { parse } = require("querystring");
 const send = require("send");
 const http = require("http");
 const $ = require("jquery");
+const mongoose = require("mongoose");
+const Booking = require("./models/bookingModels");
 
 const API_KEY =
   "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MWE4MjhjMC1iNzI0LTQwMWEtYmM3NS0wZTcxZjUzYjJjZjkiLCJVc2VySWQiOiI0NDU0MCIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoiZHluYW1pc2NhcGl0YWx1YWVAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIiwiYXVkIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIn0.TD-kr0ILWSyo-NTm-LE3SfnRuM_Xa5qXwxs5BgjTz8Y";
@@ -125,10 +127,30 @@ app.post("/time-slot", async (req, res) => {
   }
 });
 
+app.post("/user-booking", async (req, res) => {
+  try {
+    const booking = await Booking.create(req.body);
+    res.status(200).json(booking);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Handle other static files
 app.use(express.static(path.join(__dirname)));
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+mongoose
+  .connect(
+    "mongodb+srv://admin:QyeDCWTDUOHWbxL4@dubaibookerdb.j3ohhgq.mongodb.net/"
+  )
+  .then(() => {
+    console.log("Connected to DB");
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server running at http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
