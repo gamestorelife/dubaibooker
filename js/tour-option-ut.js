@@ -542,7 +542,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         } else {
                           const finTimmeResponse =
                             await TimeSlotResponse.json();
-                          console.log(finTimmeResponse);
+                          // console.log(finTimmeResponse);
                           // Process the responseData as needed
                           const actTimeSlotDiv =
                             document.getElementById("time-slot");
@@ -568,27 +568,34 @@ document.addEventListener("DOMContentLoaded", async function () {
                               // Append slotDiv to actTimeSlotDiv
                               actTimeSlotDiv.appendChild(slotDiv);
                               slotDiv.addEventListener("click", function () {
-                                sessionStorage.setItem(
-                                  "timeSlot",
-                                  slot.timeSlot
-                                );
-                                sessionStorage.setItem(
-                                  "available",
-                                  slot.available
-                                );
+                                if (slot.available >= 1) {
+                                  // Execute the following code only if tour is available
+                                  sessionStorage.setItem(
+                                    "timeSlot",
+                                    slot.timeSlot
+                                  );
+                                  sessionStorage.setItem(
+                                    "available",
+                                    slot.available
+                                  );
+                                  sessionStorage.setItem(
+                                    "timeSlotId",
+                                    slot.timeSlotId
+                                  );
 
-                                sessionStorage.setItem(
-                                  "timeSlotId",
-                                  slot.timeSlotId
-                                );
-
-                                console.log(sessionStorage.getItem("timeSlot"));
-                                console.log(
-                                  sessionStorage.getItem("available")
-                                );
-                                console.log(
-                                  sessionStorage.getItem("timeSlotId")
-                                );
+                                  console.log(
+                                    sessionStorage.getItem("timeSlot")
+                                  );
+                                  console.log(
+                                    sessionStorage.getItem("available")
+                                  );
+                                  console.log(
+                                    sessionStorage.getItem("timeSlotId")
+                                  );
+                                } else {
+                                  // Display alert if no tour is available
+                                  alert("Please Select another date.");
+                                }
                               });
                             });
                           }
