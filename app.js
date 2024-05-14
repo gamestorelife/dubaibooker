@@ -17,6 +17,15 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+// Middleware for session management
+app.use(
+  session({
+    secret: "eyJhbGciOiJodHRwO",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -140,6 +149,32 @@ app.post("/user-booking", async (req, res) => {
 
 // Handle other static files
 app.use(express.static(path.join(__dirname)));
+
+// Add item to cart
+app.get("/add-to-cart/:item", (req, res) => {
+  const item = req.params.item;
+  req.session.cart = req.session.cart || {};
+  req.session.cart[item] = req.session.cart[item]
+    ? req.session.cart[item] + 1
+    : 1;
+  res.send("Item added to cart");
+});
+
+// View cart
+app.get("/cart", (req, res) => {
+  res.json(req.session.cart || {});
+});
+
+// Remove item from cart
+app.get("/remove-from-cart/:item", (req, res) => {
+  const item = req.params.item;
+  if (req.session.cart && req.session.cart[item]) {
+    delete req.session.cart[item];
+    res.send("Item removed from cart");
+  } else {
+    res.send("Item not found in cart");
+  }
+});
 
 mongoose
   .connect(

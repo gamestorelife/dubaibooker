@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const tourContainer = document.getElementById("act-mainInfo");
   const DateContainer = document.getElementById("date-container");
 
+  const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
   // Session Variables
   const tourId = sessionStorage.getItem("tourId");
   const contractId = sessionStorage.getItem("contractId");
@@ -391,14 +393,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             //Event listiner to every tour Option
 
             optionDiv.addEventListener("click", async function () {
-              console.log("option get clicked");
               var TourOption = option.tourOptionId;
               console.log("Tour Option ID:", TourOption);
               let selectedDate = sessionStorage.getItem("selectedDate"),
                 selectedAdults = sessionStorage.getItem("selectedAdults"),
                 selectedChild = sessionStorage.getItem("selectedChild"),
                 selectedInfant = sessionStorage.getItem("selectedInfant");
-
+              sessionStorage.setItem("optionId", TourOption);
               $("#transferoptionscontainer").show(500);
               $("#popup-button-tranfer").show(200);
               $("#mfirstcontainer").hide();
@@ -483,8 +484,26 @@ document.addEventListener("DOMContentLoaded", async function () {
                   transferOptionDiv.addEventListener(
                     "click",
                     async function () {
-                      var transferId = transferOption.transferId;
+                      let transferId = transferOption.transferId,
+                        adultPrice = transferOption.adultPrice,
+                        childPrice = transferOption.childPrice,
+                        finalAmount = transferOption.finalAmount,
+                        startTime = transferOption.startTime;
+
                       sessionStorage.setItem("transferId", transferId);
+                      sessionStorage.setItem("adultPrice", adultPrice);
+                      sessionStorage.setItem("childPrice", childPrice);
+                      sessionStorage.setItem("finalAmount", finalAmount);
+                      sessionStorage.setItem(
+                        "increasedAdultPrice",
+                        increasedAdultPrice
+                      );
+                      sessionStorage.setItem(
+                        "increasedChildPrice",
+                        increasedChildPrice
+                      );
+                      sessionStorage.setItem("startTime", startTime);
+
                       let selectedDate = sessionStorage.getItem("selectedDate"),
                         selectedAdults =
                           sessionStorage.getItem("selectedAdults"),
@@ -496,13 +515,21 @@ document.addEventListener("DOMContentLoaded", async function () {
                         tourId,
                         TourOption,
                         contractId,
+
                         transferId,
                         selectedDate,
                         selectedAdults,
+
                         selectedChild,
-                        selectedInfant
+                        selectedInfant,
+                        adultPrice,
+
+                        childPrice,
+                        finalAmount,
+                        startTime
                       );
                       console.log(transferId);
+                      console.log(increasedAdultPrice);
 
                       $("#transferoptionscontainer").hide();
                       $("#timeslotcontainer").show();
@@ -583,18 +610,96 @@ document.addEventListener("DOMContentLoaded", async function () {
                                     slot.timeSlotId
                                   );
 
+                                  let tourId = sessionStorage.getItem("tourId"),
+                                    optionId =
+                                      sessionStorage.getItem("optionId"),
+                                    adult =
+                                      sessionStorage.getItem("selectedAdults"),
+                                    child =
+                                      sessionStorage.getItem("selectedChild"),
+                                    infant =
+                                      sessionStorage.getItem("selectedInfant"),
+                                    tourDate =
+                                      sessionStorage.getItem("selectedDate"),
+                                    timeSlotId =
+                                      sessionStorage.getItem("timeSlotId"),
+                                    startTime =
+                                      sessionStorage.getItem("startTime"),
+                                    transferId =
+                                      sessionStorage.getItem("transferId"),
+                                    adultRate =
+                                      sessionStorage.getItem("adultPrice"),
+                                    childRate =
+                                      sessionStorage.getItem("childPrice"),
+                                    serviceTotal =
+                                      sessionStorage.getItem("finalAmount");
+
                                   console.log(
                                     sessionStorage.getItem("timeSlot")
                                   );
+
+                                  console.log(serviceTotal);
+                                  console.log(optionId);
+
+                                  function generateUniqueNumber() {
+                                    const timestamp = Date.now().toString(); // Get current timestamp
+                                    const randomNumber = Math.floor(
+                                      Math.random() * 1000
+                                    ).toString(); // Generate a random number between 0 and 999999
+                                    return timestamp + randomNumber; // Concatenate timestamp and random number
+                                  }
+
+                                  // Generate a unique number
+                                  const serviceUniqueId =
+                                    generateUniqueNumber();
                                   console.log(
-                                    sessionStorage.getItem("available")
+                                    "Unique Number:",
+                                    serviceUniqueId
                                   );
-                                  console.log(
-                                    sessionStorage.getItem("timeSlotId")
+
+                                  // Create an object representing the selected item
+                                  const selectedItem = {
+                                    serviceUniqueId: serviceUniqueId, // Generate a unique service ID
+                                    timeSlot: slot.timeSlot,
+                                    available: slot.available,
+                                    timeSlotId: slot.timeSlotId,
+                                    tourId: sessionStorage.getItem("tourId"),
+                                    optionId:
+                                      sessionStorage.getItem("optionId"),
+                                    adult:
+                                      sessionStorage.getItem("selectedAdults"),
+                                    child:
+                                      sessionStorage.getItem("selectedChild"),
+                                    infant:
+                                      sessionStorage.getItem("selectedInfant"),
+                                    tourDate:
+                                      sessionStorage.getItem("selectedDate"),
+                                    startTime:
+                                      sessionStorage.getItem("startTime"),
+                                    transferId:
+                                      sessionStorage.getItem("transferId"),
+                                    adultRate:
+                                      sessionStorage.getItem("adultPrice"),
+                                    childRate:
+                                      sessionStorage.getItem("childPrice"),
+                                    serviceTotal:
+                                      sessionStorage.getItem("finalAmount"),
+                                  };
+
+                                  // Add the selected item to the cart
+                                  cart.push(selectedItem);
+                                  sessionStorage.setItem(
+                                    "cart",
+                                    JSON.stringify(cart)
                                   );
+
+                                  console.log(selectedItem);
+                                  console.log(cart);
                                 } else {
                                   // Display alert if no tour is available
-                                  alert("Please Select another date.");
+                                  alert(
+                                    "No Tour available at the selected Date. Please Select another date."
+                                  );
                                 }
                               });
                             });
