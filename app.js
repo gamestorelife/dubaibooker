@@ -41,6 +41,9 @@ app.get("/tour-option.html", (req, res) => {
   res.sendFile(path.join(__dirname, "tour-option.html"));
 });
 
+app.get("/cardrender.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "cardrender.html"));
+});
 // Handle POST requests
 app.post("/api-data", async (req, res) => {
   try {

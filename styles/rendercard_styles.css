@@ -290,7 +290,6 @@ section {
 /*********************************
 3. Header
 *********************************/
-
 .header {
   position: fixed;
   width: 100%;
@@ -386,6 +385,7 @@ section {
   content: "";
 }
 .main_nav_col {
+  justify-content: space-between;
   height: 143px;
   -webkit-transition: all 400ms ease;
   -moz-transition: all 400ms ease;
@@ -465,7 +465,7 @@ section {
   bottom: -11px;
   width: calc(100% + 2px);
   height: 2px;
-  background: var(--darker-color);
+  background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
   content: "";
   opacity: 0;
   -webkit-transition: all 200ms ease;
@@ -1296,34 +1296,22 @@ section {
 /*********************************
 9.2 Offers Grid
 *********************************/
-
-/*********************************
-API CSS
-*********************************/
-#api-data-container {
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
-
-#tour-container {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.tour {
-  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
-  border-radius: 25px;
-  margin: 10px;
+.cart-item {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .offers_grid {
   width: 100%;
   margin-top: 66px;
+  margin-bottom: 30px;
 }
 .offers_item {
   width: 100%;
   margin-bottom: 46px;
+  background-color: #3a848771;
+  border-radius: 25px;
+  padding: 30px;
 }
 .offers_item:last-child {
   margin-bottom: 0px;
@@ -1389,7 +1377,6 @@ API CSS
   font-size: 14px;
   font-weight: 400;
   color: #929191;
-  margin-top: 16px;
   margin-bottom: 0px;
 }
 .offers_icons {
@@ -1618,25 +1605,6 @@ API CSS
 /*********************************
 10.4 Footer - Contact Info
 *********************************/
-.whatsapp_item {
-  display: block;
-  position: fixed;
-  color: #32bc23;
-  bottom: 6%;
-  right: 5%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  font-size: 60px;
-  -webkit-transition: all 200ms ease;
-  -moz-transition: all 200ms ease;
-  -ms-transition: all 200ms ease;
-  -o-transition: all 200ms ease;
-  transition: all 200ms ease;
-  z-index: 55;
-}
 
 .contact_info_list {
   margin-top: 40px;

@@ -119,6 +119,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#timeslotcontainer").hide();
 
       const tour = data.result[0]; // Define the tour variable here
+
+      sessionStorage.setItem("tourName", tour.tourName);
+      // console.log("Tour Name:", sessionStorage.getItem("tourName"));
+
       // const tourImages = tour.tourImages; // Extract the tourImages array
       const tourImages = tour.tourImages || []; // Extract the tourImages array, or set it to an empty array if undefined
 
@@ -394,6 +398,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             optionDiv.addEventListener("click", async function () {
               var TourOption = option.tourOptionId;
+              sessionStorage.setItem("tourOptionName", option.optionName);
+              console.log(
+                "tourOption Name is:",
+                sessionStorage.getItem("tourOptionName")
+              );
               console.log("Tour Option ID:", TourOption);
               let selectedDate = sessionStorage.getItem("selectedDate"),
                 selectedAdults = sessionStorage.getItem("selectedAdults"),
@@ -488,7 +497,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                         adultPrice = transferOption.adultPrice,
                         childPrice = transferOption.childPrice,
                         finalAmount = transferOption.finalAmount,
-                        startTime = transferOption.startTime;
+                        startTime = transferOption.startTime,
+                        departureTime = transferOption.departureTime;
 
                       sessionStorage.setItem("transferId", transferId);
                       sessionStorage.setItem("adultPrice", adultPrice);
@@ -503,6 +513,16 @@ document.addEventListener("DOMContentLoaded", async function () {
                         increasedChildPrice
                       );
                       sessionStorage.setItem("startTime", startTime);
+                      sessionStorage.setItem(
+                        "transferType",
+                        transferOption.transferName
+                      );
+                      sessionStorage.setItem("departureTime", departureTime);
+
+                      console.log(
+                        "Transfer type is:",
+                        sessionStorage.getItem("transferType")
+                      );
 
                       let selectedDate = sessionStorage.getItem("selectedDate"),
                         selectedAdults =
@@ -594,6 +614,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                               // Append slotDiv to actTimeSlotDiv
                               actTimeSlotDiv.appendChild(slotDiv);
+
                               slotDiv.addEventListener("click", function () {
                                 if (slot.available >= 1) {
                                   // Execute the following code only if tour is available
@@ -632,14 +653,20 @@ document.addEventListener("DOMContentLoaded", async function () {
                                     childRate =
                                       sessionStorage.getItem("childPrice"),
                                     serviceTotal =
-                                      sessionStorage.getItem("finalAmount");
+                                      sessionStorage.getItem("finalAmount"),
+                                    tourName =
+                                      sessionStorage.getItem("tourName"),
+                                    tourOtionName =
+                                      sessionStorage.getItem("tourOptionName"),
+                                    transferType =
+                                      sessionStorage.getItem("transferType");
 
                                   console.log(
                                     sessionStorage.getItem("timeSlot")
                                   );
 
                                   console.log(serviceTotal);
-                                  console.log(optionId);
+                                  console.log(transferType);
 
                                   function generateUniqueNumber() {
                                     const timestamp = Date.now().toString(); // Get current timestamp
@@ -684,6 +711,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                                       sessionStorage.getItem("childPrice"),
                                     serviceTotal:
                                       sessionStorage.getItem("finalAmount"),
+                                    tourName:
+                                      sessionStorage.getItem("tourName"),
+                                    tourOtionName:
+                                      sessionStorage.getItem("tourOptionName"),
+                                    transferType:
+                                      sessionStorage.getItem("transferType"),
+                                    departureTime:
+                                      sessionStorage.getItem("departureTime"),
                                   };
 
                                   // Add the selected item to the cart
@@ -695,6 +730,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                                   console.log(selectedItem);
                                   console.log(cart);
+                                  const redirectUrl = `/cardrender.html`;
+
+                                  // Redirect to the constructed URL
+                                  window.location.href = redirectUrl;
                                 } else {
                                   // Display alert if no tour is available
                                   alert(
