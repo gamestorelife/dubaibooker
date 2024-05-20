@@ -18,35 +18,53 @@ document.addEventListener("DOMContentLoaded", () => {
     itemDiv.className = "cart-item";
 
     itemDiv.innerHTML = `
+    <div class="offers_item rating_5">
+    <div class="hiddin_container">
+      <div class="col-lg-8">
+        <div class="offers_content">
+        <div class="offers_icons">
+        <i class="fa-thin fa-trash-can" style="color: #4596aa; font-size: 27px;" ></i>
+        </div>
 
-	<div class="offers_item rating_5">
-                  <div class="row">
-                   
-                    <div class="col-lg-8">
-                      <div class="offers_content">
-                        <h3>${item.tourName}</h3>
-						<h4>${item.tourOtionName}</h4>
-                        <p class="offers_text">Tour ID: ${item.tourId}</p>
-						<p class="offers_text">Option ID: ${item.optionId}</p>
-						<p class="offers_text">Adults: ${item.adult}</p>
-						<p class="offers_text">Infants: ${item.infant}</p>
-						<p class="offers_text">Date: ${item.tourDate}</p>
-						<p class="offers_text">Time Slot: ${item.timeSlot}</p>
-						<p class="offers_text">Start Time: ${item.startTime}</p>
-						<p class="offers_text">Transfer ID: ${item.transferId}</p>
-						<p class="offers_text">Adult Rate: ${item.adultRate}</p>
-						<p class="offers_text">Child Rate: ${item.childRate}</p>
-						<p class="offers_text">Children: ${item.child}</p>
-						<div class="offers_price"><span>Total Service Amount: ${item.serviceTotal} AED</span></div>
-                        <div class="offers_icons"></div>
-                        <div class="button book_button">
-                          <a href="#">book<span></span><span></span><span></span></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-     
+          <div class="offer_header">
+            <div class="tour_name"><h3>${item.tourName}</h3> </div>
+            <div class="tour_name"><h4>${item.tourOtionName}</h4></div>
+          </div>
+         
+  
+          <div>
+            <div class="offers_mini_container">
+              <div><p class="offers_text">Travel Date:</p></div>
+              <div><p class="offers_text">${item.tourDate}</p></div>
+            </div>
+            <div class="offers_mini_container">
+              <div><p class="offers_text">Transfer Type:</p></div>
+              <div><p class="offers_text">${item.transferType}</p></div>
+            </div>
+            <div class="offers_mini_container">
+            <div><p class="offers_text">Departure:</p></div>
+            <div><p class="offers_text_timing">${item.departureTime}</p></div>
+          </div>
+  
+            <p class="offers_text">Adults: ${item.adult}</p>
+            <p class="offers_text">Infants: ${item.infant}</p>
+  
+            <p class="offers_text">Time Slot: ${item.timeSlot}</p>
+            <p class="offers_text">Start Time: ${item.startTime}</p>
+  
+            <p class="offers_text">Adult Rate: ${item.adultRate}</p>
+            <p class="offers_text">Child Rate: ${item.childRate}</p>
+            <p class="offers_text">Children: ${item.child}</p>
+          </div>
+  
+          <div class="button book_button">
+            <a >Total tour amount: ${item.serviceTotal} AED</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
         `;
 
     cartItemsDiv.appendChild(itemDiv);

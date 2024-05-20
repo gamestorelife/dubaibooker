@@ -1,358 +1,40 @@
-<div class="popup-content">
-  <div class="popup-header">
-    <div class="fonticon" id="popup-button">
-      <i class="fa-regular fa-arrow-left"></i>
-    </div>
-    <div class="midtourname">
-      <p class="tourheadername">${tour.tourName}</p>
-    </div>
-    <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
-  </div>
+<div class="offers_item rating_5">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="offers_content">
+        <div></div>
+        <h3>${item.tourName}</h3>
+        <h4>${item.tourOtionName}</h4>
 
-  <div id="mfirstcontainer">
-    <div class="datecontainer">
-      <div class="datecontainer-title"><h4>Select travel date</h4></div>
-      <div class="calandercontainer">
-        <input
-          type="text"
-          id="traveldate"
-          placeholder="Check In Date"
-          class="d-none"
-          value=""
-        />
-      </div>
-    </div>
-    <div class="travller-title">
-      <h4>Select Travellers</h4>
-    </div>
-
-    <div class="adultprice-details">
-      <div class="price-details">
-        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-        <div class="mini-detail-container">
-          <div>
-            <p class="mini-detail"><b>Adult</b></p>
+        <div>
+          <div class="offers_mini_container">
+            <div><p class="offers_text">Date:</p></div>
+            <div><p class="offers_text">${item.tourDate}</p></div>
           </div>
-          <div><p class="mini-detail">${adultPrice} AED</p></div>
-        </div>
-      </div>
+          <div class="offers_mini_container">
+            <div><p class="offers_text">transferType:</p></div>
+            <div><p class="offers_text">${item.transferType}</p></div>
+          </div>
 
-      <div class="adultcounter">
-        <div>
-          <button id="decrement" class="countericon">
-            <i class="fa-solid fa-circle-minus customico"></i>
-          </button>
+          <p class="offers_text">Adults: ${item.adult}</p>
+          <p class="offers_text">Infants: ${item.infant}</p>
+
+          <p class="offers_text">Time Slot: ${item.timeSlot}</p>
+          <p class="offers_text">Start Time: ${item.startTime}</p>
+
+          <p class="offers_text">Adult Rate: ${item.adultRate}</p>
+          <p class="offers_text">Child Rate: ${item.childRate}</p>
+          <p class="offers_text">Children: ${item.child}</p>
         </div>
-        <div class="adultnumber">
-          <h2><span id="counter" value="">1</span></h2>
+
+        <div class="offers_price">
+          <span>Total Service Amount: ${item.serviceTotal} AED</span>
         </div>
-        <div>
-          <button id="increment" class="countericon">
-            <i class="fa-solid fa-circle-plus customico"></i>
-          </button>
+        <div class="offers_icons"></div>
+        <div class="button book_button">
+          <a href="#">book<span></span><span></span><span></span></a>
         </div>
       </div>
     </div>
-    <div class="adultprice-details">
-      <div class="price-details">
-        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-
-        <div class="mini-detail-container">
-          <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
-          <p class="mini-detail">${childPrice} AED</p>
-        </div>
-      </div>
-
-      <div class="adultcounter">
-        <div>
-          <button id="childdecrement" class="countericon">
-            <i class="fa-solid fa-circle-minus customico"></i>
-          </button>
-        </div>
-        <div class="adultnumber">
-          <h2><span id="childcounter" value="">0</span></h2>
-        </div>
-        <div>
-          <button id="childincrement" class="countericon">
-            <i class="fa-solid fa-circle-plus customico"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="adultprice-details">
-      <div class="price-details">
-        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-
-        <div class="mini-detail-container">
-          <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
-          <p class="mini-detail">${infantPrice} AED</p>
-        </div>
-      </div>
-
-      <div class="adultcounter">
-        <div>
-          <button id="infantdecrement" class="countericon">
-            <i class="fa-solid fa-circle-minus customico"></i>
-          </button>
-        </div>
-        <div class="adultnumber">
-          <h2><span id="infantcounter" value="">0</span></h2>
-        </div>
-        <div>
-          <button id="infantincrement" class="countericon">
-            <i class="fa-solid fa-circle-plus customico"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="adultsubmession">
-      <button id="adultnumbersubmit" class="submit-button customico">
-        Next
-      </button>
-    </div>
-  </div>
-  <div id="secondoptionscontainer">
-    <div id="act-options" class="tourOptioncont"></div>
   </div>
 </div>
-
-<script>
-  const fs = require("fs");
-  const express = require("express");
-  const path = require("path");
-  const axios = require("axios");
-  const { parse } = require("querystring");
-  const send = require("send");
-  const http = require("http");
-  const $ = require("jquery");
-
-  const API_KEY =
-    "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MWE4MjhjMC1iNzI0LTQwMWEtYmM3NS0wZTcxZjUzYjJjZjkiLCJVc2VySWQiOiI0NDU0MCIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoiZHluYW1pc2NhcGl0YWx1YWVAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIiwiYXVkIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIn0.TD-kr0ILWSyo-NTm-LE3SfnRuM_Xa5qXwxs5BgjTz8Y";
-
-  const server = http.createServer(async (req, res) => {
-    if (req.method === "POST" && req.url === "/api-data") {
-      // Handle POST request for API data
-      let body = "";
-      req.on("data", (chunk) => {
-        body += chunk.toString();
-      });
-      req.on("end", async () => {
-        try {
-          const requestData = JSON.parse(body);
-
-          // Make a POST request to the API
-          const apiUrl =
-            "http://raynaapi.raynatours.com/api/Tour/tourstaticdata";
-          const response = await axios.post(apiUrl, requestData, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${API_KEY}`,
-            },
-          });
-
-          // Serve the API response as JSON
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(response.data));
-        } catch (error) {
-          console.error("Error making API request:", error.message);
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Error processing POST request");
-        }
-      });
-    } else if (req.method === "POST" && req.url === "/tour-price") {
-      // Handle POST request for API data
-      let body = "";
-      req.on("data", (chunk) => {
-        body += chunk.toString();
-      });
-      req.on("end", async () => {
-        try {
-          const requestData = JSON.parse(body);
-
-          // Make a POST request to the API
-          const apiUrl = "http://raynaapi.raynatours.com/api/Tour/touroption";
-          const response = await axios.post(apiUrl, requestData, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${API_KEY}`,
-            },
-          });
-
-          // Serve the API response as JSON
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(response.data));
-        } catch (error) {
-          console.error("Error making API request:", error.message);
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Error processing POST request");
-        }
-      });
-    } else if (req.method === "POST" && req.url === "/time-slot") {
-      // Handle POST request for API data
-      let body = "";
-      req.on("data", (chunk) => {
-        body += chunk.toString();
-      });
-      req.on("end", async () => {
-        try {
-          const requestData = JSON.parse(body);
-
-          // Make a POST request to the API
-          const apiUrl = "http://raynaapi.raynatours.com/api/Tour/timeslot";
-          const response = await axios.post(apiUrl, requestData, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${API_KEY}`,
-            },
-          });
-
-          // Serve the API response as JSON
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(response.data));
-        } catch (error) {
-          console.error("Error making API request:", error.message);
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Error processing POST request");
-        }
-      });
-    } else if (req.method === "POST" && req.url === "/tour-options") {
-      // Handle POST request for API data
-      let body = "";
-      req.on("data", (chunk) => {
-        body += chunk.toString();
-      });
-      req.on("end", async () => {
-        try {
-          const requestData = JSON.parse(body);
-
-          // Make a POST request to the API
-          const apiUrl =
-            "http://raynaapi.raynatours.com/api/Tour/touroptionstaticdata";
-          const response = await axios.post(apiUrl, requestData, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${API_KEY}`,
-            },
-          });
-
-          // Serve the API response as JSON
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(response.data));
-        } catch (error) {
-          console.error("Error making API request:", error.message);
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Error processing POST request");
-        }
-      });
-    } else if (req.method === "POST" && req.url === "/activity-click") {
-      // Handle form submission from newpage.html
-      let body = "";
-
-      req.on("data", (chunk) => {
-        body += chunk.toString();
-      });
-
-      req.on("end", async () => {
-        try {
-          const requestData = JSON.parse(body);
-
-          // Make a POST request to the API
-          const apiUrl =
-            "http://raynaapi.raynatours.com/api/Tour/tourStaticDataById";
-          const response = await axios.post(apiUrl, requestData, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${API_KEY}`,
-            },
-          });
-
-          // Redirect to tourrender.html with the selected city information in the query parameters
-
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(response.data));
-        } catch (error) {
-          console.error("Error making API request:", error.message);
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Error processing POST request");
-        }
-      });
-    } else if (req.url === "/") {
-      // Serve the newpage.html
-      const htmlPath = path.join(__dirname, "index.html");
-      fs.readFile(htmlPath, "utf-8", (err, html) => {
-        if (err) {
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Internal Server Error");
-        } else {
-          res.writeHead(200, { "Content-Type": "text/html" });
-          res.end(html);
-        }
-      });
-    } else if (req.url === "/tourrender.html") {
-      // Serve the HTML file
-
-      const htmlPath = path.join(__dirname, "tourrender.html");
-      fs.readFile(htmlPath, "utf-8", (err, html) => {
-        if (err) {
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Internal Server Error");
-        } else {
-          res.writeHead(200, { "Content-Type": "text/html" });
-          res.end(html);
-        }
-      });
-    } else if (req.url === "/tour-option.html") {
-      // Serve the tour-option.html file
-      const htmlPath = path.join(__dirname, "tour-option.html");
-      fs.readFile(htmlPath, "utf-8", (err, html) => {
-        if (err) {
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Internal Server Error");
-        } else {
-          res.writeHead(200, { "Content-Type": "text/html" });
-          res.end(html);
-        }
-      });
-    } else {
-      // Serve other files (CSS, etc.)
-      const filePath = req.url.slice(1);
-      const extname = path.extname(filePath);
-      let contentType = "text/html";
-
-      switch (extname) {
-        case ".js":
-          contentType = "text/javascript";
-          break;
-        case ".css":
-          contentType = "text/css";
-          break;
-      }
-
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          if (err.code === "ENOENT") {
-            res.writeHead(404, { "Content-Type": "text/plain" });
-            res.end("File Not Found");
-          } else {
-            res.writeHead(500, { "Content-Type": "text/plain" });
-            res.end("Internal Server Error");
-          }
-        } else {
-          res.writeHead(200, { "Content-Type": contentType });
-          res.end(data);
-        }
-      });
-    }
-  });
-
-  const PORT = process.env.PORT || 3000;
-  const HOST = "dubaibooker.com";
-
-  server.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-  });
-
-  //server.listen(port, hostname, () => {
-  // console.log(`Server running at https://${hostname}:${port}/`);
-  //});
-</script>
