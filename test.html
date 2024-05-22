@@ -38,3 +38,37 @@
     </div>
   </div>
 </div>
+
+<script>
+  // Create an object representing the selected item
+  const selectedItem = {
+    serviceUniqueId: serviceUniqueId, // Generate a unique service ID
+    timeSlotId: "",
+    tourId: sessionStorage.getItem("tourId"),
+    optionId: sessionStorage.getItem("optionId"),
+    adult: sessionStorage.getItem("selectedAdults"),
+    child: sessionStorage.getItem("selectedChild"),
+    infant: sessionStorage.getItem("selectedInfant"),
+    tourDate: sessionStorage.getItem("selectedDate"),
+    startTime: sessionStorage.getItem("startTime"),
+    transferId: sessionStorage.getItem("transferId"),
+    adultRate: sessionStorage.getItem("adultPrice"),
+    childRate: sessionStorage.getItem("childPrice"),
+    serviceTotal: sessionStorage.getItem("finalAmount"),
+    tourName: sessionStorage.getItem("tourName"),
+    tourOtionName: sessionStorage.getItem("tourOptionName"),
+    transferType: sessionStorage.getItem("transferType"),
+    departureTime: sessionStorage.getItem("departureTime"),
+  };
+
+  // Add the selected item to the cart
+  cart.push(selectedItem);
+  sessionStorage.setItem("cart", JSON.stringify(cart));
+
+  console.log(selectedItem);
+  console.log(cart);
+  const redirectUrl = `/cardrender.html`;
+
+  // Redirect to the constructed URL
+  window.location.href = redirectUrl;
+</script>

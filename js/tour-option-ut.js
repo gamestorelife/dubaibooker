@@ -595,10 +595,85 @@ document.addEventListener("DOMContentLoaded", async function () {
                             document.getElementById("time-slot");
                           actTimeSlotDiv.innerHTML = ""; // Clear previous content
 
-                          if (finTimmeResponse.result.length === 0) {
+                          function tourswithouttime() {
+                            // Create an object representing the selected item
+                            const selectedItem = {
+                              serviceUniqueId: serviceUniqueId, // Generate a unique service ID
+                              timeSlotId: "",
+                              tourId: sessionStorage.getItem("tourId"),
+                              optionId: sessionStorage.getItem("optionId"),
+                              adult: sessionStorage.getItem("selectedAdults"),
+                              child: sessionStorage.getItem("selectedChild"),
+                              infant: sessionStorage.getItem("selectedInfant"),
+                              tourDate: sessionStorage.getItem("selectedDate"),
+                              startTime: sessionStorage.getItem("startTime"),
+                              transferId: sessionStorage.getItem("transferId"),
+                              adultRate: sessionStorage.getItem("adultPrice"),
+                              childRate: sessionStorage.getItem("childPrice"),
+                              serviceTotal:
+                                sessionStorage.getItem("finalAmount"),
+                              tourName: sessionStorage.getItem("tourName"),
+                              tourOtionName:
+                                sessionStorage.getItem("tourOptionName"),
+                              transferType:
+                                sessionStorage.getItem("transferType"),
+                              departureTime:
+                                sessionStorage.getItem("departureTime"),
+                            };
+
+                            // Add the selected item to the cart
+                            cart.push(selectedItem);
+                            sessionStorage.setItem(
+                              "cart",
+                              JSON.stringify(cart)
+                            );
+
+                            console.log(selectedItem);
+                            console.log(cart);
+                            const redirectUrl = `/cardrender.html`;
+
+                            // Redirect to the constructed URL
+                            window.location.href = redirectUrl;
+                          }
+
+                          function generateUniqueNumber() {
+                            const timestamp = Date.now().toString(); // Get current timestamp
+                            const randomNumber = Math.floor(
+                              Math.random() * 1000
+                            ).toString(); // Generate a random number between 0 and 999999
+                            return timestamp + randomNumber; // Concatenate timestamp and random number
+                          }
+
+                          // Generate a unique number
+                          const serviceUniqueId = generateUniqueNumber();
+                          console.log("Unique Number:", serviceUniqueId);
+
+                          function handleErrorResponse(
+                            errorMessage,
+                            actTimeSlotDiv
+                          ) {
+                            if (
+                              errorMessage ===
+                              "timeslot not mapped for this activity!"
+                            ) {
+                              // Add any specific handling for this error message if needed
+                              // alert("Time slot not mapped for this activity!");
+
+                              tourswithouttime();
+                            } else {
+                              actTimeSlotDiv.innerHTML = `<p>Error: ${errorMessage}</p>`;
+                            }
+                          }
+
+                          if (finTimmeResponse.errormessage) {
+                            handleErrorResponse(
+                              finTimmeResponse.errormessage,
+                              actTimeSlotDiv
+                            );
+                          } else if (finTimmeResponse.result.length === 0) {
                             // No time slots available, display message to user
                             actTimeSlotDiv.innerHTML =
-                              "<h3>No time slots available.</h3>";
+                              "<h3>No time slots available at the selected Date. Please Select another date. Or You Can Change the type of tranfer </h3>";
                           } else {
                             // Render each time slot
                             finTimmeResponse.result.forEach((slot) => {
@@ -630,43 +705,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                                     "timeSlotId",
                                     slot.timeSlotId
                                   );
-
-                                  let tourId = sessionStorage.getItem("tourId"),
-                                    optionId =
-                                      sessionStorage.getItem("optionId"),
-                                    adult =
-                                      sessionStorage.getItem("selectedAdults"),
-                                    child =
-                                      sessionStorage.getItem("selectedChild"),
-                                    infant =
-                                      sessionStorage.getItem("selectedInfant"),
-                                    tourDate =
-                                      sessionStorage.getItem("selectedDate"),
-                                    timeSlotId =
-                                      sessionStorage.getItem("timeSlotId"),
-                                    startTime =
-                                      sessionStorage.getItem("startTime"),
-                                    transferId =
-                                      sessionStorage.getItem("transferId"),
-                                    adultRate =
-                                      sessionStorage.getItem("adultPrice"),
-                                    childRate =
-                                      sessionStorage.getItem("childPrice"),
-                                    serviceTotal =
-                                      sessionStorage.getItem("finalAmount"),
-                                    tourName =
-                                      sessionStorage.getItem("tourName"),
-                                    tourOtionName =
-                                      sessionStorage.getItem("tourOptionName"),
-                                    transferType =
-                                      sessionStorage.getItem("transferType");
-
-                                  console.log(
-                                    sessionStorage.getItem("timeSlot")
-                                  );
-
-                                  console.log(serviceTotal);
-                                  console.log(transferType);
 
                                   function generateUniqueNumber() {
                                     const timestamp = Date.now().toString(); // Get current timestamp
