@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Create HTML elements for each cart item
   cart.forEach((item) => {
+    // Increase prices by 12% and round down
+    const increasedAdultPrice = Math.floor(item.adultRate * 1.12);
+    const increasedChildPrice = Math.floor(item.childRate * 1.12);
+    const increasedInfantPrice = Math.floor(item.infantRate * 1.12);
+    const increasedFinalAmount = Math.floor(item.serviceTotal * 1.12);
+
     const itemDiv = document.createElement("div");
     itemDiv.className = "cart-item";
 
@@ -31,34 +37,67 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="tour_name"><h4>${item.tourOtionName}</h4></div>
           </div>
          
-  
           <div>
             <div class="offers_mini_container">
-              <div><p class="offers_text">Travel Date:</p></div>
+              <div><p class="offers_text"><strong>Travel Date:</strong></.strong></p></div>
               <div><p class="offers_text">${item.tourDate}</p></div>
             </div>
             <div class="offers_mini_container">
-              <div><p class="offers_text">Transfer Type:</p></div>
+              <div><p class="offers_text"><strong>Transfer Type:</strong></p></div>
               <div><p class="offers_text">${item.transferType}</p></div>
             </div>
             <div class="offers_mini_container">
-            <div><p class="offers_text">Departure:</p></div>
+            <div><p class="offers_text"><strong>Time Slot: </strong></p></div>
+            <div><p class="offers_text">${item.timeSlot}</p></div>
+            </div>
+          <div class="offers_mini_container">
+            <div><p class="offers_text"><strong>Departure:</strong></p></div>
             <div><p class="offers_text_timing">${item.departureTime}</p></div>
           </div>
-  
-            <p class="offers_text">Adults: ${item.adult}</p>
-            <p class="offers_text">Infants: ${item.infant}</p>
-  
-            <p class="offers_text">Time Slot: ${item.timeSlot}</p>
-            <p class="offers_text">Start Time: ${item.startTime}</p>
-  
-            <p class="offers_text">Adult Rate: ${item.adultRate}</p>
-            <p class="offers_text">Child Rate: ${item.childRate}</p>
-            <p class="offers_text">Children: ${item.child}</p>
+         
+
+          <div class="offers_mini_container">
+          <div><p class="offers_text"><strong>Adults: </strong></p></div>
+        
+          <div class="sub_adult">
+          <p class="offers_text"> ${item.adult}</p>
+          <p class="offers_text">X</p>
+          <p class="offers_text"> ${increasedAdultPrice}</p>
+          </div>
+          
+          </div>
+
+          <div class="offers_mini_container">
+          <div><p class="offers_text"><strong>Children:</strong> </p></div>
+
+          <div class="sub_adult">
+          <p class="offers_text">${item.child}</p>
+          <p class="offers_text"> X </p>
+          <p class="offers_text"> ${increasedChildPrice}</p>
+          </div>
+         
+          </div>
+
+          <div class="offers_mini_container">
+          <div> <p class="offers_text"><strong>Infants:</strong></p></div>
+          <div> <p class="offers_text">${item.infant}</p></div>
+          </div>
+          <div class="offers_mini_container">
+          <div></div>
+          <div></div>
+          </div>  
+          <div class="offers_mini_container">
+          <div></div>
+          <div></div>
+          </div>  
+
+           
+
+            
           </div>
   
           <div class="button book_button">
-            <a >Total tour amount: ${item.serviceTotal} AED</a>
+            <a >Total tour amount: ${increasedFinalAmount} AED</a>
           </div>
         </div>
       </div>

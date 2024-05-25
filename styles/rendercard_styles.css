@@ -1298,6 +1298,15 @@ section {
 /*********************************
 9.2 Offers Grid
 *********************************/
+.sub_adult {
+  display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+}
+.sub_adult p {
+  padding-left: 10px;
+}
+
 .offers_text_timing {
   text-align: right;
 }
