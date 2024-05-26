@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const tourOptionsData = await TourOptionsResponse.json();
 
       const tourOptions = tourOptionsData.result.touroption;
+      const transferTimes = tourOptionsData.result.transfertime;
       // Log each tourOptionId
       tourOptions.forEach((option) => {
         //  console.log(`tourOptionId: ${option.tourOptionId}`);
@@ -362,7 +363,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const actOptionsDiv = popupContent.querySelector("#act-options");
 
         if (actOptionsDiv) {
-          // Now, you can safely manipulate the act-options div
           // For example, you can set its innerHTML to display tour options
           actOptionsDiv.innerHTML = "";
 
@@ -399,21 +399,38 @@ document.addEventListener("DOMContentLoaded", async function () {
             optionDiv.addEventListener("click", async function () {
               var TourOption = option.tourOptionId;
               sessionStorage.setItem("tourOptionName", option.optionName);
+              sessionStorage.setItem("optionId", TourOption);
+
               console.log(
                 "tourOption Name is:",
                 sessionStorage.getItem("tourOptionName")
               );
               console.log("Tour Option ID:", TourOption);
+
+              // Find the matching transfer time for the selected tour option
+              const transferTime = transferTimes.find(
+                (tt) => tt.tourOptionId === option.tourOptionId
+              );
+
               let selectedDate = sessionStorage.getItem("selectedDate"),
                 selectedAdults = sessionStorage.getItem("selectedAdults"),
                 selectedChild = sessionStorage.getItem("selectedChild"),
                 selectedInfant = sessionStorage.getItem("selectedInfant");
-              sessionStorage.setItem("optionId", TourOption);
-              $("#transferoptionscontainer").show(500);
-              $("#popup-button-tranfer").show(200);
-              $("#mfirstcontainer").hide();
-              $("#secondoptionscontainer").hide();
-              $("#popup-button-option").hide();
+
+              if (transferTime) {
+                const disableInfantStatus = transferTime.disableInfant;
+                sessionStorage.setItem("disableInfant", disableInfantStatus);
+
+                if (disableInfantStatus && selectedInfant >= 1) {
+                  alert(`Infants are not allowed for: ${option.optionName}`);
+                } else {
+                  $("#transferoptionscontainer").show(500);
+                  $("#popup-button-tranfer").show(200);
+                  $("#mfirstcontainer").hide();
+                  $("#secondoptionscontainer").hide();
+                  $("#popup-button-option").hide();
+                }
+              }
 
               try {
                 // Make the POST request for the clicked tourOptionId
