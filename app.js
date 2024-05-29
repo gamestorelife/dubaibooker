@@ -173,9 +173,11 @@ app.get("/remove-from-cart/:item", (req, res) => {
   const item = req.params.item;
   if (req.session.cart && req.session.cart[item]) {
     delete req.session.cart[item];
-    res.send("Item removed from cart");
+    req.session.save(() => {
+      res.send({ success: true, message: "Item removed from cart" });
+    });
   } else {
-    res.send("Item not found in cart");
+    res.send({ success: false, message: "Item not found in cart" });
   }
 });
 
