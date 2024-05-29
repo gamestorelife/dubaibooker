@@ -400,6 +400,8 @@ document.addEventListener("DOMContentLoaded", async function () {
               var TourOption = option.tourOptionId;
               sessionStorage.setItem("tourOptionName", option.optionName);
               sessionStorage.setItem("optionId", TourOption);
+              sessionStorage.setItem("duration", option.duration);
+              console.log("duration  is:", sessionStorage.getItem("duration"));
 
               console.log(
                 "tourOption Name is:",
@@ -407,7 +409,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               );
               console.log("Tour Option ID:", TourOption);
 
-              // Find the matching transfer time for the selected tour option
+              // Find the matching transfer time for the selected tour option GOLD
               const transferTime = transferTimes.find(
                 (tt) => tt.tourOptionId === option.tourOptionId
               );
@@ -623,6 +625,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                               child: sessionStorage.getItem("selectedChild"),
                               infant: sessionStorage.getItem("selectedInfant"),
                               tourDate: sessionStorage.getItem("selectedDate"),
+                              duration: sessionStorage.getItem("duration"),
                               startTime: sessionStorage.getItem("startTime"),
                               transferId: sessionStorage.getItem("transferId"),
                               adultRate: sessionStorage.getItem("adultPrice"),
@@ -758,6 +761,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                                       sessionStorage.getItem("selectedDate"),
                                     startTime:
                                       sessionStorage.getItem("startTime"),
+                                    duration:
+                                      sessionStorage.getItem("duration"),
                                     transferId:
                                       sessionStorage.getItem("transferId"),
                                     adultRate:

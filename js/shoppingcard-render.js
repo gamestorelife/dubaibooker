@@ -52,8 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           <div class="offers_mini_container">
             <div><p class="offers_text"><strong>Departure:</strong></p></div>
-            <div><p class="offers_text_timing">${item.departureTime}</p></div>
+            <div><p class="offers_text">${item.departureTime}</p></div>
           </div>
+          <div class="offers_mini_container">
+          <div><p class="offers_text"><strong>Duration:</strong></p></div>
+          <div><p class="offers_text">${item.duration}</p></div>
+        </div>
          
 
           <div class="offers_mini_container">
