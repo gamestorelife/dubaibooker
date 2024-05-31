@@ -1,18 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Get the cart items from sessionStorage
   const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
   console.log(cart);
 
-  // Get the div where cart items will be displayed
   const cartItemsDiv = document.getElementById("cart-items");
 
-  // Check if the cart is empty
   if (cart.length === 0) {
     cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
     return;
   }
 
-  // Function to remove item from cart
   const removeItemFromCart = (itemId) => {
     fetch(`/remove-from-cart/${itemId}`, {
       method: "GET",
@@ -20,19 +16,34 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => response.text())
       .then((data) => {
         console.log(data);
-        // Remove the item from the cart array
         cart.splice(itemId, 1);
-        // Update sessionStorage
         sessionStorage.setItem("cart", JSON.stringify(cart));
-        // Refresh the page to update the cart
         location.reload();
       })
       .catch((error) => console.error("Error:", error));
   };
 
+  // Calculate the overall total price
+  let overallTotalPrice = 0;
+
+  cart.forEach((item) => {
+    const increasedFinalAmount = Math.floor(item.serviceTotal * 1.12);
+    overallTotalPrice += increasedFinalAmount;
+  });
+
+  // Create and insert the total price div
+  const totalPriceDiv = document.createElement("div");
+  totalPriceDiv.className = "total-price";
+  totalPriceDiv.innerHTML = `
+  <div>
+  <div class="total-price-sub"><h2>Total</h2></div>
+  <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
+  
+  </div>`;
+  cartItemsDiv.prepend(totalPriceDiv);
+
   // Create HTML elements for each cart item
   cart.forEach((item, index) => {
-    // Increase prices by 12% and round down
     const increasedAdultPrice = Math.floor(item.adultRate * 1.12);
     const increasedChildPrice = Math.floor(item.childRate * 1.12);
     const increasedInfantPrice = Math.floor(item.infantRate * 1.12);
@@ -115,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cartItemsDiv.appendChild(itemDiv);
 
-    // Add event listener to the remove button
     itemDiv.querySelector(".removeitem").addEventListener("click", () => {
       removeItemFromCart(index);
     });

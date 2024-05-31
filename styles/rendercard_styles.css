@@ -1298,6 +1298,25 @@ section {
 /*********************************
 9.2 Offers Grid
 *********************************/
+.total-price {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.total-price-sub {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.total-font {
+  font-size: 40px;
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+}
+
 .sub_adult {
   display: flex;
   justify-content: space-between;
