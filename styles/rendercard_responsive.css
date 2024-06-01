@@ -46,6 +46,7 @@
   }
   .offers {
     padding-top: 0px;
+    padding-bottom: 320px;
   }
   .search {
     position: relative;
@@ -225,7 +226,7 @@
     display: block;
   }
   .offers {
-    padding-bottom: 105px;
+    padding-bottom: 295px;
   }
   .search {
     height: auto;

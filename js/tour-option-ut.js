@@ -421,10 +421,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
               if (transferTime) {
                 const disableInfantStatus = transferTime.disableInfant;
+                const disableChildStatus = transferTime.disableChild;
+
                 sessionStorage.setItem("disableInfant", disableInfantStatus);
+                sessionStorage.setItem("disableChild", disableChildStatus);
 
                 if (disableInfantStatus && selectedInfant >= 1) {
                   alert(`Infants are not allowed for: ${option.optionName}`);
+                } else if (disableChildStatus && selectedChild >= 1) {
+                  alert(`Children are not allowed for: ${option.optionName}`);
                 } else {
                   $("#transferoptionscontainer").show(500);
                   $("#popup-button-tranfer").show(200);
