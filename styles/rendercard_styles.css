@@ -1302,12 +1302,16 @@ section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 10px;
+  padding-bottom: 20px;
+  width: 100%;
 }
 
 .total-price-sub {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
 }
 
 .total-font {
@@ -1315,7 +1319,6 @@ section {
   font-weight: 700;
   color: #000000;
   text-transform: uppercase;
-  margin-bottom: 61px;
 }
 
 .sub_adult {
@@ -1457,10 +1460,28 @@ section {
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
   z-index: initial;
+  width: 100%;
 }
 .book_button:hover {
   opacity: 0.8;
 }
+
+.total_book {
+  background: linear-gradient(45deg, #4d2163, #ca824dc9);
+  z-index: -1;
+  margin-top: 39px;
+  margin-bottom: -5px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+  z-index: initial;
+}
+.total_book:hover {
+  opacity: 0.8;
+}
+
 .offer_reviews {
   position: absolute;
   top: 0;

@@ -38,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
   <div>
   <div class="total-price-sub"><h2>Total</h2></div>
   <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
+  <div class="total-price-sub">
+  <div class="button book_button" id="pickupclick"><a>Next</a></div>
+  </div>
   
   </div>`;
   cartItemsDiv.prepend(totalPriceDiv);
@@ -54,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     itemDiv.id = `item-${index}`;
 
     itemDiv.innerHTML = `
-    <div class="offers_item rating_5">
+    <div class="offers_item rating_5" id="allitemsincart">
       <div class="hiddin_container">
         <div class="col-lg-8">
           <div class="offers_content">
@@ -115,9 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
             </div>
 
-            <div class="button book_button">
-              <a>Total tour amount: ${increasedFinalAmount} AED</a>
+            <div class="button total_book">
+            <div> <a>Total tour amount: ${increasedFinalAmount} AED</a></div>
             </div>
+
           </div>
         </div>
       </div>
@@ -129,5 +133,39 @@ document.addEventListener("DOMContentLoaded", () => {
     itemDiv.querySelector(".removeitem").addEventListener("click", () => {
       removeItemFromCart(index);
     });
+  });
+
+  // Add event listener to the pickupclick button
+  document.getElementById("pickupclick").addEventListener("click", () => {
+    // Hide the cart items
+    $(".cart-item").hide();
+    $("#pickupclick").hide();
+
+    // Create a new div to show the tour options
+    const newDiv = document.createElement("div");
+    newDiv.id = "tour-options";
+
+    cart.forEach((item) => {
+      const tourOptionDiv = document.createElement("div");
+      tourOptionDiv.className = "tour-option";
+
+      tourOptionDiv.innerHTML = `
+      <div>
+      <div><h3>${item.tourOtionName}</h3></div>
+      <div> ${
+        item.transferType === "Without Transfers"
+          ? "<p>No Transfers Direct To Location.</p>"
+          : '<input type="text" placeholder="Pick Up Location">'
+      }</div>
+      <div><input type="text" placeholder="Remarks"></div>
+
+      </div>
+       
+      `;
+
+      newDiv.appendChild(tourOptionDiv);
+    });
+
+    cartItemsDiv.appendChild(newDiv);
   });
 });
