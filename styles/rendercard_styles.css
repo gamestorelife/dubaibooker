@@ -1528,6 +1528,35 @@ section {
   justify-content: center;
 }
 
+.tour-options {
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  border-radius: 25px;
+  padding: 30px;
+}
+
+.pickupmainstyle {
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  border-radius: 25px;
+  padding: 20px;
+}
+
+.pickupinputtyle {
+  border-radius: 10px;
+  border-color: rgb(53 36 130 / 98%);
+  border-width: 0.5px;
+  border-style: solid;
+  color: rgba(13, 10, 33, 0.961);
+  width: 100%;
+  height: 30px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+}
+
 /*********************************
 10. Footer
 *********************************/

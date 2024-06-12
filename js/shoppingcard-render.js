@@ -36,12 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
   totalPriceDiv.className = "total-price";
   totalPriceDiv.innerHTML = `
   <div>
-  <div class="total-price-sub"><h2>Total</h2></div>
-  <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
-  <div class="total-price-sub">
-  <div class="button book_button" id="pickupclick"><a>Next</a></div>
-  </div>
-  
+    <div class="total-price-sub"><h2>Total</h2></div>
+    <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
+    <div class="total-price-sub">
+    <div class="button book_button" id="pickupclick"><a>Next</a></div>
+    <div class="button book_button" id="remarksclick" style="display: none;"><a>Next</a></div>
+    </div>
   </div>`;
   cartItemsDiv.prepend(totalPriceDiv);
 
@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hide the cart items
     $(".cart-item").hide();
     $("#pickupclick").hide();
+    $("#remarksclick").show();
 
     // Create a new div to show the tour options
     const newDiv = document.createElement("div");
@@ -150,14 +151,15 @@ document.addEventListener("DOMContentLoaded", () => {
       tourOptionDiv.className = "tour-option";
 
       tourOptionDiv.innerHTML = `
-      <div>
+      <div class="pickupmainstyle">
+      
       <div><h3>${item.tourOtionName}</h3></div>
       <div> ${
         item.transferType === "Without Transfers"
           ? "<p>No Transfers Direct To Location.</p>"
-          : '<input type="text" placeholder="Pick Up Location">'
+          : '<input class="pickupinputtyle" type="text" placeholder="Pick Up Location">'
       }</div>
-      <div><input type="text" placeholder="Remarks"></div>
+      <div><input class="pickupinputtyle" type="text" placeholder="Remarks"></div>
 
       </div>
        
