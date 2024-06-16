@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => console.error("Error:", error));
   };
 
-  // Calculate the overall total price
   let overallTotalPrice = 0;
 
   cart.forEach((item) => {
@@ -31,21 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
     overallTotalPrice += increasedFinalAmount;
   });
 
-  // Create and insert the total price div
   const totalPriceDiv = document.createElement("div");
   totalPriceDiv.className = "total-price";
   totalPriceDiv.innerHTML = `
   <div>
-    <div class="total-price-sub"><h2>Total</h2></div>
-    <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
-    <div class="total-price-sub">
-    <div class="button book_button" id="pickupclick"><a>Next</a></div>
-    <div class="button book_button" id="remarksclick" style="display: none;"><a>Next</a></div>
-    </div>
+  <div class="total-price-sub"><h2>Total</h2></div>
+  <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
+  <div class="total-price-sub">
+  <div class="button book_button" id="pickupclick"><a>Next</a></div>
+  <div class="button book_button" id="remarksclick" style="display: none;"><a>Next</a></div>
+  </div>
   </div>`;
   cartItemsDiv.prepend(totalPriceDiv);
 
-  // Create HTML elements for each cart item
   cart.forEach((item, index) => {
     const increasedAdultPrice = Math.floor(item.adultRate * 1.12);
     const increasedChildPrice = Math.floor(item.childRate * 1.12);
@@ -135,39 +132,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Add event listener to the pickupclick button
   document.getElementById("pickupclick").addEventListener("click", () => {
-    // Hide the cart items
     $(".cart-item").hide();
     $("#pickupclick").hide();
     $("#remarksclick").show();
 
-    // Create a new div to show the tour options
     const newDiv = document.createElement("div");
     newDiv.id = "tour-options";
 
-    cart.forEach((item) => {
+    cart.forEach((item, index) => {
       const tourOptionDiv = document.createElement("div");
       tourOptionDiv.className = "tour-option";
 
       tourOptionDiv.innerHTML = `
       <div class="pickupmainstyle">
-      
       <div><h3>${item.tourOtionName}</h3></div>
-      <div> ${
+      <div class="transfer-input"> ${
         item.transferType === "Without Transfers"
           ? "<p>No Transfers Direct To Location.</p>"
           : '<input class="pickupinputtyle" type="text" placeholder="Pick Up Location">'
       }</div>
-      <div><input class="pickupinputtyle" type="text" placeholder="Remarks"></div>
-
+      <div class="remarks-input"><input class="pickupinputtyle" type="text" placeholder="Remarks"></div>
       </div>
-       
       `;
 
       newDiv.appendChild(tourOptionDiv);
     });
 
     cartItemsDiv.appendChild(newDiv);
+  });
+
+  document.getElementById("remarksclick").addEventListener("click", () => {
+    const tourOptionsDivs = document.querySelectorAll(
+      "#tour-options .tour-option"
+    );
+
+    tourOptionsDivs.forEach((div, index) => {
+      const transferInput = div.querySelector(".transfer-input input");
+      const remarksInput = div.querySelector(".remarks-input input");
+
+      cart[index].pickupLocation = transferInput ? transferInput.value : "";
+      cart[index].remarks = remarksInput ? remarksInput.value : "";
+    });
+
+    console.log(cart);
+    sessionStorage.setItem("cart", JSON.stringify(cart));
   });
 });
