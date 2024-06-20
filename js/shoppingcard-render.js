@@ -33,12 +33,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalPriceDiv = document.createElement("div");
   totalPriceDiv.className = "total-price";
   totalPriceDiv.innerHTML = `
-  <div>
+  <div style="width: 100%;">
+  <div class="back-cart">
+  <div class="back-button">
+  <div style="display: none;" id="backbutton" ><i class="fa-duotone fa-left-to-line fa-lg"></i></div>
+  </div>
+  <div class="back-button">
+ 
+    <i class="fa-solid fa-cart-shopping"></i>  
+  </div>
+  </div>
   <div class="total-price-sub"><h2>Total</h2></div>
   <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
   <div class="total-price-sub">
   <div class="button book_button" id="pickupclick"><a>Next</a></div>
   <div class="button book_button" id="remarksclick" style="display: none;"><a>Next</a></div>
+  <div class="button book_button" id="multipaymentclick" style="display: none;"><a>Pay Now</a></div>
   </div>
   </div>`;
   cartItemsDiv.prepend(totalPriceDiv);
@@ -136,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $(".cart-item").hide();
     $("#pickupclick").hide();
     $("#remarksclick").show();
+    $("#backbutton").show();
 
     const newDiv = document.createElement("div");
     newDiv.id = "tour-options";
@@ -167,15 +178,39 @@ document.addEventListener("DOMContentLoaded", () => {
       "#tour-options .tour-option"
     );
 
+    let allFilled = true;
+
     tourOptionsDivs.forEach((div, index) => {
       const transferInput = div.querySelector(".transfer-input input");
       const remarksInput = div.querySelector(".remarks-input input");
+
+      if (transferInput && !transferInput.value.trim()) {
+        allFilled = false;
+      }
 
       cart[index].pickupLocation = transferInput ? transferInput.value : "";
       cart[index].remarks = remarksInput ? remarksInput.value : "";
     });
 
+    if (!allFilled) {
+      alert("Sorry, we need to have the pick-up location.");
+      return;
+    }
+
+    $("#remarksclick").hide();
+    $("#tour-options").hide();
+    $("#multipaymentclick").show();
+
     console.log(cart);
     sessionStorage.setItem("cart", JSON.stringify(cart));
+  });
+
+  document.getElementById("backbutton").addEventListener("click", () => {
+    $("#tour-options").hide();
+    $(".cart-item").show();
+    $("#pickupclick").show();
+    $("#remarksclick").hide();
+    $("#backbutton").hide();
+    location.reload();
   });
 });

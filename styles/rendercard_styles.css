@@ -575,7 +575,7 @@ section {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+  background: var(--darker-color);
   z-index: 100;
   opacity: 0;
   visibility: hidden;
@@ -1460,7 +1460,7 @@ section {
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
   z-index: initial;
-  width: 100%;
+  width: 60%;
 }
 .book_button:hover {
   opacity: 0.8;
@@ -1790,4 +1790,16 @@ section {
 
 #downlogo {
   font-size: 25px;
+}
+
+.back-cart {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.back-button {
+  font-size: 25px;
+  color: #685677;
 }
