@@ -203,7 +203,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(cart);
     sessionStorage.setItem("cart", JSON.stringify(cart));
+    guestdetails();
   });
+
+  function guestdetails() {
+    const formDiv = document.createElement("div");
+    formDiv.className = "form-container";
+
+    formDiv.innerHTML = `
+      <div>
+      <div><label for="title">Title:</label></div>
+        <div>
+          <select id="title" name="title">
+            <option value="Mr.">MR</option>
+            <option value="Mrs.">MRS</option>
+            <option value="Ms.">MS</option>
+          </select>
+        </div>  
+      </div>
+      <div>
+        <div><label for="firstName">First Name:</label></div>
+        <div><input type="text" id="firstName" name="firstName"></div>
+      </div>
+      <div>
+        <div><label for="lastName">Last Name:</label></div>
+         <div><input type="text" id="lastName" name="lastName"></div> 
+      </div>
+      <div>
+       <div><label for="email">Email ID:</label></div>
+       <div><input type="email" id="email" name="email"></div>
+      </div>
+      <div>
+      <div><label for="country">Country:</label></div>
+      <div>
+          <select id="country" name="country">
+          <!-- Options for countries will be added here -->
+        </select>
+      </div>  
+      </div>
+      <div>
+      <div><label for="phone">Phone Number:</label></div>
+      <div><input type="tel" id="phone" name="phone"></div>  
+      </div>
+    `;
+
+    const countries = ["USA", "Canada", "UK", "Australia", "India"]; // Add all countries here
+    const countrySelect = formDiv.querySelector("#country");
+    countries.forEach((country) => {
+      const option = document.createElement("option");
+      option.value = country;
+      option.textContent = country;
+      countrySelect.appendChild(option);
+    });
+
+    cartItemsDiv.appendChild(formDiv);
+  }
 
   document.getElementById("backbutton").addEventListener("click", () => {
     $("#tour-options").hide();

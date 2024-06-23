@@ -1803,3 +1803,28 @@ section {
   font-size: 25px;
   color: #685677;
 }
+
+.form-container {
+  width: 100%;
+  margin-bottom: 46px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  border-radius: 25px;
+  padding: 30px;
+}
+#title {
+  border: 0;
+}
+
+input {
+  width: 100%;
+  border: 1px #526668 solid;
+  border-radius: 8px;
+  height: 27px;
+}
+
+select {
+  width: 100%;
+  border: 1px #526668 solid;
+  border-radius: 8px;
+  height: 27px;
+}
