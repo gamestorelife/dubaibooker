@@ -257,14 +257,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     cartItemsDiv.appendChild(formDiv);
+
+    document
+      .getElementById("multipaymentclick")
+      .addEventListener("click", () => {
+        const formContainer = document.querySelector(".form-container");
+
+        const title = formContainer.querySelector("#title").value;
+        const firstName = formContainer.querySelector("#firstName").value;
+        const lastName = formContainer.querySelector("#lastName").value;
+        const email = formContainer.querySelector("#email").value;
+        const country = formContainer.querySelector("#country").value;
+        const phone = formContainer.querySelector("#phone").value;
+
+        const passengers = {
+          title,
+          firstName,
+          lastName,
+          email,
+          country,
+          phone,
+        };
+
+        cart.passengers = passengers;
+
+        console.log(passengers);
+
+        console.log(cart);
+
+        alert("Form data and cart information saved. Proceeding to payment.");
+        // Redirect to payment page or proceed with payment logic
+      });
   }
 
   document.getElementById("backbutton").addEventListener("click", () => {
-    $("#tour-options").hide();
-    $(".cart-item").show();
-    $("#pickupclick").show();
-    $("#remarksclick").hide();
-    $("#backbutton").hide();
     location.reload();
   });
 });
