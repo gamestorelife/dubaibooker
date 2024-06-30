@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
   <div style="display: none;" id="backbutton" ><i class="fa-duotone fa-left-to-line fa-lg"></i></div>
   </div>
   <div class="back-button">
- 
     <i class="fa-solid fa-cart-shopping"></i>  
   </div>
   </div>
@@ -271,19 +270,60 @@ document.addEventListener("DOMContentLoaded", () => {
         const phone = formContainer.querySelector("#phone").value;
 
         const passengers = {
-          title,
+          serviceType: "tour",
+          prefix: title,
           firstName,
           lastName,
           email,
-          country,
-          phone,
+          mobile: phone,
+          nationality: country,
+          message: "",
+          leadPassenger: 1,
+          paxType: "Adult",
+          clientReferenceNo: 1,
         };
 
-        cart.passengers = passengers;
+        const uniqueNo = generateUniqueNo();
+        const newCart = {
+          uniqueNo,
+          count: cart.length,
+          TourDetails: cart.map((item, index) => ({
+            serviceUniqueId: item.serviceUniqueId,
+            tourId: item.tourId,
+            optionId: item.optionId,
+            adult: item.adult,
+            child: item.child,
+            infant: item.infant,
+            tourDate: item.tourDate,
+            timeSlotId: item.timeSlotId,
+            startTime: item.startTime,
+            transferId: item.transferId,
+            pickup: item.pickupLocation || item.pickup,
+            adultRate: item.adultRate,
+            childRate: item.childRate,
+            serviceTotal: item.serviceTotal,
+          })),
+          passengers: [passengers],
+        };
 
-        console.log(passengers);
+        console.log("Final Cart Data:", newCart);
 
-        console.log(cart);
+        // Send cart data to backend
+        fetch("/user-booking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newCart),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // Redirect to payment page or proceed with payment logic
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
 
         alert("Form data and cart information saved. Proceeding to payment.");
         // Redirect to payment page or proceed with payment logic
@@ -293,4 +333,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("backbutton").addEventListener("click", () => {
     location.reload();
   });
+
+  function generateUniqueNo() {
+    const timestamp = Date.now().toString(); // Get current timestamp
+    const randomNumber = Math.floor(Math.random() * 1000).toString(); // Generate a random number between 0 and 999999
+    return timestamp + randomNumber; // Concatenate timestamp and random number
+  }
 });
