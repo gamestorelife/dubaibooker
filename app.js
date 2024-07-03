@@ -150,6 +150,27 @@ app.post("/user-booking", async (req, res) => {
   }
 });
 
+app.get("/user-booking", async (req, res) => {
+  try {
+    const bookings = await Booking.find({});
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/user-booking/:id", async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) return res.status(404).json({ message: "Booking not found" });
+    res.status(200).json(booking);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Handle other static files
 app.use(express.static(path.join(__dirname)));
 
