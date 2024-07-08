@@ -1828,3 +1828,18 @@ select {
   border-radius: 8px;
   height: 27px;
 }
+
+.cart-itmes-number {
+  display: flex;
+  position: absolute;
+  background: #350a4e;
+  margin-left: 19px;
+  font-size: x-small;
+  border-radius: 10px;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin-top: 0px;
+  min-width: 1.5em;
+  font-weight: 700;
+  color: #ffffff;
+}

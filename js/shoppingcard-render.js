@@ -36,9 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
   <div style="width: 100%;">
   <div class="back-cart">
   <div class="back-button">
-  <div style="display: none;" id="backbutton" ><i class="fa-duotone fa-left-to-line fa-lg"></i></div>
+  <div style="display: none;" id="backbutton" >
+  <i class="fa-duotone fa-left-to-line fa-lg"></i>
+  </div>
   </div>
   <div class="back-button">
+  <div class="cart-itmes-number">${cart.length}</div>
     <i class="fa-solid fa-cart-shopping"></i>  
   </div>
   </div>
@@ -268,6 +271,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = formContainer.querySelector("#email").value;
         const country = formContainer.querySelector("#country").value;
         const phone = formContainer.querySelector("#phone").value;
+
+        if (
+          !title.trim() ||
+          !firstName.trim() ||
+          !lastName.trim() ||
+          !email.trim() ||
+          !country.trim() ||
+          !phone.trim()
+        ) {
+          alert("We Are sorry we need to have Passenger details");
+          return;
+        }
 
         const passengers = {
           serviceType: "tour",
