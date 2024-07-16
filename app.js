@@ -9,13 +9,16 @@ const $ = require("jquery");
 const mongoose = require("mongoose");
 const Booking = require("./models/bookingModels");
 const session = require("express-session");
+const mamopay = require("@api/mamopay");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
 const API_KEY = process.env.RAYAN_SECRET_KEY;
-//console.log(API_KEY);
+const MAMO_API_KEY = process.env.MAMO_PAY_KEY;
+
+//console.log(MAMO_API_KEY);
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -219,3 +222,21 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+// Mamo API Integration
+mamopay.server("https://sandbox.dev.business.mamopay.com/manage_api/v1", {
+  headers: {
+    Authorization: `Bearer ${MAMO_API_KEY}`,
+  },
+});
+
+// Example GET request to Mamo API
+app.get("/mamo-business-details", async (req, res) => {
+  try {
+    const response = await mamopay.get();
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error making GET request to Mamo API:", error.message);
+    res.status(500).send("Error processing GET request");
+  }
+});
