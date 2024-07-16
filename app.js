@@ -10,9 +10,12 @@ const mongoose = require("mongoose");
 const Booking = require("./models/bookingModels");
 const session = require("express-session");
 
-const API_KEY =
-  "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MWE4MjhjMC1iNzI0LTQwMWEtYmM3NS0wZTcxZjUzYjJjZjkiLCJVc2VySWQiOiI0NDU0MCIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoiZHluYW1pc2NhcGl0YWx1YWVAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIiwiYXVkIjoiaHR0cDovL3JheW5hYXBpLnJheW5hdG91cnMuY29tIn0.TD-kr0ILWSyo-NTm-LE3SfnRuM_Xa5qXwxs5BgjTz8Y";
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
+const API_KEY = process.env.RAYAN_SECRET_KEY;
+//console.log(API_KEY);
 const PORT = process.env.PORT || 3000;
 
 const app = express();

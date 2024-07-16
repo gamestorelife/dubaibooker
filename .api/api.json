@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "mamopay",
+      "source": "@mamopay/v1.6#1b69a2nlt4gdqd0",
+      "integrity": "sha512-0ZdB+YWagg0EzC5dYqAmSKpqFPK5O39AQ6mYxd971rR5WmAii7KgyQn550MBTth3sTNq1Tk56u6ovWpDMPjabQ==",
+      "installerVersion": "6.1.2"
+    }
+  ]
+}

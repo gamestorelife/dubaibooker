@@ -1,0 +1,175 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Overview",
+    "description": "This is where you can retrieve business related details. In most cases, these APIs will be usefull to get the connection to our backend servers setup without touching sensitive data.",
+    "version": "1.6",
+    "contact": {
+      "name": "api@mamopay.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.dev.business.mamopay.com/manage_api/v1",
+      "description": "Sandbox server"
+    },
+    {
+      "url": "https://business.mamopay.com/manage_api/v1",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Authorization": [
+        "Bearer sk-123abc-abcd-1234-1234-123123123123"
+      ]
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Getting Started"
+        ],
+        "summary": "Quick start",
+        "description": "Get up and running with Mamo's APIs in less than 5 minutes.\n \n In this example, we will use the Business Details endpoint to ensure we have the right permissions to interact with Mamo's APIs.\n \n ## How to Use Mamo's API Docs\n 👈 To the left, you will find all documents, including individual endpoint reference docs. These will include information on various endpoints, their associated methods and the various responses that your code will need to handle.\n \n 👉 To the right, there's the search bar, language, base URL, code generator and a *try it from the browser* section.\n - Use the **language** section to select the language that you plan on writing your code in.\n - Use the **base URL** to select the environment you would like the docs to target. We would recommend that you would start with the sandbox environment while you build and test your app.  And later on switch to the production URL once your flows are tested and are working as expected. Hint, our sandbox environment currently does not require an API key. This way you can get started immediately.\n - The **code generator** will automatically create a working code snippet based on the values that you provide on a given page. Feel free to copy and paste this straight into your code.  You can also test this using the *Try It!* button below each section. Note that for production requests, you will be required to provide a valid API Key.\n\n## Payment Link Generation\n To generate payment links, you can follow the guide on [Create Payment Link](https://mamopay.readme.io/reference/post_links).\n \n The simplest way to test your integration, is by creating a vanilla payment link that has no custom settings.\n \n ``curl  --location 'https://sandbox.dev.business.mamopay.com/manage_api/v1/links' \n --header 'Content-Type: application/json' \n --header 'Authorization: Bearer sk-8d88fac2-d3cf-4060-9eaf-ce6b61434c39' \n --data '{\n \"title\": \"My Business Name\",\n \"return_url\": \"https://mamopay.com\",\n \"amount\": 10\n }'``\n \n ## Receive Payments On Your E-Commerce Website\n To make payments right on your page, code snipets can be downloaded from your dashboard\n \n ## FAQs\n - [API Integration FAQs](https://help.mamopay.com/en/articles/7234144-api-integrations)\n - [WooCommerce Integration Guide](https://help.mamopay.com/en/articles/7888469-woocommerce)\n - [Shopify Integration Guide](https://help.mamopay.com/en/articles/7991242-shopify)\n ",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "servers": [
+          {
+            "url": "https://business.mamopay.com/manage_api/v1/me",
+            "description": "Production server"
+          },
+          {
+            "url": "https://sandbox.dev.business.mamopay.com/manage_api/v1/me",
+            "description": "Production server"
+          }
+        ],
+        "tags": [
+          "Business Details"
+        ],
+        "summary": "Fetch Business Info",
+        "description": "API to fetch your business info.\n\n",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer <your sandbox api key>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "business_name": {
+                      "type": "string"
+                    },
+                    "business_tag": {
+                      "type": "string"
+                    },
+                    "website": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "business_name": "MAMO",
+                    "business_tag": "mamo",
+                    "website": "https://www.mamopay.com/"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "messages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "error_code": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "messages": [
+                      "Unauthorized"
+                    ],
+                    "error_code": "UNAUTHORIZED"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "messages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "error_code": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "messages": [
+                      "Charge record was not found"
+                    ],
+                    "error_code": "RECORD_NOT_FOUND"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    }
+  }
+}
