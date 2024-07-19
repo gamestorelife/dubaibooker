@@ -1,67 +1,31 @@
 {
-  
   "name": "dubaibooker",
-  
   "version": "1.0.0",
-  
   "description": "Booking-Engine",
-  
   "main": "app.js",
-  
   "scripts": {
-  
-    
-  "start": "nodemon app.js",
-  
-    
-  "test": "echo \"Error: no test specified\" && exit 1"
-  
+    "start": "nodemon --no-deprecation app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  
   "author": "",
-  
   "license": "ISC",
-  
   "dependencies": {
-  
-    
-  "@api/mamopay": "file:.api/apis/mamopay",
-  
-    
-  "axios": "^1.6.3",
-  
-    
-  "body-parse": "^0.1.0",
-  
-    
-  "body-parser": "^1.20.2",
-  
-    
-  "dotenv": "^16.4.5",
-  
-    
-  "express": "^4.19.2",
-  
-    
-  "express-session": "^1.18.0",
-  
-    
-  "jquery": "^3.7.1",
-  
-    
-  "mongoose": "^8.3.4",
-  
-    
-  "node-fetch": "^2.7.0",
-  
-    
-  "owl.carousel": "^2.3.4",
-  
-    
-  "punycode": "^2.3.1",
-  
-    
-  "send": "^0.18.0"
-  
+    "@api/mamopay": "file:.api/apis/mamopay",
+    "axios": "^1.6.3",
+    "body-parse": "^0.1.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "jquery": "^3.7.1",
+    "mongoose": "^8.3.4",
+    "owl.carousel": "^2.3.4",
+    "punycode": "^2.3.1",
+    "send": "^0.18.0",
+    "url": "^0.11.3",
+    "whatwg-url": "^14.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
