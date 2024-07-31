@@ -1,3 +1,4 @@
+// app.js
 const fs = require("fs");
 const express = require("express");
 const path = require("path");
@@ -5,13 +6,17 @@ const axios = require("axios");
 const { parse } = require("querystring");
 const send = require("send");
 const http = require("http");
-//const $ = require("jquery");
+
+const jqueryPath = path.resolve(
+  __dirname,
+  "node_modules/jquery/dist/jquery.min.js"
+);
+const $ = require(jqueryPath);
+
 const mongoose = require("mongoose");
 const Booking = require("./models/bookingModels");
 const session = require("express-session");
-const mamopay = require("@api/mamopay");
-const url = require("url");
-const punycode = require("punycode");
+const MongoStore = require("connect-mongo");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -30,6 +35,11 @@ app.use(
     secret: "eyJhbGciOiJodHRwO",
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://admin:QyeDCWTDUOHWbxL4@dubaibookerdb.j3ohhgq.mongodb.net/",
+      ttl: 14 * 24 * 60 * 60, // 14 days
+    }),
   })
 );
 
@@ -253,5 +263,33 @@ app.get("/mamo-business-details", async (req, res) => {
       error.response ? error.response.data : error.message
     );
     res.status(500).send("Error processing GET request");
+  }
+});
+
+// Create Payment Link
+app.post("/create-payment-link", async (req, res) => {
+  try {
+    const response = await axios.post(
+      "https://mamopay.readme.io/reference/post_links",
+      {
+        link_type: "inline",
+        email: req.body.email,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        amount: req.body.amount,
+        title: req.body.title,
+        description: req.body.description,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${MAMO_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error creating payment link:", error.message);
+    res.status(500).send("Error creating payment link");
   }
 });
