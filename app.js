@@ -6,6 +6,12 @@ const axios = require("axios");
 const { parse } = require("querystring");
 const send = require("send");
 const http = require("http");
+const dotenv = require("dotenv");
+
+// Load environment variables
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 const jqueryPath = path.resolve(
   __dirname,
@@ -18,27 +24,38 @@ const Booking = require("./models/bookingModels");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const API_KEY = process.env.RAYAN_SECRET_KEY;
 const MAMO_API_KEY = process.env.MAMO_PAY_KEY;
 
 const PORT = process.env.PORT || 3000;
+
+// MongoDB connection
+mongoose
+  .connect(
+    process.env.MONGO_URI ||
+      "mongodb+srv://admin:QyeDCWTDUOHWbxL4@dubaibookerdb.j3ohhgq.mongodb.net/"
+  )
+  .then(() => {
+    console.log("Connected to DB");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const app = express();
 
 // Middleware for session management
 app.use(
   session({
-    secret: "eyJhbGciOiJodHRwO",
+    secret: process.env.SESSION_SECRET || "eyJhbGciOiJodHRwO",
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
       mongoUrl:
+        process.env.MONGO_URI ||
         "mongodb+srv://admin:QyeDCWTDUOHWbxL4@dubaibookerdb.j3ohhgq.mongodb.net/",
       ttl: 14 * 24 * 60 * 60, // 14 days
+      autoRemove: "native",
     }),
   })
 );
@@ -230,21 +247,6 @@ app.get("/remove-from-cart/:item", (req, res) => {
   }
 });
 
-mongoose
-  .connect(
-    "mongodb+srv://admin:QyeDCWTDUOHWbxL4@dubaibookerdb.j3ohhgq.mongodb.net/"
-  )
-  .then(() => {
-    console.log("Connected to DB");
-    // Start the server
-    app.listen(PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
 // Example GET request to Mamo API
 app.get("/mamo-business-details", async (req, res) => {
   try {
@@ -292,4 +294,8 @@ app.post("/create-payment-link", async (req, res) => {
     console.error("Error creating payment link:", error.message);
     res.status(500).send("Error creating payment link");
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
