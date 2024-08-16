@@ -334,8 +334,36 @@ document.addEventListener("DOMContentLoaded", () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("Success:", data);
-            // Proceed with payment link creation
-            createPaymentLink(data.bookingId, passengers);
+
+            // Now create the payment link
+            fetch("/create-payment-link", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                title: passengers.lastName,
+                active: true,
+                return_url: "https://myawesomewebsite.com/paymentSuccess",
+                failure_return_url: "https://failureurl.com/paymentFailure",
+                processing_fee_percentage: 3,
+                booking_id: data.bookingId,
+                amount: overallTotalPrice,
+                amount_currency: "AED",
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.payment_url) {
+                  // Redirect to the payment URL
+                  window.location.href = data.payment_url;
+                } else {
+                  console.error("Payment link creation failed:", data);
+                }
+              })
+              .catch((error) => {
+                console.error("Error creating payment link:", error);
+              });
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -350,18 +378,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function createPaymentLink(bookingId, passenger) {
-    fetch("http://localhost:3000/mamo-create-link", {
+    fetch("/mamo-create-link", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         link_type: "modal", // Ensure link_type is modal
-        title: passenger.prefix,
-        email: passenger.email,
-        first_name: passenger.firstName,
-        last_name: passenger.lastName,
+        title: passenger.lastName,
+        active: true,
+        return_url: "https://myawesomewebsite.com/paymentSuccess",
+        failure_return_url: "https://failureurl.com/paymentFailure",
+        processing_fee_percentage: 3,
         booking_id: bookingId,
+        amount: overallTotalPrice,
+        amount_currency: "AED",
       }),
     })
       .then((response) => response.json())
