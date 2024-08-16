@@ -1,4 +1,3 @@
-// app.js
 const fs = require("fs");
 const express = require("express");
 const path = require("path");
@@ -7,6 +6,16 @@ const { parse } = require("querystring");
 const send = require("send");
 const http = require("http");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const Booking = require("./models/bookingModels");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const mamopay = require("@api/mamopay");
+
+const app = express();
+
+app.use(bodyParser.json());
 
 // Load environment variables
 if (process.env.NODE_ENV !== "production") {
@@ -18,11 +27,6 @@ const jqueryPath = path.resolve(
   "node_modules/jquery/dist/jquery.min.js"
 );
 const $ = require(jqueryPath);
-
-const mongoose = require("mongoose");
-const Booking = require("./models/bookingModels");
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
 
 const API_KEY = process.env.RAYAN_SECRET_KEY;
 const MAMO_API_KEY = process.env.MAMO_PAY_KEY;
@@ -41,8 +45,6 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-const app = express();
 
 // Middleware for session management
 app.use(
@@ -268,31 +270,79 @@ app.get("/mamo-business-details", async (req, res) => {
   }
 });
 
-// Create Payment Link
+// POST route to create payment link using Mamo Pay API
 app.post("/create-payment-link", async (req, res) => {
   try {
-    const response = await axios.post(
-      "https://mamopay.readme.io/reference/post_links",
-      {
-        link_type: "inline",
-        email: req.body.email,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        amount: req.body.amount,
+    const options = {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        Authorization: `Bearer ${MAMO_API_KEY}`, // Ensure your MAMO_API_KEY is correctly set in .env
+      },
+      data: {
         title: req.body.title,
         description: req.body.description,
+        active: req.body.active,
+        return_url: req.body.return_url,
+        failure_return_url: req.body.failure_return_url,
+        amount: req.body.amount,
+        amount_currency: req.body.amount_currency,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${MAMO_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    };
+
+    // Make the request to Mamo Pay API
+    const response = await axios({
+      url: "https://sandbox.dev.business.mamopay.com/manage_api/v1/links",
+      method: options.method,
+      headers: options.headers,
+      data: options.data,
+    });
+
+    // Send the response back to the client
     res.json(response.data);
   } catch (error) {
-    console.error("Error creating payment link:", error.message);
-    res.status(500).send("Error creating payment link");
+    console.error(
+      "Error creating Mamo payment link:",
+      error.response?.data || error.message
+    );
+    res.status(500).json({
+      error: "Failed to create payment link",
+      details: error.response?.data || error.message,
+    });
+  }
+});
+
+// Register Webhook
+app.post("/register-webhook", async (req, res) => {
+  const { url, enabled_events, auth_header } = req.body;
+
+  try {
+    const response = await fetch(
+      "https://sandbox.dev.business.mamopay.com/manage_api/v1/webhooks",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${MAMO_API_KEY}`, // Replace with your actual API key
+        },
+        body: JSON.stringify({
+          url,
+          enabled_events,
+          auth_header,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      res.json({ message: "Webhook registered successfully", data });
+    } else {
+      res.status(response.status).json({ error: data.messages });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

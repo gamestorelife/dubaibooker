@@ -74,72 +74,185 @@ var SDK = /** @class */ (function () {
         this.core.setServer(url, variables);
     };
     /**
-     * Get up and running with Mamo's APIs in less than 5 minutes.
+     * API to generate vanilla and subscription payment links.
+     *  ### Payment Status
+     *  Once your customer completes a payment, the redirect URL will be appended with the
+     * following params
+     *  - createdAt: The date the charge was captured at
+     *  - paymentLinkId: The payment link id
+     *  - status: indicates the payment status, whether captured or failed
+     *  - transactionId: The transaction / charge id related to the payment
      *
-     *  In this example, we will use the Business Details endpoint to ensure we have the right
-     * permissions to interact with Mamo's APIs.
+     *  You may also get notified about a payment's status by setting up a webhook. Details
+     * [here](https://mamopay.readme.io/reference/post_webhooks)
      *
-     *  ## How to Use Mamo's API Docs
-     *  👈 To the left, you will find all documents, including individual endpoint reference
-     * docs. These will include information on various endpoints, their associated methods and
-     * the various responses that your code will need to handle.
+     *  A third approach to check the transaction status is by calling our transaction info API
+     * [here](https://mamopay.readme.io/reference/get_charges-chargeid)
      *
-     *  👉 To the right, there's the search bar, language, base URL, code generator and a *try
-     * it from the browser* section.
-     *  - Use the **language** section to select the language that you plan on writing your
-     * code in.
-     *  - Use the **base URL** to select the environment you would like the docs to target. We
-     * would recommend that you would start with the sandbox environment while you build and
-     * test your app.  And later on switch to the production URL once your flows are tested and
-     * are working as expected. Hint, our sandbox environment currently does not require an API
-     * key. This way you can get started immediately.
-     *  - The **code generator** will automatically create a working code snippet based on the
-     * values that you provide on a given page. Feel free to copy and paste this straight into
-     * your code.  You can also test this using the *Try It!* button below each section. Note
-     * that for production requests, you will be required to provide a valid API Key.
-     *
-     * ## Payment Link Generation
-     *  To generate payment links, you can follow the guide on [Create Payment
-     * Link](https://mamopay.readme.io/reference/post_links).
-     *
-     *  The simplest way to test your integration, is by creating a vanilla payment link that
-     * has no custom settings.
-     *
-     *  ``curl  --location 'https://sandbox.dev.business.mamopay.com/manage_api/v1/links'
-     *  --header 'Content-Type: application/json'
-     *  --header 'Authorization: Bearer sk-8d88fac2-d3cf-4060-9eaf-ce6b61434c39'
-     *  --data '{
-     *  "title": "My Business Name",
-     *  "return_url": "https://mamopay.com",
-     *  "amount": 10
-     *  }'``
-     *
-     *  ## Receive Payments On Your E-Commerce Website
-     *  To make payments right on your page, code snipets can be downloaded from your dashboard
-     *
-     *  ## FAQs
-     *  - [API Integration FAQs](https://help.mamopay.com/en/articles/7234144-api-integrations)
-     *  - [WooCommerce Integration
-     * Guide](https://help.mamopay.com/en/articles/7888469-woocommerce)
-     *  - [Shopify Integration Guide](https://help.mamopay.com/en/articles/7991242-shopify)
+     *  **Sample redirect url after a successful payment**
+     *  https://www.mamopay.com/?createdAt=2023-08-09-16-42-35&paymentLinkId=MB-LINK-3216D27C9D&status=captured&transactionId=MPB-CHRG-BEE56990A9
      *
      *
-     * @summary Quick start
+     * ### For Payment Testing
+     *  To make payments with different use cases on the test environment, you can use the card
+     * details below:
+     *
+     * | Card Number                                                   | Payment Status | 3DS |
+     * Address Required | Country |
+     *  |:-------------------------------------------------------------:|:---------------------:|:-------:|:-------:|:-----:|
+     *  | 4659 1055 6905 1157                                           | Success    | X  | X
+     * | GB |
+     *  | 4242 4242 4242 4242                                           | Success    | ✓  | X
+     * | GB |
+     *  | 4111 1111 1111 1111                                           | Success    | ✓  | ✓
+     * | US |
+     *  | 4567 3613 2598 1788                                           | Fail       | X  | X
+     * | GB |
+     *  | 4095 2548 0264 2505                                           | Fail       | X  | ✓
+     * | US |
+     *
+     * - CVV: 123
+     *  - Expiry: 01/28
+     *
+     *
+     *  ### 3DS
+     *  If prompted for a password, enter **Checkout1!**
+     *
+     *  ### Subscriptions
+     *  When setting up subscriptions, if both end_date and payment_quantity were defined,
+     * end_date takes precedence.
+     *
+     *
+     *
+     * @summary Create Payment Link
+     * @throws FetchError<403, types.PostLinksResponse403> Unauthorised
+     * @throws FetchError<422, types.PostLinksResponse422> Unprocessable entity
      */
-    SDK.prototype.get = function () {
-        return this.core.fetch('/', 'get');
+    SDK.prototype.postLinks = function (body, metadata) {
+        return this.core.fetch('/links', 'post', body, metadata);
     };
     /**
-     * API to fetch your business info.
+     * Fetches all payment links for a given business
      *
      *
      *
-     * @summary Fetch Business Info
-     * @throws FetchError<403, types.GetMeResponse403> Unauthorised
-     * @throws FetchError<404, types.GetMeResponse404> Not Found
+     * @summary Fetching Payment Links
+     * @throws FetchError<403, types.GetLinksResponse403> Unauthorised
      */
-    SDK.prototype.getMe = function (metadata) {
-        return this.core.fetch('/me', 'get', metadata);
+    SDK.prototype.getLinks = function (metadata) {
+        return this.core.fetch('/links', 'get', metadata);
+    };
+    SDK.prototype.patchLinksLinkid = function (body, metadata) {
+        return this.core.fetch('/links/{linkId}', 'patch', body, metadata);
+    };
+    /**
+     * Allows a user to delete payment link
+     *
+     *
+     *
+     * @summary Delete Payment Link
+     * @throws FetchError<403, types.DeleteLinksLinkidResponse403> Unauthorised
+     */
+    SDK.prototype.deleteLinksLinkid = function (metadata) {
+        return this.core.fetch('/links/{linkId}', 'delete', metadata);
+    };
+    /**
+     * Allows a user to fetch payment link details
+     *
+     *
+     *
+     * @summary Fetch Payment Link Info
+     * @throws FetchError<403, types.GetLinksLinkidResponse403> Unauthorised
+     * @throws FetchError<404, types.GetLinksLinkidResponse404> Not Found
+     */
+    SDK.prototype.getLinksLinkid = function (metadata) {
+        return this.core.fetch('/links/{linkId}', 'get', metadata);
+    };
+    /**
+     * Fetches all transactions for a given business
+     *
+     *
+     *
+     * @summary Fetching Transactions
+     * @throws FetchError<403, types.GetChargesResponse403> Unauthorised
+     */
+    SDK.prototype.getCharges = function (metadata) {
+        return this.core.fetch('/charges', 'get', metadata);
+    };
+    /**
+     * API to initiate transactions by merchant.
+     *  ### About MIT (Merchant Initiated Transaction)
+     *  Merchant Initiated Transactions (MIT) allows a business to use card details, that were
+     * stored during previous transactions, to charge their customers.
+     *
+     *  ### How do MITs work?
+     *  1- You request a payment link with the option to save the card details.
+     *  2- You save the charge ID.
+     *  3- You get the charge details (redirect, GET /charge, or webhook)  which will include
+     * the ID of the card used to make the payment, you can save either one of the IDs so you
+     * always have access to the card ID.
+     *  4- You call the below API to initiate a transaction using the same card.
+     *
+     * @summary Initiate Payment
+     * @throws FetchError<403, types.PostChargesResponse403> Unauthorised
+     * @throws FetchError<422, types.PostChargesResponse422> Unprocessable Entity
+     * @throws FetchError<500, types.PostChargesResponse500> Unexpected error
+     */
+    SDK.prototype.postCharges = function (body, metadata) {
+        return this.core.fetch('/charges', 'post', body, metadata);
+    };
+    /**
+     * This API enables you to retrieve detailed information about a specific charge by
+     * providing the charge ID.
+     *  It is designed to give you a comprehensive view of transaction details.
+     *
+     *
+     *
+     * @summary Fetch Transaction Info
+     * @throws FetchError<403, types.GetChargesChargeidResponse403> Unauthorised
+     * @throws FetchError<404, types.GetChargesChargeidResponse404> Not Found
+     */
+    SDK.prototype.getChargesChargeid = function (metadata) {
+        return this.core.fetch('/charges/{chargeId}', 'get', metadata);
+    };
+    /**
+     * API to refund the charge.
+     *
+     *
+     *
+     * @summary Refund Payment
+     * @throws FetchError<403, types.PostChargesChargeidRefundsResponse403> Unauthorised
+     * @throws FetchError<422, types.PostChargesChargeidRefundsResponse422> Unprocessable Entity
+     * @throws FetchError<500, types.PostChargesChargeidRefundsResponse500> Unexpected error
+     */
+    SDK.prototype.postChargesChargeidRefunds = function (body, metadata) {
+        return this.core.fetch('/charges/{chargeId}/refunds', 'post', body, metadata);
+    };
+    /**
+     * API to capture an "On hold" charge.
+     *
+     *
+     *
+     * @summary Capture Payment
+     * @throws FetchError<403, types.PostChargesChargeidCapturesResponse403> Unauthorised
+     * @throws FetchError<422, types.PostChargesChargeidCapturesResponse422> Unprocessable Entity
+     * @throws FetchError<500, types.PostChargesChargeidCapturesResponse500> Unexpected error
+     */
+    SDK.prototype.postChargesChargeidCaptures = function (body, metadata) {
+        return this.core.fetch('/charges/{chargeId}/captures', 'post', body, metadata);
+    };
+    /**
+     * API to reverse an "On hold" charge.
+     *
+     *
+     *
+     * @summary Reverse Payment
+     * @throws FetchError<403, types.PostChargesChargeidReversesResponse403> Unauthorised
+     * @throws FetchError<422, types.PostChargesChargeidReversesResponse422> Unprocessable Entity
+     * @throws FetchError<500, types.PostChargesChargeidReversesResponse500> Unexpected error
+     */
+    SDK.prototype.postChargesChargeidReverses = function (metadata) {
+        return this.core.fetch('/charges/{chargeId}/reverses', 'post', metadata);
     };
     return SDK;
 }());
