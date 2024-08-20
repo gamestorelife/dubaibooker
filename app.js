@@ -6,7 +6,7 @@ const { parse } = require("querystring");
 const send = require("send");
 const http = require("http");
 const dotenv = require("dotenv");
-const bodyParser = require("body-parser");
+//const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Booking = require("./models/bookingModels");
 const session = require("express-session");
@@ -15,7 +15,7 @@ const mamopay = require("@api/mamopay");
 
 const app = express();
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 // Load environment variables
 if (process.env.NODE_ENV !== "production") {
