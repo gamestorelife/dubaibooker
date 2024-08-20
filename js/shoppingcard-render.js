@@ -344,8 +344,9 @@ document.addEventListener("DOMContentLoaded", () => {
               body: JSON.stringify({
                 title: passengers.lastName,
                 active: true,
-                return_url: "https://myawesomewebsite.com/paymentSuccess",
-                failure_return_url: "https://failureurl.com/paymentFailure",
+                return_url: "http://localhost:3000/cardrender.html",
+                failure_return_url:
+                  "https://www.dubaibooker.com/cardrender.html",
                 processing_fee_percentage: 3,
                 booking_id: data.bookingId,
                 amount: overallTotalPrice,
@@ -375,53 +376,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const timestamp = Date.now().toString(); // Get current timestamp
     const randomNumber = Math.floor(Math.random() * 1000).toString(); // Generate a random number between 0 and 999999
     return timestamp + randomNumber; // Concatenate timestamp and random number
-  }
-
-  function createPaymentLink(bookingId, passenger) {
-    fetch("/mamo-create-link", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        link_type: "modal", // Ensure link_type is modal
-        title: passenger.lastName,
-        active: true,
-        return_url: "https://myawesomewebsite.com/paymentSuccess",
-        failure_return_url: "https://failureurl.com/paymentFailure",
-        processing_fee_percentage: 3,
-        booking_id: bookingId,
-        amount: overallTotalPrice,
-        amount_currency: "AED",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.payment_link) {
-          displayPaymentModal(data.payment_link);
-        } else {
-          console.error("Payment link creation failed:", data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error creating payment link:", error);
-      });
-  }
-
-  function displayPaymentModal(paymentLink) {
-    const paymentDiv = document.createElement("div");
-    paymentDiv.innerHTML = `
-      <div>
-        <button id='mamo-checkout' data-src='${paymentLink}' type='button'>Checkout</button>
-      </div>
-      <script src='https://assets.mamopay.com/public/checkout.min.js'></script>
-    `;
-    cartItemsDiv.innerHTML = "";
-    cartItemsDiv.appendChild(paymentDiv);
-
-    document.getElementById("mamo-checkout").addEventListener("click", () => {
-      // Mamo modal will be triggered by the loaded script
-    });
   }
 
   document.getElementById("backbutton").addEventListener("click", () => {

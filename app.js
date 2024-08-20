@@ -84,6 +84,7 @@ app.get("/cardrender.html", (req, res) => {
 // Handle POST requests using built-in fetch API
 app.post("/api-data", async (req, res) => {
   try {
+    console.log("Incoming body:", req.body);
     const response = await fetch(
       "http://raynaapi.raynatours.com/api/Tour/tourstaticdata",
       {
