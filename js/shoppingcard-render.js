@@ -23,6 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => console.error("Error:", error));
   };
 
+  // Prepare description for payment link based on tour options
+  let tourOptionsDescriptions = cart.map((item) => item.tourOtionName);
+
+  let description;
+  if (tourOptionsDescriptions.length === 1) {
+    description = tourOptionsDescriptions[0];
+  } else {
+    description = tourOptionsDescriptions.join(", ");
+  }
+
   let overallTotalPrice = 0;
 
   cart.forEach((item) => {
@@ -343,6 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
               },
               body: JSON.stringify({
                 title: passengers.lastName,
+                description: description,
                 active: true,
                 return_url: "http://localhost:3000/cardrender.html",
                 failure_return_url:
