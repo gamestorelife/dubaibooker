@@ -4,6 +4,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
+  // Function to add selected item to cart, update sessionStorage, and send to backend
+  function addToCart(selectedItem) {
+    // Push the selected item to the cart
+    cart.push(selectedItem);
+
+    // Update the cart in sessionStorage
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+
+    // Send the updated cart to the backend
+    fetch("/save-cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cart: cart }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to save cart");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Cart saved successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
   // Session Variables
   const tourId = sessionStorage.getItem("tourId");
   const contractId = sessionStorage.getItem("contractId");

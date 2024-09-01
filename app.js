@@ -6,7 +6,7 @@ const { parse } = require("querystring");
 const send = require("send");
 const http = require("http");
 const dotenv = require("dotenv");
-//const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Booking = require("./models/bookingModels");
 const session = require("express-session");
@@ -15,7 +15,7 @@ const mamopay = require("@api/mamopay");
 
 const app = express();
 
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // Load environment variables
 if (process.env.NODE_ENV !== "production") {
@@ -51,7 +51,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET || "eyJhbGciOiJodHRwO",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: MongoStore.create({
       mongoUrl:
         process.env.MONGO_URI ||
@@ -59,8 +59,56 @@ app.use(
       ttl: 14 * 24 * 60 * 60, // 14 days
       autoRemove: "native",
     }),
+    cookie: { secure: false }, // Set secure: true if using HTTPS
   })
 );
+
+// Route to save cart data and passenger details to session
+app.post("/save-cart", (req, res) => {
+  const { uniqueNo, count, TourDetails, passengers } = req.body;
+
+  // Store the received data in the session
+  req.session.cart = {
+    uniqueNo: uniqueNo || generateUniqueNo(),
+    count: count || TourDetails.length,
+    TourDetails: TourDetails,
+  };
+
+  // If passengers are provided, include them in the session
+  if (passengers) {
+    req.session.cart.passengers = passengers;
+  }
+  console.log("Session after saving cart:", req.session);
+  // Save session and send response
+  req.session.save((err) => {
+    if (err) {
+      console.error("Error saving session:", err);
+      return res.status(500).send("Error saving session");
+    }
+    console.log("Session saved:", req.session);
+    res.status(200).send("Cart saved successfully");
+  });
+});
+
+// Route to retrieve cart data from session
+app.get("/get-cart-data", (req, res) => {
+  console.log("Session ID:", req.sessionID);
+  console.log("Session when retrieving cart:", req.session);
+
+  if (req.session && req.session.cart) {
+    res.status(200).json(req.session.cart);
+  } else {
+    console.log("No cart data found in session");
+    res.status(404).json({ message: "No cart data found in session" });
+  }
+});
+
+// Utility function to generate unique number
+function generateUniqueNo() {
+  const timestamp = Date.now().toString();
+  const randomNumber = Math.floor(Math.random() * 1000).toString();
+  return timestamp + randomNumber;
+}
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -230,6 +278,18 @@ app.get("/add-to-cart/:item", (req, res) => {
     ? req.session.cart[item] + 1
     : 1;
   res.send("Item added to cart");
+
+  // Add the item to the session cart
+  req.session.cart.push(item);
+
+  // Save the session
+  req.session.save((err) => {
+    if (err) {
+      console.error("Failed to save session:", err);
+      return res.status(500).send("Failed to save session");
+    }
+    res.send("Item added to cart");
+  });
 });
 
 // View cart

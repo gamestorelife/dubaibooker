@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Prepare description for payment link based on tour options
-  let tourOptionsDescriptions = cart.map((item) => item.tourOtionName);
+  let tourOptionsDescriptions = cart.map((item) => item.tourName);
 
   let description;
   if (tourOptionsDescriptions.length === 1) {
@@ -333,6 +333,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         console.log("Final Cart Data:", newCart);
 
+        // Make the POST request to /save-cart
+        fetch("/save-cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newCart),
+          credentials: "include",
+        })
+          .then((response) => response.text())
+          .then((result) => {
+            console.log("Cart saved successfully:", result);
+          });
+
         // Send cart data to backend
         fetch("/user-booking", {
           method: "POST",
@@ -353,6 +367,8 @@ document.addEventListener("DOMContentLoaded", () => {
               },
               body: JSON.stringify({
                 title: passengers.lastName,
+                first_name: passengers.firstName,
+                last_name: passengers.lastName,
                 description: description,
                 active: true,
                 return_url: "http://localhost:3000/cardrender.html",
@@ -368,11 +384,12 @@ document.addEventListener("DOMContentLoaded", () => {
               .then((data) => {
                 if (data.payment_url) {
                   // Redirect to the payment URL
-                  window.location.href = data.payment_url;
+                  // window.location.href = data.payment_url;
                 } else {
                   console.error("Payment link creation failed:", data);
                 }
               })
+
               .catch((error) => {
                 console.error("Error creating payment link:", error);
               });
