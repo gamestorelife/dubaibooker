@@ -407,6 +407,11 @@ app.post("/register-webhook", async (req, res) => {
   }
 });
 
+const options = {
+  key: fs.readFileSync("cloudflare/cloudflare_private_key.pem"),
+  cert: fs.readFileSync("cloudflare/cloudflare_certificate.pem"),
+};
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
