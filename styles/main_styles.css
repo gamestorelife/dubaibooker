@@ -2357,6 +2357,12 @@ qty {
 
   width: 100%;
 }
+a {
+  color: #ffffff;
+}
+a:hover {
+  color: #ffffff;
+}
 
 .stays-wico {
   width: 100%;

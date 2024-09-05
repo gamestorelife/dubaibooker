@@ -49,13 +49,11 @@ mongoose
 // Middleware for session management
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "eyJhbGciOiJodHRwO",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl:
-        process.env.MONGO_URI ||
-        "mongodb+srv://admin:QyeDCWTDUOHWbxL4@dubaibookerdb.j3ohhgq.mongodb.net/",
+      mongoUrl: process.env.MONGO_URI,
       ttl: 14 * 24 * 60 * 60, // 14 days
       autoRemove: "native",
     }),
