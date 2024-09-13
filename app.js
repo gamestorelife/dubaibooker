@@ -9,6 +9,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Booking = require("./models/bookingModels");
+const CartItem = require("./models/cartModel");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const mamopay = require("@api/mamopay");
@@ -98,6 +99,82 @@ app.get("/get-cart-data", (req, res) => {
   } else {
     console.log("No cart data found in session");
     res.status(404).json({ message: "No cart data found in session" });
+  }
+});
+
+app.post("/cart-selecteditem", (req, res) => {
+  const cartItemsArray = req.body; // Directly capture the array of cart items
+
+  try {
+    // Save the cart items in the session
+    req.session.cartItems = cartItemsArray;
+
+    // Explicitly save the session to ensure it's persisted
+    req.session.save((err) => {
+      if (err) {
+        console.error("Error saving session:", err);
+        return res.status(500).send("Error saving session");
+      }
+
+      console.log("Cart items saved:", req.session.cartItems);
+      res.status(200).json({
+        message: "Cart items saved successfully",
+        cartItems: req.session.cartItems,
+      });
+    });
+  } catch (error) {
+    console.error("Error saving cart items:", error);
+    res.status(500).json({ message: "Error saving cart items" });
+  }
+});
+
+// GET endpoint to retrieve the current saved session for the cart
+app.get("/cart-session", (req, res) => {
+  // Check if there is cart data in the session
+  if (req.session.cartItems) {
+    console.log("Cart items in session:", req.session.cartItems);
+    res.status(200).json({
+      message: "Cart items retrieved successfully",
+      cartItems: req.session.cartItems,
+    });
+  } else {
+    console.log("No cart items found in session");
+    res.status(404).json({ message: "No cart items found in session" });
+  }
+});
+
+// Remove item from cart by serviceUniqueId
+app.delete("/remove-from-cart/:serviceUniqueId", (req, res) => {
+  const serviceUniqueId = req.params.serviceUniqueId;
+
+  // Check if the cartItems array exists in the session
+  if (req.session.cartItems && req.session.cartItems.length > 0) {
+    // Find the index of the item with the matching serviceUniqueId
+    const itemIndex = req.session.cartItems.findIndex(
+      (item) => item.serviceUniqueId === serviceUniqueId
+    );
+
+    if (itemIndex !== -1) {
+      // Remove the item from the cartItems array
+      req.session.cartItems.splice(itemIndex, 1);
+
+      // Save the session after removal
+      req.session.save((err) => {
+        if (err) {
+          console.error("Error saving session after item removal:", err);
+          return res.status(500).send("Error saving session");
+        }
+
+        res.status(200).json({
+          message: "Item removed from cart",
+          cartItems: req.session.cartItems,
+        });
+      });
+    } else {
+      res.status(404).json({ message: "Item not found in cart" });
+    }
+  } else {
+    res.status(404).json({ message: "No cart items found in session" });
   }
 });
 

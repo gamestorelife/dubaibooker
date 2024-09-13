@@ -1,7 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+document.addEventListener("DOMContentLoaded", async () => {
+  let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
   console.log(cart);
 
+  // Check if the local cart is empty, if so, fetch from online session
+  if (cart.length === 0) {
+    try {
+      const response = await fetch("/cart-session");
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Cart fetched from online session:", data);
+        cart = data.cartItems; // Set cart to the data from the online session
+
+        // Store the fetched cart in sessionStorage to keep it locally
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+      } else {
+        console.log("No cart found in the online session");
+      }
+    } catch (error) {
+      console.error("Error fetching cart from online session:", error);
+    }
+  }
   const cartItemsDiv = document.getElementById("cart-items");
 
   if (cart.length === 0) {
@@ -10,6 +28,33 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const removeItemFromCart = (itemId) => {
+    const itemToRemove = cart[itemId];
+    // Step 1: Remove item from the online session via DELETE request
+    fetch(`/remove-from-cart/${itemToRemove.serviceUniqueId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject("Failed to remove item from online session");
+        }
+      })
+      .then((data) => {
+        console.log("Item removed from online session:", data.message);
+
+        // Step 2: Remove the item from local session (sessionStorage)
+        // Remove the item locally from the cart array and update sessionStorage
+        cart.splice(itemId, 1);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+
+        // Reload the page to reflect the updated cart
+        // location.reload();
+      })
+      .catch((error) => {
+        console.error("Error during removal:", error);
+      });
+
     fetch(`/remove-from-cart/${itemId}`, {
       method: "GET",
     })

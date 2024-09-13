@@ -11,27 +11,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Update the cart in sessionStorage
     sessionStorage.setItem("cart", JSON.stringify(cart));
-
-    // Send the updated cart to the backend
-    fetch("/save-cart", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cart: cart }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to save cart");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Cart saved successfully:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   }
 
   // Session Variables
@@ -265,7 +244,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <div class="midtourname">
                        <p class="tourheadername">${tour.tourName}</p>
                 </div>
-                <div class="fonticon"><i class="fa-regular fa-cart-shopping-fast"></i></div>
+                <div class="fonticon" id="hrefshopping">
+                        <div class="cart-itmes-number">${cart.length}</div>
+                         <i class="fa-solid fa-cart-shopping"></i>  
+                    </div>
+                </div>
                </div>
 
           <div id="mfirstcontainer">
@@ -685,10 +668,30 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                             console.log(selectedItem);
                             console.log(cart);
-                            const redirectUrl = `/cardrender.html`;
+                            // Send the cart to the backend before redirecting
+                            fetch("/cart-selecteditem", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify(cart),
+                            })
+                              .then((response) => {
+                                if (!response.ok) {
+                                  throw new Error("Failed to save cart");
+                                }
+                                return response.json();
+                              })
+                              .then((data) => {
+                                console.log("Cart saved successfully:", data);
 
-                            // Redirect to the constructed URL
-                            window.location.href = redirectUrl;
+                                // Redirect after cart is saved successfully
+                                const redirectUrl = `/cardrender.html`;
+                                window.location.href = redirectUrl;
+                              })
+                              .catch((error) => {
+                                console.error("Error saving cart:", error);
+                              });
                           }
 
                           function generateUniqueNumber() {
@@ -825,10 +828,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                                   console.log(selectedItem);
                                   console.log(cart);
-                                  const redirectUrl = `/cardrender.html`;
+                                  // Send the cart to the backend before redirecting
+                                  fetch("/cart-selecteditem", {
+                                    method: "POST",
+                                    headers: {
+                                      "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify(cart),
+                                  })
+                                    .then((response) => {
+                                      if (!response.ok) {
+                                        throw new Error("Failed to save cart");
+                                      }
+                                      return response.json();
+                                    })
+                                    .then((data) => {
+                                      console.log(
+                                        "Cart saved successfully:",
+                                        data
+                                      );
 
-                                  // Redirect to the constructed URL
-                                  window.location.href = redirectUrl;
+                                      // Redirect after cart is saved successfully
+                                      const redirectUrl = `/cardrender.html`;
+                                      window.location.href = redirectUrl;
+                                    })
+                                    .catch((error) => {
+                                      console.error(
+                                        "Error saving cart:",
+                                        error
+                                      );
+                                    });
                                 } else {
                                   // Display alert if no tour is available
                                   alert(
@@ -967,6 +996,13 @@ document.addEventListener("DOMContentLoaded", async function () {
           $("#timeslotcontainer").hide();
           $("#secondoptionscontainer").show(300);
         });
+
+        document
+          .getElementById("hrefshopping")
+          .addEventListener("click", function () {
+            const redirectUrl = `/cardrender.html`;
+            window.location.href = redirectUrl;
+          });
 
         // Add event listeners for increment and decrement Adult buttons
         const incrementButton = DateContainer.querySelector("#increment");
