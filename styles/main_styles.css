@@ -1991,7 +1991,7 @@ qty {
   padding-left: 48px;
   padding-right: 48px;
   padding-bottom: 88px;
-  background: var(--darker-color);
+  background: linear-gradient(to right, #6c450e, #391e6b);
   border-radius: 30px;
   font-size: 16px;
 }
