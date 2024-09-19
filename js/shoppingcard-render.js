@@ -419,7 +419,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return_url: "http://localhost:3000/cardrender.html",
                 failure_return_url:
                   "https://www.dubaibooker.com/cardrender.html",
-                processing_fee_percentage: 3,
+                processing_fee_percentage: 3.6,
                 booking_id: data.bookingId,
                 amount: overallTotalPrice,
                 amount_currency: "AED",
@@ -429,7 +429,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               .then((data) => {
                 if (data.payment_url) {
                   // Redirect to the payment URL
-                  // window.location.href = data.payment_url;
+                  window.location.href = data.payment_url;
                 } else {
                   console.error("Payment link creation failed:", data);
                 }
