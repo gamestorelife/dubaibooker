@@ -1301,6 +1301,7 @@ section {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
+  padding: 22px;
 }
 
 .offers_grid {
@@ -1310,6 +1311,8 @@ section {
 .offers_item {
   width: 100%;
   margin-bottom: 46px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  border-radius: 25px;
 }
 .offers_item:last-child {
   margin-bottom: 0px;

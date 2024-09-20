@@ -21,6 +21,12 @@
 
 ******************************/
 
+@media screen and (max-width: 4100px) and (min-width: 992px),
+  (min-width: 4200px) {
+  .col-1680-4 {
+    height: 209px;
+  }
+}
 /************
 0. 1730px
 ************/
