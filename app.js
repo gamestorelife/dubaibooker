@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Booking = require("./models/bookingModels");
 const CartItem = require("./models/cartModel");
+const ApartmentBooking = require("./models/apartmentBooking");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const mamopay = require("@api/mamopay");
@@ -446,6 +447,79 @@ app.post("/create-payment-link", async (req, res) => {
       error: "Failed to create payment link",
       details: error.response?.data || error.message,
     });
+  }
+});
+
+//Villa Form
+app.post("/submit-apartment-booking", async (req, res) => {
+  try {
+    const {
+      apartIndate,
+      apartOutdate,
+      apartAlladult,
+      apartAllKids,
+      apartAge1,
+      apartAge2,
+      apartAge3,
+      apartAge4,
+      apartAge5,
+      apartAge6,
+    } = req.body;
+
+    const childAges = [
+      apartAge1,
+      apartAge2,
+      apartAge3,
+      apartAge4,
+      apartAge5,
+      apartAge6,
+    ].filter((age) => age !== undefined);
+
+    // Create a new booking object
+    const newBooking = new ApartmentBooking({
+      checkInDate: apartIndate,
+      checkOutDate: apartOutdate,
+      adults: apartAlladult,
+      children: apartAllKids,
+      childAges: childAges,
+    });
+
+    // Save the booking to the database
+    await newBooking.save();
+
+    // Save booking data to the session
+    req.session.bookingData = {
+      checkInDate: apartIndate,
+      checkOutDate: apartOutdate,
+      adults: apartAlladult,
+      children: apartAllKids,
+      childAges: childAges,
+    };
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Error saving session:", err);
+        return res.status(500).send("Error saving session");
+      }
+      res.status(200).json({ message: "Booking saved successfully" });
+    });
+  } catch (error) {
+    console.error("Error saving booking:", error.message);
+    res.status(500).json({ message: "Error saving booking" });
+  }
+});
+
+//Villa Form Get
+
+app.get("/retrieve-apartment-booking", (req, res) => {
+  // Check if session data exists for the apartment booking
+  if (req.session && req.session.bookingData) {
+    res.status(200).json({
+      message: "Booking data retrieved successfully",
+      data: req.session.bookingData,
+    });
+  } else {
+    res.status(404).json({ message: "No booking data found in session" });
   }
 });
 
