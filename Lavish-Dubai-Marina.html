@@ -534,44 +534,46 @@
                           </p>
 
                           <form id="book-form" method="post">
-                            <div class="form-group">
-                              <label id="phone-label" for="phone"
-                                ><strong>Selected Details</strong>
-                              </label>
-                              <div class="d-flex">
-                                <div class="date-in-jw">
-                                  <p>Check in date</p>
-                                </div>
+                            <div class="form-group" id="booking-details">
+                              <div class="d-none">
+                                <label id="phone-label" for="phone"
+                                  ><strong>Selected Details</strong>
+                                </label>
+                                <div class="d-flex">
+                                  <div class="date-in-jw">
+                                    <p>Check in date</p>
+                                  </div>
 
-                                <div class="date-out-jw">
-                                  <p>2</p>
+                                  <div class="date-out-jw">
+                                    <p>2</p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="d-flex">
-                                <div class="date-in-jw">
-                                  <p>Check Out date</p>
-                                </div>
+                                <div class="d-flex">
+                                  <div class="date-in-jw">
+                                    <p>Check Out date</p>
+                                  </div>
 
-                                <div class="date-out-jw">
-                                  <p>2</p>
+                                  <div class="date-out-jw">
+                                    <p>2</p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="d-flex">
-                                <div class="date-in-jw">
-                                  <p>Adults</p>
-                                </div>
+                                <div class="d-flex">
+                                  <div class="date-in-jw">
+                                    <p>Adults</p>
+                                  </div>
 
-                                <div class="date-out-jw">
-                                  <p>2</p>
+                                  <div class="date-out-jw">
+                                    <p>2</p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="d-flex">
-                                <div class="date-in-jw">
-                                  <p>children</p>
-                                </div>
+                                <div class="d-flex">
+                                  <div class="date-in-jw">
+                                    <p>children</p>
+                                  </div>
 
-                                <div class="date-out-jw">
-                                  <p>2</p>
+                                  <div class="date-out-jw">
+                                    <p>2</p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -1095,35 +1097,35 @@
 
       const form = document.getElementById("book-form");
 
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        myDialog.showModal();
+      // form.addEventListener("submit", (event) => {
+      //   event.preventDefault();
+      //   myDialog.showModal();
 
-        const formData = new FormData(form);
+      //   const formData = new FormData(form);
 
-        const xhr1 = new XMLHttpRequest();
-        xhr1.open("POST", "databaseconnect.php");
-        xhr1.onload = () => {
-          // handle response from page1.php
-        };
-        xhr1.send(formData);
+      //   const xhr1 = new XMLHttpRequest();
+      //   xhr1.open("POST", "databaseconnect.php");
+      //   xhr1.onload = () => {
+      //     // handle response from page1.php
+      //   };
+      //   xhr1.send(formData);
 
-        const xhr2 = new XMLHttpRequest();
-        xhr2.open("POST", "clientmail.php");
-        xhr2.onload = () => {
-          // handle response from page2.php
-        };
-        xhr2.send(formData);
+      //   const xhr2 = new XMLHttpRequest();
+      //   xhr2.open("POST", "clientmail.php");
+      //   xhr2.onload = () => {
+      //     // handle response from page2.php
+      //   };
+      //   xhr2.send(formData);
 
-        const xhr3 = new XMLHttpRequest();
-        xhr3.open("POST", "send-email.php");
-        xhr3.onload = () => {
-          // handle response from page3.php
-        };
-        xhr3.send(formData);
+      //   const xhr3 = new XMLHttpRequest();
+      //   xhr3.open("POST", "send-email.php");
+      //   xhr3.onload = () => {
+      //     // handle response from page3.php
+      //   };
+      //   xhr3.send(formData);
 
-        reloadPage();
-      });
+      //   reloadPage();
+      // });
 
       function reloadPage() {
         setTimeout(() => {
@@ -1156,6 +1158,7 @@
 
     <script src="js/single_listing_custom.js"></script>
     <script src="./js/uikit.min.js"></script>
+    <script src="./js/villa-booking-from.min.js"></script>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript
