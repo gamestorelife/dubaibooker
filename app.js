@@ -19,6 +19,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  console.log("Headers:", req.headers);
+  console.log("Request Body:", req.body);
+  next();
+});
 // Load environment variables
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -131,6 +136,7 @@ app.post("/cart-selecteditem", (req, res) => {
 
 // GET endpoint to retrieve the current saved session for the cart
 app.get("/cart-session", (req, res) => {
+  console.log("Request Body:", req.body); // Add this line to inspect the incoming body
   // Check if there is cart data in the session
   if (req.session.cartItems) {
     console.log("Cart items in session:", req.session.cartItems);
