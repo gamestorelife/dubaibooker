@@ -14,6 +14,7 @@ const ApartmentBooking = require("./models/apartmentBooking");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const mamopay = require("@api/mamopay");
+const nodemailer = require("nodemailer");
 
 const app = express();
 
@@ -527,6 +528,87 @@ app.get("/retrieve-apartment-booking", (req, res) => {
   } else {
     res.status(404).json({ message: "No booking data found in session" });
   }
+});
+
+// POST route to handle form data and send emails
+app.post("/send-booking-email", (req, res) => {
+  const { villaname, name, email, phone, insurance, comments, bookingDetails } =
+    req.body;
+  console.log(req.body);
+
+  // Create the Nodemailer transporter for sending emails
+  const transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true, // Use SSL
+    auth: {
+      user: "developers@mykonosbooker.com", // Replace with your Gmail address
+      pass: "Welcome@2024", // Replace with your Gmail password or app password
+    },
+  });
+
+  // Define the welcome email options
+  const userMailOptions = {
+    from: '"Dubai Booker" <developers@mykonosbooker.com>',
+    to: email,
+    subject: "Welcome to DubaiBooker",
+    text: `Dear ${name},\n\nThank you for booking with us! Here are your booking details:\nVilla Name: ${bookingDetails.villaname}\nCheck-in Date: ${bookingDetails.checkInDate}\nCheck-out Date: ${bookingDetails.checkOutDate}\nNumber of Adults: ${bookingDetails.adults}\nNumber of Children: ${bookingDetails.children}\n\nLooking forward to hosting you!\n\nBest Regards,\nDubai Booker Team`,
+    html: `<p>Dear ${name},</p><p>Thank you for booking with us! Here are your booking details:</p><ul><li>Villa Name: ${villaname}</li><li>Check-in Date: ${bookingDetails.checkInDate}</li><li>Check-out Date: ${bookingDetails.checkOutDate}</li><li>Number of Adults: ${bookingDetails.adults}</li><li>Number of Children: ${bookingDetails.children}</li></ul><p>Looking forward to hosting you!</p><p>Best Regards,<br/>Dubai Booker Team</p>`,
+  };
+
+  // Define the admin notification email options
+  const adminMailOptions = {
+    from: '"Dubai Booker" <developers@mykonosbooker.com>',
+    to: "freerapper666@gmail.com", // Replace with admin email address
+    subject: "New Booking Received",
+    text: `New booking received from ${name}.\n\nBooking Details:\nVilla Name: ${
+      bookingDetails.villaname
+    }\nCheck-in Date: ${bookingDetails.checkInDate}\nCheck-out Date: ${
+      bookingDetails.checkOutDate
+    }\nNumber of Adults: ${bookingDetails.adults}\nNumber of Children: ${
+      bookingDetails.children
+    }\nChild Ages: ${bookingDetails.childAges.join(
+      ", "
+    )}\n\nComments: ${comments}\nInsurance: ${
+      insurance ? "Yes" : "No"
+    }\nPhone: ${phone}`,
+    html: `<p>New booking received from ${name}.</p><p>Booking Details:</p><ul>
+    <li>Villa Name: ${villaname}</li>
+    <li>Check-in Date: ${bookingDetails.checkInDate}</li><li>Check-out Date: ${
+      bookingDetails.checkOutDate
+    }</li><li>Number of Adults: ${
+      bookingDetails.adults
+    }</li><li>Number of Children: ${
+      bookingDetails.children
+    }</li><li>Child Ages: ${bookingDetails.childAges.join(
+      ", "
+    )}</li></ul><p>Comments: ${comments}</p>
+    <p>Insurance: ${insurance ? "Yes" : "No"}</p>
+    <p>Phone: ${phone}</p><p>Email: ${email}</p>`,
+  };
+
+  // Send welcome email to the user
+  transporter.sendMail(userMailOptions, (userError, userInfo) => {
+    if (userError) {
+      console.error("Error sending welcome email:", userError); // Log error details
+      return res
+        .status(500)
+        .json({ message: "Failed to send welcome email", error: userError });
+    }
+    console.log("Welcome email sent: " + userInfo.response);
+
+    // Send notification email to the admin
+    transporter.sendMail(adminMailOptions, (adminError, adminInfo) => {
+      if (adminError) {
+        console.error("Error sending admin email:", adminError); // Log error details
+        return res
+          .status(500)
+          .json({ message: "Failed to send admin email", error: adminError });
+      }
+      console.log("Admin email sent: " + adminInfo.response);
+      res.status(200).json({ message: "Emails sent successfully" });
+    });
+  });
 });
 
 // Register Webhook

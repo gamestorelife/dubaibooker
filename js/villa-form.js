@@ -15,6 +15,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       apartAge6: $(".6kid-apart").val(),
     };
 
+    // Validation for check-in and check-out dates
+    if (!formData.apartIndate || !formData.apartOutdate) {
+      alert("Please confirm both the check-in date and the check-out date.");
+      return;
+    }
+
     $.ajax({
       type: "POST",
       url: "/submit-apartment-booking",

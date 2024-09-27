@@ -496,7 +496,7 @@
                     <div>
                       <center>
                         <h2 class="notify-1">
-                          Thank you for contacting MYKONOSBOOKER
+                          Thank you for contacting DUBAIBOOKER
                         </h2>
                         <h2 class="notify-1">We will contact you shortly</h2>
                         <h2 class="notify-3">Enjoy, And have fun..</h2>
@@ -534,52 +534,17 @@
                           </p>
 
                           <form id="book-form" method="post">
-                            <div class="form-group" id="booking-details">
-                              <div class="d-none">
-                                <label id="phone-label" for="phone"
-                                  ><strong>Selected Details</strong>
-                                </label>
-                                <div class="d-flex">
-                                  <div class="date-in-jw">
-                                    <p>Check in date</p>
-                                  </div>
-
-                                  <div class="date-out-jw">
-                                    <p>2</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex">
-                                  <div class="date-in-jw">
-                                    <p>Check Out date</p>
-                                  </div>
-
-                                  <div class="date-out-jw">
-                                    <p>2</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex">
-                                  <div class="date-in-jw">
-                                    <p>Adults</p>
-                                  </div>
-
-                                  <div class="date-out-jw">
-                                    <p>2</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex">
-                                  <div class="date-in-jw">
-                                    <p>children</p>
-                                  </div>
-
-                                  <div class="date-out-jw">
-                                    <p>2</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                            <div class="form-group" id="booking-details"></div>
 
                             <div class="form-group">
                               <label id="name-label" for="name">Name</label>
+                              <input
+                                type="text"
+                                class="form-control d-none"
+                                id="villaname"
+                                name="villaname"
+                                value="2 Bedroom Lavishing Dubai Marina"
+                              />
                               <input
                                 type="text"
                                 class="form-control"
@@ -1089,7 +1054,8 @@
       });
 
       const openButton = document.getElementById("submit-btn");
-      const myDialog = document.getElementById("my-dialog");
+      // const myDialog = document.getElementById("my-dialog");
+      // myDialog.showModal();
 
       //  openButton.addEventListener('click', () => {
       //       myDialog.showModal();

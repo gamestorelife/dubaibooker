@@ -1877,8 +1877,8 @@ section {
 @keyframes animateLight {
   0%,
   49.99% {
-    background: #22e4e3;
-    box-shadow: 0 0 5px #22e4e3, 0 0 10px #22e4e3, 0 0 40px #22e4e3;
+    background: var(--primary-color);
+    box-shadow: 0 0 5px #e4de22, 0 0 10px #e4d122, 0 0 40px #e4bd22;
   }
   50%,
   100% {
@@ -1914,7 +1914,7 @@ section {
   width: 0;
   height: 100%;
   border-radius: 20px;
-  background: linear-gradient(45deg, #22ffde, #2196f3);
+  background: var(--primary-color);
   animation: animate 6s ease-in-out infinite;
 }
 
@@ -1938,9 +1938,9 @@ dialog {
   margin: auto;
   width: fit-content;
   padding: 45px;
-  background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+  background: linear-gradient(to right, #6c450e, #391e6b);
   border-radius: 60px;
-  border-color: aqua;
+  border: solid #6c450e;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
