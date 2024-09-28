@@ -1680,3 +1680,7 @@ section {
 #downlogo {
   font-size: 25px;
 }
+
+#Layer_1 {
+  display: none;
+}
