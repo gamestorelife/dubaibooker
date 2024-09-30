@@ -2020,3 +2020,22 @@ center {
 #Layer_1 {
   display: none;
 }
+
+#book-form {
+  background: linear-gradient(to right, #6c450e, #391e6b);
+  padding: 11px;
+  color: #ffffff;
+  border-radius: 25px;
+}
+
+.form-group input {
+  border-radius: 12px;
+}
+
+.form-group textarea {
+  border-radius: 12px;
+}
+
+.form-group p {
+  color: white;
+}
