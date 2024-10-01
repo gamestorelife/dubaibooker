@@ -2044,3 +2044,13 @@ center {
 .form-group p {
   color: white;
 }
+
+.canvas,
+img,
+svg,
+video {
+  height: 100% !important;
+}
+.uk-panel {
+  height: 100%;
+}
