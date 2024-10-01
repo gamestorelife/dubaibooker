@@ -2026,14 +2026,19 @@ center {
   padding: 11px;
   color: #ffffff;
   border-radius: 25px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 .form-group input {
   border-radius: 12px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
 }
 
 .form-group textarea {
   border-radius: 12px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
 }
 
 .form-group p {
