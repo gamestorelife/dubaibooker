@@ -2865,23 +2865,7 @@ a:hover {
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: var(--darker-color);
-  z-index: 4;
-}
-
-.menu2-apart {
-  display: none;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
-  background: var(--darker-color);
+  background: linear-gradient(to right, #6c450e, #391e6b) !important;
   z-index: 4;
 }
 
