@@ -259,10 +259,12 @@ section {
 .nopadding {
   padding: 0px !important;
 }
+
 .k_btn {
   width: 100%;
   box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
 }
+
 .button {
   display: inline-block;
   height: 53px;
@@ -326,7 +328,6 @@ section {
 /*********************************
 3. Header
 *********************************/
-
 .header {
   position: fixed;
   width: 100%;
@@ -468,7 +469,7 @@ section {
   -ms-transform: translateY(2px);
   -o-transform: translateY(2px);
   transform: translateY(2px);
-  border-radius: 0px !important;
+  border-radius: 0;
 }
 
 /*********************************
@@ -502,7 +503,7 @@ section {
   bottom: -11px;
   width: calc(100% + 2px);
   height: 2px;
-  background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+  background: var(--primary-color);
   content: "";
   opacity: 0;
   -webkit-transition: all 200ms ease;
@@ -1022,7 +1023,9 @@ section {
 }
 .search_item {
   margin-bottom: 23px;
+  width: 100% !important;
 }
+
 .search_item:first-child {
   width: 100%;
 }
@@ -1437,6 +1440,8 @@ section {
 }
 .date-out-jw {
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .rooms {
@@ -1935,7 +1940,7 @@ dialog {
   padding: 45px;
   background: linear-gradient(to right, #6c450e, #391e6b);
   border-radius: 60px;
-  border-color: var(--primary-color);
+  border: solid #6c450e;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
@@ -1972,6 +1977,10 @@ center {
   color: white;
 }
 
+.owl-carousel .owl-stage-outer {
+  padding-top: 89px !important;
+}
+
 .whatsapp_item {
   display: block;
   position: fixed;
@@ -1992,8 +2001,24 @@ center {
   z-index: 55;
 }
 
-.owl-carousel .owl-stage-outer {
-  padding-top: 89px !important;
+.hamburger2-apartment {
+  border-radius: 10px;
+  border-width: 0.5px;
+  border-color: rgba(255, 255, 255, 0.871);
+  background: #0a2b2c99;
+  border-style: solid;
+  color: rgb(255, 255, 255);
+  opacity: 0.9;
+  margin-top: 20px;
+  height: 50px;
+}
+
+#smview-dash-apart {
+  position: relative;
+  table-layout: auto;
+}
+#Layer_1 {
+  display: none;
 }
 
 #book-form {
@@ -2019,6 +2044,13 @@ center {
 .form-group p {
   color: white;
 }
-#Layer_1 {
-  display: none;
+
+.canvas,
+img,
+svg,
+video {
+  height: 100% !important;
+}
+.uk-panel {
+  height: 100%;
 }
