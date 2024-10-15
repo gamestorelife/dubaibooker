@@ -2022,3 +2022,7 @@ center {
 #Layer_1 {
   display: none;
 }
+
+.uk-panel {
+  height: 100%;
+}
