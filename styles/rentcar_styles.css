@@ -1299,9 +1299,11 @@ section {
 .offers_content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
   padding: 22px;
+  flex-direction: column;
+  height: 100%;
 }
 
 .offers_grid {
