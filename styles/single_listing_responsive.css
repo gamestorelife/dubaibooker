@@ -381,6 +381,9 @@
 ************/
 
 @media only screen and (max-width: 575px) {
+  .uk-slideshow-items {
+    min-height: 300px !important;
+  }
   p {
     font-size: 13px;
   }
