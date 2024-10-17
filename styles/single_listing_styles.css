@@ -2026,10 +2026,3 @@ center {
 .uk-panel {
   height: 100%;
 }
-
-canvas,
-img,
-svg,
-video {
-  height: 100% !important;
-}
