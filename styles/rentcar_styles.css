@@ -251,7 +251,7 @@ section {
 }
 .button a {
   display: block;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
@@ -1301,7 +1301,7 @@ section {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-end;
-  padding: 22px;
+  padding: 0 22px 22px 22px;
   flex-direction: column;
   height: 100%;
 }
@@ -1312,9 +1312,16 @@ section {
 }
 .offers_item {
   width: 100%;
-  margin-bottom: 46px;
-  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
-  border-radius: 25px;
+  margin-bottom: 15px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 15%);
+  border-radius: 15px;
+}
+.offers_price {
+  align-self: flex-start; /* Keeps offers_price aligned to flex-end */
+}
+
+.book_button {
+  align-self: flex-end; /* Aligns book_button to flex-start */
 }
 .offers_item:last-child {
   margin-bottom: 0px;
@@ -1335,14 +1342,14 @@ section {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 .offer_name {
   position: absolute;
   left: 0;
   bottom: 27px;
   width: 180px;
-  height: 33px;
+  height: 27px;
   background: var(--primary-color);
   overflow: hidden;
   color: white;
@@ -1350,20 +1357,20 @@ section {
 }
 .offer_name a {
   display: block;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
-  line-height: 35px;
+  line-height: 28px;
   padding-left: 22px;
 }
 
 .offers_price {
   display: inline-block;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 700;
   color: #5154a7;
-  line-height: 25px;
+  line-height: 19px;
 }
 .offers_price span {
   font-size: 14px;
@@ -1396,8 +1403,8 @@ section {
 .book_button {
   background: var(--primary-color);
   z-index: -1;
-  margin-top: 22px;
-  margin-bottom: -5px;
+  margin-top: 3px;
+  margin-bottom: -12px;
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   -ms-transition: all 200ms ease;
