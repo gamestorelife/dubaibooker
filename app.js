@@ -16,16 +16,34 @@ const MongoStore = require("connect-mongo");
 const mamopay = require("@api/mamopay");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
+const crypto = require("crypto");
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  console.log("Headers:", req.headers);
-  console.log("Request Body:", req.body);
-  next();
-});
+// app.use((req, res, next) => {
+//  // console.log("Headers:", req.headers);
+//  // console.log("Request Body:", req.body);
+//   next();
+// });
+
+const nonce = crypto.randomBytes(16).toString("base64");
+// app.use((req, res, next) => {
+//   res.locals.nonce = nonce;
+//   res.setHeader(
+//     "Content-Security-Policy",
+//     `default-src 'self'; ` +
+//       `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://maxst.icons8.com https://fonts.cdnfonts.com; ` +
+//       `font-src 'self' https://fonts.gstatic.com https://fonts.cdnfonts.com; ` +
+//       `img-src 'self' data: https://i.ibb.co https://www.dubaibooker.com; ` +
+//       `connect-src 'self'; ` +
+//       `script-src 'self' 'nonce-${nonce}'; ` +
+//       `frame-ancestors 'self'`
+//   );
+//   next();
+// });
+
 // Load environment variables
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -70,13 +88,15 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    origin: ["https://www.dubaibooker.com", "http://localhost:3000"],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// app.set("trust proxy", 1); // Required for apps behind proxies like Cloudflare
+
+// app.use(
+//   cors({
+//     origin: ["https://www.dubaibooker.com", "http://localhost:3000"],
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
 
 // Route to save cart data and passenger details to session
 app.post("/save-cart", (req, res) => {
@@ -627,7 +647,7 @@ app.get("/search-locations", async (req, res) => {
 
   try {
     const response = await axios.get(
-      "http://api.positionstack.com/v1/forward",
+      "https://api.positionstack.com/v1/forward",
       {
         params: {
           access_key: API_KEY,
