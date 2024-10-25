@@ -15,6 +15,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const mamopay = require("@api/mamopay");
 const nodemailer = require("nodemailer");
+const cors = require("cors");
 
 const app = express();
 
@@ -66,6 +67,14 @@ app.use(
       autoRemove: "native",
     }),
     cookie: { secure: false }, // Set secure: true if using HTTPS
+  })
+);
+
+app.use(
+  cors({
+    origin: ["https://www.dubaibooker.com", "http://localhost:3000"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -609,6 +618,32 @@ app.post("/send-booking-email", (req, res) => {
       res.status(200).json({ message: "Emails sent successfully" });
     });
   });
+});
+
+// Route to handle location suggestions
+app.get("/search-locations", async (req, res) => {
+  const input = req.query.input; // Get the user input from query parameter
+  const API_KEY = process.env.POSITIONSTACK_API_KEY;
+
+  try {
+    const response = await axios.get(
+      "http://api.positionstack.com/v1/forward",
+      {
+        params: {
+          access_key: API_KEY,
+          query: input,
+          country: "AE", // Restrict to UAE
+          limit: 5, // Limit number of suggestions
+        },
+      }
+    );
+
+    const suggestions = response.data.data.map((location) => location.label);
+    res.json(suggestions); // Send suggestions back to the frontend
+  } catch (error) {
+    console.error("Error fetching location suggestions:", error);
+    res.status(500).send("Error fetching location suggestions");
+  }
 });
 
 // Register Webhook

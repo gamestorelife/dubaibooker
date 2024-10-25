@@ -2138,14 +2138,16 @@
 											<form method="post" id="gettransfer-form">
 												<div class="check-in-hire justify-content-around">
 													<div class="search_item" id="hire-days">
-														<div>Pick Up Location</div>
-														<input id="" type="text" class="check_in search_input" placeholder="Pick Up Location">
+													  <div>Pick Up Location</div>
+													  <input id="pick-up-location" type="text" class="check_in search_input" placeholder="Pick Up Location">
+													  <ul id="pick-up-suggestions" class="suggestions-list"></ul> <!-- This is the suggestions dropdown -->
 													</div>
 													<div class="search_item" id="hire-hours">
-														<div>Drop Off Location</div>
-														<input id="" type="text" class="check_in search_input" placeholder="Drop Off Location">
+													  <div>Drop Off Location</div>
+													  <input id="drop-off-location" type="text" class="check_in search_input" placeholder="Drop Off Location">
+													  <ul id="drop-off-suggestions" class="suggestions-list"></ul> <!-- This is the suggestions dropdown -->
 													</div>
-												</div>
+												  </div>
 	
 												<div class="transfer-personas d-flex flex-lg-row">
 													<div class="search_item">
@@ -2677,7 +2679,7 @@
 											<button class="button search_button " type="submit" >search<span></span><span></span><span></span></button>
 										</div>
 							
-								<button class="button search_button d-none" type="submit" >search<span></span><span></span><span></span></button>
+								
 						</div>
 					</div>
 
@@ -4169,8 +4171,46 @@
 
 
 <script>
-const openButton = document.getElementById('form_submit_button');
-const myDialog = document.getElementById('my-dialog');
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to fetch location suggestions
+    function fetchLocationSuggestions(inputElement, suggestionsElement) {
+      inputElement.addEventListener('input', function() {
+        const query = inputElement.value;
+        if (query.length > 2) {  // Start searching after 2 characters
+          fetch(`/search-locations?input=${query}`)
+            .then(response => response.json())
+            .then(suggestions => {
+              suggestionsElement.innerHTML = ''; // Clear previous suggestions
+              suggestions.forEach(suggestion => {
+                const li = document.createElement('li');
+                li.textContent = suggestion;
+                li.addEventListener('click', () => {
+                  inputElement.value = suggestion; // Set clicked suggestion
+                  suggestionsElement.innerHTML = ''; // Clear suggestions on selection
+                });
+                suggestionsElement.appendChild(li);
+              });
+            });
+        }
+      });
+    }
+
+    // Get elements
+    const pickUpInput = document.getElementById('pick-up-location');
+    const pickUpSuggestions = document.getElementById('pick-up-suggestions');
+    
+    const dropOffInput = document.getElementById('drop-off-location');
+    const dropOffSuggestions = document.getElementById('drop-off-suggestions');
+
+    // Fetch suggestions for both inputs
+    fetchLocationSuggestions(pickUpInput, pickUpSuggestions);
+    fetchLocationSuggestions(dropOffInput, dropOffSuggestions);
+  });
+
+
+// const openButton = document.getElementById('form_submit_button');
+// const myDialog = document.getElementById('my-dialog');
 
 //  openButton.addEventListener('click', () => {
 //      myDialog.showModal();
@@ -4178,81 +4218,81 @@ const myDialog = document.getElementById('my-dialog');
 
 
 //Activity redirection for API
-document.addEventListener("DOMContentLoaded", function() {
-    const apiFormNewPage = document.getElementById("api-form-newpage");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const apiFormNewPage = document.getElementById("api-form-newpage");
 	
 	
 
-    apiFormNewPage.addEventListener("submit", async function(event) {
-        event.preventDefault();
+//     apiFormNewPage.addEventListener("submit", async function(event) {
+//         event.preventDefault();
 
-        const cityIdNewPage = document.getElementById('cityIdNewPage').value;
-		sessionStorage.setItem('selectedCity', cityIdNewPage);
+//         const cityIdNewPage = document.getElementById('cityIdNewPage').value;
+// 		sessionStorage.setItem('selectedCity', cityIdNewPage);
 
-        // Check if the city parameter is already present in the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.has('city')) {
-          // If not present, construct the redirect URL with the selected city
-          const redirectUrl = `/tourrender.html`;
+//         // Check if the city parameter is already present in the URL
+//         const urlParams = new URLSearchParams(window.location.search);
+//         if (!urlParams.has('city')) {
+//           // If not present, construct the redirect URL with the selected city
+//           const redirectUrl = `/tourrender.html`;
 
-          // Redirect to the constructed URL
-          window.location.href = redirectUrl;
-        } else {
-          // If the city parameter is already present, you can choose to display a message or take other actions
-          console.log('City parameter already present in the URL.');
-        }
+//           // Redirect to the constructed URL
+//           window.location.href = redirectUrl;
+//         } else {
+//           // If the city parameter is already present, you can choose to display a message or take other actions
+//           console.log('City parameter already present in the URL.');
+//         }
 
 		
-    });
-});
+//     });
+// });
 
 
 
 
-//Contact Form Submiesion 
-const form = document.getElementById('contact_form');
+// //Contact Form Submiesion 
+// const form = document.getElementById('contact_form');
 	
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  myDialog.showModal();
+// form.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   myDialog.showModal();
   
-  const formData = new FormData(form);
+//   const formData = new FormData(form);
 
-  const xhr1 = new XMLHttpRequest();
-  xhr1.open('POST', 'clientmail.php');
-  xhr1.onload = () => {
-    // handle response from page1.php
-  };
-  xhr1.send(formData);
+//   const xhr1 = new XMLHttpRequest();
+//   xhr1.open('POST', 'clientmail.php');
+//   xhr1.onload = () => {
+//     // handle response from page1.php
+//   };
+//   xhr1.send(formData);
 
-  const xhr2 = new XMLHttpRequest();
-  xhr2.open('POST', 'phpmailer.php');
-  xhr2.onload = () => {
-    // handle response from page2.php
-  };
-  xhr2.send(formData);
+//   const xhr2 = new XMLHttpRequest();
+//   xhr2.open('POST', 'phpmailer.php');
+//   xhr2.onload = () => {
+//     // handle response from page2.php
+//   };
+//   xhr2.send(formData);
 
-  const xhr3 = new XMLHttpRequest();
-  xhr3.open('POST', 'databaseconnect.php');
-  xhr3.onload = () => {
-    // handle response from page3.php
-  };
-  xhr3.send(formData);
+//   const xhr3 = new XMLHttpRequest();
+//   xhr3.open('POST', 'databaseconnect.php');
+//   xhr3.onload = () => {
+//     // handle response from page3.php
+//   };
+//   xhr3.send(formData);
 
-reloadPage()
+// reloadPage()
 
-});
+// });
 
-function reloadPage() {
-	setTimeout(() => {
-    // Enable the button after the delay
-	window.location.reload(true);
+// function reloadPage() {
+// 	setTimeout(() => {
+//     // Enable the button after the delay
+// 	window.location.reload(true);
     
-    // Run the function
-   // runAfterDelay();
-  }, 9000);
+//     // Run the function
+//    // runAfterDelay();
+//   }, 9000);
 	
-}
+// }
 	
 </script>
 
@@ -4263,15 +4303,12 @@ function reloadPage() {
 <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 <script src="plugins/easing/easing.js"></script>
 <script src="js/custom.js"></script>
-<script src="js/one-test.js"></script>
+<!-- <script src="js/one-test.js"></script> -->
 <script src="js/villa-form.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <script src="dist/zebra_datepicker.min.js"></script>
-		
-
-
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="dist/zebra_datepicker.min.js"></script>
 
 </body>
 
