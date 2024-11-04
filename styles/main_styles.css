@@ -3418,10 +3418,10 @@ center {
   max-height: 150px;
   overflow-y: auto;
   position: absolute;
-  background: white;
+  background: #fffffff0;
   width: 100%;
   z-index: 999;
-  color: white;
+  color: black;
 }
 
 .suggestions-list li {
@@ -3431,4 +3431,9 @@ center {
 
 .suggestions-list li:hover {
   background-color: #f0f0f0;
+}
+
+.search_item ul,
+.search_item li {
+  border: none;
 }
