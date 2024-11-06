@@ -714,7 +714,7 @@ qty {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background: var(--darker-color);
+  background: linear-gradient(to right, #6c450e, #391e6b);
   z-index: 100;
   opacity: 0;
   visibility: hidden;
