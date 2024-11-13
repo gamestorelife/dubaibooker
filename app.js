@@ -666,6 +666,55 @@ app.get("/search-locations", async (req, res) => {
   }
 });
 
+app.post("/save-transfer", (req, res) => {
+  const {
+    pickupLocation,
+    dropOffLocation,
+    pickupDate,
+    pickupTime,
+    flightNumber,
+    returnPickupDate,
+    returnPickupTime,
+    returnFlightNumber,
+    numberOfAdults,
+    numberOfChildren,
+    numberOfLuggage,
+
+    // Capture additional fields here as needed
+  } = req.body;
+
+  req.session.transferData = {
+    pickupLocation,
+    dropOffLocation,
+    pickupDate,
+    pickupTime,
+    flightNumber,
+    returnPickupDate,
+    returnPickupTime,
+    returnFlightNumber,
+    numberOfAdults,
+    numberOfChildren,
+    numberOfLuggage,
+    // Store additional fields as needed
+  };
+
+  req.session.save((err) => {
+    if (err) {
+      console.error("Error saving transfer data to session:", err);
+      return res.status(500).send("Error saving transfer data");
+    }
+    res.status(200).json({ message: "Transfer data saved successfully" });
+  });
+});
+
+app.get("/get-transfer-data", (req, res) => {
+  if (req.session.transferData) {
+    res.status(200).json(req.session.transferData);
+  } else {
+    res.status(404).json({ message: "No transfer data found in session" });
+  }
+});
+
 // Register Webhook
 app.post("/register-webhook", async (req, res) => {
   const { url, enabled_events, auth_header } = req.body;

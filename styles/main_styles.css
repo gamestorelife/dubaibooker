@@ -2443,7 +2443,7 @@ a:hover {
   width: 100%;
 }
 
-#roundedk {
+.roundedk {
   border-radius: 10px;
   border-width: 0.5px;
   border-color: rgba(255, 255, 255, 0.982);
@@ -2453,17 +2453,7 @@ a:hover {
   width: 100%;
 }
 
-#roundedk-ferry {
-  border-radius: 10px;
-  border-width: 0.5px;
-  border-color: rgba(255, 255, 255, 0.982);
-  background: #0a2b2c99;
-  border-style: solid;
-  color: rgba(255, 255, 255, 0.961);
-  width: 100%;
-}
-
-#roundedk-activity {
+.roundedk-activity {
   border-radius: 10px;
   border-width: 0.5px;
   border-color: rgba(255, 255, 255, 0.982);
@@ -2475,7 +2465,7 @@ a:hover {
   font-size: 16px;
 }
 
-#roundedk-reservaton {
+.roundedk-reservaton {
   border-radius: 10px;
   border-width: 0.5px;
   border-color: rgba(255, 255, 255, 0.982);
@@ -2487,7 +2477,7 @@ a:hover {
   font-size: 16px;
 }
 
-#roundedk-in {
+.roundedk-in {
   border-radius: 10px;
   border-color: rgba(255, 255, 255, 0.982);
   border-width: 0.5px;
@@ -2500,7 +2490,7 @@ a:hover {
   font-size: 16px;
 }
 
-#roundedk-hotl-in {
+.roundedk-hotl-in {
   border-radius: 10px;
   border-color: rgba(255, 255, 255, 0.982);
   border-width: 0.5px;
@@ -2513,7 +2503,7 @@ a:hover {
   font-size: 16px;
 }
 
-#roundedk-apart-in {
+.roundedk-apart-in {
   border-radius: 10px;
   border-color: rgba(255, 255, 255, 0.982);
   border-width: 0.5px;
@@ -2526,7 +2516,7 @@ a:hover {
   font-size: 16px;
 }
 
-#roundedk-serv-in {
+.roundedk-serv-in {
   border-radius: 10px;
   border-color: rgba(255, 255, 255, 0.982);
   border-width: 0.5px;
@@ -2539,7 +2529,7 @@ a:hover {
   font-size: 16px;
 }
 
-#roundedk-trans-in {
+.roundedk-trans-in {
   border-radius: 10px;
   border-color: rgba(255, 255, 255, 0.982);
   border-width: 0.5px;
@@ -2551,7 +2541,7 @@ a:hover {
   height: 45px;
   font-size: 16px;
 }
-#roundedk-trans-in-hire {
+.roundedk-trans-in-hire {
   border-radius: 10px;
   border-color: rgba(255, 255, 255, 0.982);
   border-width: 0.5px;
@@ -2581,7 +2571,7 @@ a:hover {
   width: inherit;
 }
 
-#date-book-trans {
+.date-book-trans {
   border-radius: 10px;
   border-color: rgba(255, 255, 255, 0.982);
   border-width: 0.5px;
