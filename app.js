@@ -559,7 +559,7 @@ app.get("/retrieve-apartment-booking", (req, res) => {
   }
 });
 
-// POST route to handle form data and send emails
+// POST route to handle form data and send Villa emails
 app.post("/send-booking-email", (req, res) => {
   const { villaname, name, email, phone, insurance, comments, bookingDetails } =
     req.body;
@@ -712,6 +712,60 @@ app.get("/get-transfer-data", (req, res) => {
     res.status(200).json(req.session.transferData);
   } else {
     res.status(404).json({ message: "No transfer data found in session" });
+  }
+});
+
+// Send Get Transfer Email
+
+app.post("/send-gettransfer-email", async (req, res) => {
+  const { name, email, phone, carType, insurance, comments, bookingDetails } =
+    req.body;
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "developers@mykonosbooker.com",
+      pass: "Welcome@2024",
+    },
+  });
+
+  // Define welcome email to the client
+  const userMailOptions = {
+    from: '"Dubai Booker" <developers@mykonosbooker.com>',
+    to: email,
+    subject: "Welcome to DubaiBooker - Booking Confirmation",
+    text: `Dear ${name},\n\nThank you for booking with us! Here are your booking details:\nPickup Location: ${bookingDetails.pickupLocation}\nDrop-off Location: ${bookingDetails.dropOffLocation}\nDate: ${bookingDetails.pickupDate} ${bookingDetails.pickupTime}\n\nLooking forward to serving you!\n\nBest Regards,\nDubai Booker Team`,
+  };
+
+  // Define notification email to admin
+  const adminMailOptions = {
+    from: '"Dubai Booker" <developers@mykonosbooker.com>',
+    to: "freerapper666@gmail.com",
+    subject: "New Booking Received",
+    text: `A new booking was made:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCar Type: ${carType}\nPickup Location: ${
+      bookingDetails.pickupLocation
+    }\nDrop-off Location: ${bookingDetails.dropOffLocation}\nPickup Date: ${
+      bookingDetails.pickupDate
+    }\nPickup Time: ${
+      bookingDetails.pickupTime
+    }\n\nAdditional Comments: ${comments}\nInsurance: ${
+      insurance === "1" ? "Yes" : "No"
+    }`,
+  };
+
+  try {
+    // Send confirmation email to the user
+    await transporter.sendMail(userMailOptions);
+
+    // Send notification email to admin
+    await transporter.sendMail(adminMailOptions);
+
+    res.status(200).json({ message: "Emails sent successfully" });
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    res.status(500).json({ message: "Failed to send emails" });
   }
 });
 

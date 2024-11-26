@@ -3,20 +3,41 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    const pickupLocation = document.getElementById("pick-up-location").value;
+    const dropOffLocation = document.getElementById("drop-off-location").value;
+    const pickupDate = document.getElementById("date-book-trans").value;
+    const pickupTime = document.getElementById("pickupTime").value;
+    const numberOfAdults = document.getElementById("number-of-adults").value;
+
+    // Check if required fields are filled
+    const missingFields = [];
+    if (!pickupLocation) missingFields.push("Pickup Location");
+    if (!dropOffLocation) missingFields.push("Drop-off Location");
+    if (!pickupDate) missingFields.push("Pickup Date");
+    if (!pickupTime) missingFields.push("Pickup Time");
+    if (!numberOfAdults) missingFields.push("Number of Adults");
+
+    if (missingFields.length > 0) {
+      alert(
+        `Please fill in the following required fields:\n- ${missingFields.join(
+          "\n- "
+        )}`
+      );
+      return; // Stop the form submission
+    }
+
     const formData = {
-      pickupLocation: document.getElementById("pick-up-location").value,
-      dropOffLocation: document.getElementById("drop-off-location").value,
-      pickupDate: document.getElementById("date-book-trans").value,
-      pickupTime: document.getElementById("pickupTime").value,
+      pickupLocation,
+      dropOffLocation,
+      pickupDate,
+      pickupTime,
       flightNumber: document.getElementById("flightNumber").value,
       returnPickupDate: document.getElementById("return-date-hide").value,
       returnPickupTime: document.getElementById("return-pickup-time").value,
       returnFlightNumber: document.getElementById("return-flight-number").value,
-      numberOfAdults: document.getElementById("number-of-adults").value,
+      numberOfAdults,
       numberOfChildren: document.getElementById("number-of-children").value,
       numberOfLuggage: document.getElementById("number-of-luggage").value,
-
-      // Include other form data as necessary
     };
 
     try {
@@ -29,8 +50,6 @@ document
       });
 
       if (response.ok) {
-        // alert("Transfer data saved successfully!");
-        // Redirect to a success page or perform other actions as needed
         window.location.href = "get-transfer.html";
       } else {
         alert("Failed to save transfer data.");

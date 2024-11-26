@@ -49,8 +49,13 @@
     />
     <link rel="stylesheet" type="text/css" href="styles/uikit.min.css" />
     <script src="./js/uikit.min.js"></script>
-
     <script src="js/jquery-3.5.0.min.js"></script>
+
+    <link rel="stylesheet" href="styles/v6.5.1/css/all-1.css" />
+<link rel="stylesheet" href="styles/v6.5.1/css/sharp-thin.css" />
+<link rel="stylesheet" href="styles/v6.5.1/css/sharp-solid.css" />
+<link rel="stylesheet" href="styles/v6.5.1/css/sharp-regular.css" />
+<link rel="stylesheet" href="styles/v6.5.1/css/sharp-light.css" />
     <!-- 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.0/swiper-bundle.css" 
 	integrity="sha512-65cVl5TvVRWXwvBKxruMhDBQezjSJ4YvMF+zqzzC4hYrBdf2C+DlCz/JSIkfP2oarKV34cnb9Aa89nYtlP9RDA==" 
@@ -124,6 +129,13 @@
             </div>
           </div>
         </div>
+
+
+
+
+
+
+        
 
         <!-- Main Navigation -->
 
@@ -457,39 +469,18 @@
                           </p>
 
                           <form id="book-form" method="post">
-                            <div class="form-group d-none">
-                              <div class="d-flex">
-                                <div class="date-in-jw">
-                                  <label id="name-label" for="name"
-                                    >Pickup Date</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="pick-date"
-                                    required
-                                    placeholder="Pickup Date"
-                                    name="pickup-date"
-                                  />
-                                </div>
-
-                                <div class="date-out-jw">
-                                  <label id="name-label" for="name"
-                                    >Drop-off Date</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="drop-date"
-                                    required
-                                    placeholder="Drop-off Date"
-                                    name="dropoff-date"
-                                  />
-                                </div>
-                              </div>
+                            <div class="form-group" id="renderBookingDetails">
+                             
                             </div>
 
                             <div class="form-group">
+                              <input
+                              type="text"
+                              class="form-control d-none"
+                              id="carType"
+                              name="car-type"
+                              value="V-Class"
+                            />
                               <label id="name-label" for="name">Name</label>
                               <input
                                 type="text"
@@ -588,6 +579,7 @@
                               </button>
                             </div>
                           </form>
+
                         </div>
                       </div>
                     </div>
@@ -1067,6 +1059,10 @@
         }, 9000);
       }
     </script>
+
+
+    <script src="js/fetchTransferData.js"></script>
+    <script src="js/getTransfer-email-form.js"></script>
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
 
