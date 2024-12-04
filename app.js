@@ -732,11 +732,37 @@ app.post("/send-gettransfer-email", async (req, res) => {
   });
 
   // Define welcome email to the client
+  // Path to the user email HTML template
+  const templatePath = path.join(__dirname, "user-email-template.html");
+
+  // Read and populate the HTML template
+  const populateTemplate = (template, data) => {
+    return template.replace(/\${(.*?)}/g, (_, key) => {
+      const keys = key.split("."); // Support nested keys
+      return keys.reduce((acc, k) => (acc ? acc[k] : ""), data) || "";
+    });
+  };
+
+  let htmlTemplate = "";
+  try {
+    htmlTemplate = fs.readFileSync(templatePath, "utf-8");
+  } catch (error) {
+    console.error("Error loading HTML template:", error);
+    return res.status(500).json({ message: "Failed to load email template" });
+  }
+
+  // Populate template with booking details
+  const populatedHtml = populateTemplate(htmlTemplate, {
+    name,
+    bookingDetails,
+  });
+
+  // Define the user email with the HTML template
   const userMailOptions = {
     from: '"Dubai Booker" <developers@mykonosbooker.com>',
     to: email,
     subject: "Welcome to DubaiBooker - Booking Confirmation",
-    text: `Dear ${name},\n\nThank you for booking with us! Here are your booking details:\nPickup Location: ${bookingDetails.pickupLocation}\nDrop-off Location: ${bookingDetails.dropOffLocation}\nDate: ${bookingDetails.pickupDate} ${bookingDetails.pickupTime}\n\nLooking forward to serving you!\n\nBest Regards,\nDubai Booker Team`,
+    html: populatedHtml, // Use the populated HTML content
   };
 
   // Define notification email to admin
@@ -744,15 +770,119 @@ app.post("/send-gettransfer-email", async (req, res) => {
     from: '"Dubai Booker" <developers@mykonosbooker.com>',
     to: "freerapper666@gmail.com",
     subject: "New Booking Received",
-    text: `A new booking was made:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCar Type: ${carType}\nPickup Location: ${
-      bookingDetails.pickupLocation
-    }\nDrop-off Location: ${bookingDetails.dropOffLocation}\nPickup Date: ${
-      bookingDetails.pickupDate
-    }\nPickup Time: ${
-      bookingDetails.pickupTime
-    }\n\nAdditional Comments: ${comments}\nInsurance: ${
-      insurance === "1" ? "Yes" : "No"
-    }`,
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h2 style="color: #2c3e50;">New Booking Received</h2>
+        <p style="margin: 0 0 10px;">Hello,</p>
+        <p style="margin: 0 0 10px;">A new booking has been made from Dubaibooker. Here are the details:</p>
+  
+        <h3 style="color: #2c3e50; margin-top: 20px;">Customer Information</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Name:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${name}</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Email:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${email}</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Phone:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${phone}</td>
+          </tr>
+        </table>
+  
+        <h3 style="color: #2c3e50;">Booking Details</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Car Type:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${carType}</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Pickup Location:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.pickupLocation
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Drop-off Location:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.dropOffLocation
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Pickup Date:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.pickupDate
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Pickup Time:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.pickupTime
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Flight Number:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.flightNumber
+            }</td>
+          </tr>
+        </table>
+  
+        <h3 style="color: #2c3e50;">Return Details</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Return Pickup Date:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.returnPickupDate
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Return Pickup Time:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.returnPickupTime
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Return Flight Number:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.returnFlightNumber
+            }</td>
+          </tr>
+        </table>
+  
+        <h3 style="color: #2c3e50;">Passenger Information</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Number of Adults:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.numberOfAdults
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Number of Children:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.numberOfChildren
+            }</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">Number of Luggage:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${
+              bookingDetails.numberOfLuggage
+            }</td>
+          </tr>
+        </table>
+  
+        <h3 style="color: #2c3e50;">Additional Information</h3>
+        <p>Comments: ${comments}</p>
+        <p>Comments Selected: ${insurance === "1" ? "Yes" : "No"}</p>
+  
+        <p style="margin-top: 20px; font-size: 0.9em; color: #555;">
+          This email was automatically generated. If you have any questions, please contact us.
+        </p>
+      </div>
+    `,
   };
 
   try {
