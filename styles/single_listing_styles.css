@@ -2048,3 +2048,8 @@ center {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+.cus-submit-button {
+  width: 40%;
+  font-weight: 600;
+}
