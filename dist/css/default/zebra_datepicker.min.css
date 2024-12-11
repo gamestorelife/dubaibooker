@@ -1,8 +1,8 @@
 .Zebra_DatePicker {
-  background: #ffffff;
+  background: linear-gradient(to right, #6c450e, #391e6b);
   border-radius: 15px;
   box-shadow: 0 0 10px #888;
-  color: #222;
+  color: #6f7286;
   font: 13px Tahoma, Arial, Helvetica, sans-serif;
   padding: 3px;
   position: absolute;
@@ -131,7 +131,7 @@
 }
 .Zebra_DatePicker .dp_actions td {
   border-radius: 4px;
-  color: #000000;
+  color: #ffffff;
 }
 .Zebra_DatePicker .dp_actions .dp_caption {
   font-weight: 700;

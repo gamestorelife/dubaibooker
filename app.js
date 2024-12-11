@@ -811,17 +811,12 @@ app.post("/send-gettransfer-email", async (req, res) => {
             }</td>
           </tr>
           <tr>
-            <td style="padding: 5px; border: 1px solid #ddd;">Pickup Date:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">Pickup Date & Time:</td>
             <td style="padding: 5px; border: 1px solid #ddd;">${
               bookingDetails.pickupDate
             }</td>
           </tr>
-          <tr>
-            <td style="padding: 5px; border: 1px solid #ddd;">Pickup Time:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.pickupTime
-            }</td>
-          </tr>
+          
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Flight Number:</td>
             <td style="padding: 5px; border: 1px solid #ddd;">${
@@ -833,17 +828,12 @@ app.post("/send-gettransfer-email", async (req, res) => {
         <h3 style="color: #2c3e50;">Return Details</h3>
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
           <tr>
-            <td style="padding: 5px; border: 1px solid #ddd;">Return Pickup Date:</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">Return Pickup Date & Time:</td>
             <td style="padding: 5px; border: 1px solid #ddd;">${
               bookingDetails.returnPickupDate
             }</td>
           </tr>
-          <tr>
-            <td style="padding: 5px; border: 1px solid #ddd;">Return Pickup Time:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.returnPickupTime
-            }</td>
-          </tr>
+        
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Return Flight Number:</td>
             <td style="padding: 5px; border: 1px solid #ddd;">${

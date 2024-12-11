@@ -34,28 +34,20 @@ function renderTransferData(data) {
             </div>
         </div>
         <div class="d-flex justify-content-between">
-            <div> <p><strong>Pickup Date:</strong></p> </div>
-            <div> <p> ${data.pickupDate} <i class="fa-light fa-calendar-days"></i> </p> </div>
+            <div> <p><strong>Pickup Date & Time:</strong></p> </div>
+            <div> <p> ${data.pickupDate} <i class="fa-sharp fa-regular fa-timer"></i> </p> </div>
         </div>
-        <div class="d-flex justify-content-between">
-            <div>
-                 <p><strong>Pickup Time:</strong></p>
-            </div>
-            <div> <p>  ${data.pickupTime}  <i class="fa-sharp fa-regular fa-timer"></i> </p>  </div>
-        </div>
+       
         <div id="flight-number" class="fligh-number-container" >
             <div><p><strong>Flight Number:</strong></p>  </div>
             <div><p> ${data.flightNumber} <i class="fa-light fa-plane-departure"></i>  </p> </div>
         </div>
         <div id="returnContainer">
            <div class="d-flex justify-content-between">
-                <div><p><strong>Return Pickup Date:</strong></p>  </div>
-                <div><p> ${data.returnPickupDate} <i class="fa-light fa-calendar-days"></i> </p> </div>
+                <div><p><strong>Return Pickup Date & Time:</strong></p>  </div>
+                <div><p> ${data.returnPickupDate} <i class="fa-sharp fa-regular fa-timer"></i></p> </div>
            </div>
-           <div class="d-flex justify-content-between">
-                <div><p><strong>Return Pickup Time:</strong></p>  </div>
-                <div><p> ${data.returnPickupTime}  <i class="fa-sharp fa-regular fa-timer"></i>  </p> </div>
-           </div>
+          
            <div id="return-flight-number" class="fligh-number-container">
                 <div><p><strong>Return Flight Number:</strong></p>  </div>
                 <div><p> ${data.returnFlightNumber}  <i class="fa-light fa-plane-departure"></i>  </p> </div>

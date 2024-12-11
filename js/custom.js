@@ -3989,14 +3989,17 @@ $(document).ready(function () {
 
   $("#date-book-trans").Zebra_DatePicker({
     direction: true,
+    format: "Y-m-d H:i",
   });
 
   $("#roundedk-trans-in-hire").Zebra_DatePicker({
     direction: true,
+    format: "Y-m-d H:i",
   });
 
   $("#return-date-hide").Zebra_DatePicker({
     direction: true,
+    format: "Y-m-d H:i",
   });
 
   function hideAllRooms() {
