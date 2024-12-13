@@ -2274,12 +2274,12 @@
 
 						<!-- Hire a Driver -->
 										<div class="dash-hire-driv">
-											
+										<form method="post" id="hireDriver" >
 
 											<div class="check-in-hire justify-content-around">
 												<div class="search_item" id="hire-days">
 													<div>Start Date</div>
-													<input id="roundedk-trans-in-hire" type="text" class="roundedk-trans-in-hire check_in search_input" placeholder="Starting Date & Time">
+													<input id="roundedk-trans-in-hire" name="startDate" type="text" class="roundedk-trans-in-hire check_in search_input" placeholder="Starting Date & Time">
 												</div>
 												
 											</div>
@@ -2287,42 +2287,45 @@
 												
 												<div class="search_item" id="hire-days">
 													<div>Adult</div>
-													<select name="adults" id="" class="roundedk dropdown_item_select search_input">
-														<option>0</option>
-														<option selected="selected">1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-														<option>6</option>
-														<option>7</option>
-														<option>8</option>
-														<option>9</option>
-														<option>10</option>
-														<option>11</option>
-														<option>12</option>
-														<option>13</option>
-														<option>14</option>
-														<option>15</option>
-														<option>16</option>
-														<option>17</option>
-														<option>18</option>
-														<option>19</option>
-														<option>20</option>
+													<select name="adults" id="adultsNumber" value="" class="roundedk dropdown_item_select search_input">
+														<option value="" selected="selected" disabled="disabled">Adults</option>
+															<option value="1">1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+															<option value="6">6</option>
+															<option value="7">7</option>
+															<option value="8">8</option>
+															<option value="9">9</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
 													</select>
 												</div>
 												<div class="search_item" id="hire-hours"> 
 													<div>children</div>
 													
-													<select id="" class="roundedk dropdown_item_select search_input">
-														<option>0</option>
-														<option selected="selected">1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-														<option>6</option>
-														
+													<select value="" id="childrenNumber" name="children" class="roundedk dropdown_item_select search_input" >
+														<option selected="selected" disabled="disabled" value="Not selected">Children</option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+														<option value="8">8</option>
+														<option value="9">9</option>
+														<option value="10">10</option>
+														<option value="11">11</option> 
 													</select>
 
 												</div>
@@ -2331,78 +2334,73 @@
 											<div class="check-in-hire justify-content-around">
 												<div class="search_item" id="hire-days">
 													<div>How Many Days ?</div>
-													<select name="adults" id="" class="roundedk dropdown_item_select search_input">
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-														<option>6</option>
-														<option>7</option>
-														<option>8</option>
-														<option>9</option>
-														<option>10</option>
-														<option>11</option>
-														<option>12</option>
-														<option>13</option>
-														<option>14</option>
-														<option>15</option>
-														<option>16</option>
-														<option>17</option>
-														<option>18</option>
-														<option>19</option>
-														<option>20</option>
-														<option>21</option>
-														<option>23</option>
-														<option>24</option>
-														<option>25</option>
-														<option>26</option>
-														<option>27</option>
-														<option>28</option>
-														<option>29</option>
-														<option>30</option>
+													<select name="hireDays" id="numberofDays" class="roundedk dropdown_item_select search_input">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+														<option value="8">8</option>
+														<option value="9">9</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="23">23</option>
+														<option value="24">24</option>
+														<option value="25">25</option>
+														<option value="26">26</option>
+														<option value="27">27</option>
+														<option value="28">28</option>
+														<option value="29">29</option>
+														<option value="30">30</option>
 														
 													</select>
 												</div>
 												<div class="search_item" id="hire-hours">
 													<div>Hours Per Day</div>
-													<select name="children" id="" class="roundedk dropdown_item_select search_input">
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-														<option>6</option>
-														<option>7</option>
-														<option>8</option>
-														<option>9</option>
-														<option>10</option>
-														<option>11</option>
-														<option>12</option>
-														<option>13</option>
-														<option>14</option>
-														<option>15</option>
-														<option>16</option>
-														<option>17</option>
-														<option>18</option>
-														<option>19</option>
-														<option>20</option>
-														<option>21</option>
-														<option>23</option>
-														<option>24</option>
+													<select name="hoursPerDay" id="hoursperDay" class="roundedk dropdown_item_select search_input">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+														<option value="8">8</option>
+														<option value="9">9</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="23">23</option>
+														<option value="24">24</option>
 													</select>
 												</div>
-				
-											</div>
 
-											<!-- <div class="search_item">
-												<div>Special request</div>
-												<input type="text"  id="" class="roundedk check_out search_input" placeholder="Note any special request" >
-											</div> -->
-											<button class="button search_button " type="submit" >search<span></span><span></span><span></span></button>
+											</div>
+											<button class="button search_button" type="submit" >search<span></span><span></span><span></span></button>
+										</form>
 										</div>
-							
-								
+	
 						</div>
 					</div>
 
@@ -4042,6 +4040,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/villa-form.js"></script>
 <script src="js/1.13.2/jquery-ui.js"></script>
 <script src="js/get-transfer-form.js"></script>
+<script src="js/hireadriver-form.js"></script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script> -->
 

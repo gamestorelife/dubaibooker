@@ -4412,3 +4412,38 @@ $(document).ready(function () {
     }
   }
 });
+
+// // Hire a driver Form Logic
+// document
+//   .getElementById("hireDriver")
+//   .addEventListener("submit", function (event) {
+//     const startDate = document.getElementById("roundedk-trans-in-hire").value;
+//     const adults = document.getElementById("adultsNumber").value;
+//     const hireDays = document.getElementById("numberofDays").value;
+//     const hoursPerDay = document.getElementById("hoursperDay").value;
+
+//     // Check if any required field is empty
+//     if (!startDate) {
+//       alert("Please select a starting date and time.");
+//       event.preventDefault(); // Prevent form submission
+//       return;
+//     }
+
+//     if (!adults || adults === "") {
+//       alert("Please select the number of adults.");
+//       event.preventDefault(); // Prevent form submission
+//       return;
+//     }
+
+//     if (!hireDays || hireDays === "") {
+//       alert("Please select the number of days.");
+//       event.preventDefault(); // Prevent form submission
+//       return;
+//     }
+
+//     if (!hoursPerDay || hoursPerDay === "") {
+//       alert("Please select the number of hours per day.");
+//       event.preventDefault(); // Prevent form submission
+//       return;
+//     }
+//   });

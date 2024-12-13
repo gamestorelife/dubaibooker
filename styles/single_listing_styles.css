@@ -265,7 +265,7 @@ section {
 }
 .button {
   display: inline-block;
-  height: 53px;
+  height: 42px;
   border-radius: 27px;
   overflow: hidden;
   z-index: 1;
@@ -1997,6 +1997,16 @@ center {
 }
 
 #book-form {
+  background: linear-gradient(to right, #6c450e, #391e6b);
+  padding: 11px;
+  color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.book-form {
   background: linear-gradient(to right, #6c450e, #391e6b);
   padding: 11px;
   color: #ffffff;

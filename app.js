@@ -889,6 +889,37 @@ app.post("/send-gettransfer-email", async (req, res) => {
   }
 });
 
+// Route to handle hireDriver form submission
+app.post("/submit-hire-driver", (req, res) => {
+  const { startDate, adults, children, hireDays, hoursPerDay } = req.body;
+
+  // Save form data in session
+  req.session.hireDriverData = {
+    startDate,
+    adults,
+    children,
+    hireDays,
+    hoursPerDay,
+  };
+
+  req.session.save((err) => {
+    if (err) {
+      console.error("Error saving session:", err);
+      return res.status(500).send("Error saving session");
+    }
+    res.status(200).json({ message: "Hire a driver data saved successfully" });
+  });
+});
+
+// Route to retrieve hireDriver form data
+app.get("/retrieve-hire-driver", (req, res) => {
+  if (req.session.hireDriverData) {
+    res.status(200).json(req.session.hireDriverData);
+  } else {
+    res.status(404).json({ message: "No hire driver data found in session" });
+  }
+});
+
 // Register Webhook
 app.post("/register-webhook", async (req, res) => {
   const { url, enabled_events, auth_header } = req.body;
