@@ -766,22 +766,18 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>-->
 
     <script>
-      function applyBackgroundOnDesktop() {
-        // Check if the screen width is greater than 768px (desktop resolution)
-        if (window.innerWidth > 768) {
-          // Select the div with the specified class
-          var parallaxElement = document.querySelector(".home_background");
+    function applyBackground() {
+  // Select the div with the specified class
+  var parallaxElement = document.querySelector(".home_background");
 
-          // Ensure the element exists
-          if (parallaxElement) {
-            // Apply the background image using DOM manipulation
-            parallaxElement.style.backgroundImage =
-              "url(images/hire-a-driver-header.jpg)";
-            parallaxElement.style.backgroundSize = "cover";
-            parallaxElement.style.backgroundPosition = "center center";
-          }
-        }
-      }
+  // Ensure the element exists
+  if (parallaxElement) {
+    // Apply the background image using DOM manipulation
+    parallaxElement.style.backgroundImage = "url(images/hire-a-driver-header.jpg)";
+    parallaxElement.style.backgroundSize = "cover";
+    parallaxElement.style.backgroundPosition = "center center";
+  }
+}
 
       // Run the function when the page loads and when the window is resized
       window.addEventListener("load", applyBackgroundOnDesktop);
