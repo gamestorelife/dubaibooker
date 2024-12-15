@@ -1105,6 +1105,22 @@
           // runAfterDelay();
         }, 9000);
       }
+
+      function applyBackground() {
+        // Select the div with the specified class
+        var parallaxElement = document.querySelector(".home_background");
+
+        // Ensure the element exists
+        if (parallaxElement) {
+          // Apply the background image using DOM manipulation
+          parallaxElement.style.backgroundImage =
+            "url(images/2Bedroom-Lavish-Dubai-Marina-1.png)";
+          parallaxElement.style.backgroundSize = "cover";
+          parallaxElement.style.backgroundPosition = "center center";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", applyBackground);
     </script>
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>

@@ -114,7 +114,9 @@
                 <div class="social">
                   <ul class="social_list">
                     <li class="social_list_item">
-                      <a href=""><i class="fa-brands fa-instagram"></i></a>
+                      <a href="https://www.instagram.com/dubaibooker"
+                        ><i class="fa-brands fa-instagram"></i
+                      ></a>
                     </li>
                     <li class="social_list_item d-none">
                       <a href="#"
@@ -851,7 +853,9 @@
                   </p>
                   <ul class="footer_social_list">
                     <li class="footer_social_item">
-                      <a href=""><i class="fa-brands fa-instagram"></i></a>
+                      <a href="https://www.instagram.com/dubaibooker"
+                        ><i class="fa-brands fa-instagram"></i
+                      ></a>
                     </li>
                     <li class="">
                       <a href="https://api.whatsapp.com/send?phone=971585810650"
@@ -1041,6 +1045,23 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>-->
 
     <script>
+      //Neon-Mansion-Dubai-38.png
+
+      function applyBackground() {
+        // Select the div with the specified class
+        var parallaxElement = document.querySelector(".home_background");
+
+        // Ensure the element exists
+        if (parallaxElement) {
+          // Apply the background image using DOM manipulation
+          parallaxElement.style.backgroundImage =
+            "url(images/Neon-Mansion-Dubai-38.png)";
+          parallaxElement.style.backgroundSize = "cover";
+          parallaxElement.style.backgroundPosition = "center center";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", applyBackground);
       UIkit.util.on("#slider li", "click", function () {
         UIkit.slideshow("#slideshow").show(
           this.getAttribute("uk-slideshow-item")
