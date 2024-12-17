@@ -3,6 +3,8 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    const myDialog = document.getElementById("my-dialog");
+    myDialog.showModal();
     // Validate required fields
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
@@ -49,6 +51,8 @@ document
 
       if (submitResponse.ok) {
         alert("Booking confirmed! Check your email for details.");
+        myDialog.close();
+        window.location.href = "index.html";
       } else {
         alert("Failed to send booking confirmation. Please try again.");
       }

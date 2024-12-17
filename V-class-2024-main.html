@@ -534,6 +534,7 @@
                                   id="insurance1"
                                   value="1"
                                   checked
+                                  onchange="toggleTextarea()"
                                 />
                                 <label
                                   class="form-check-label"
@@ -549,6 +550,7 @@
                                   name="insurance"
                                   id="insurance2"
                                   value="0"
+                                  onchange="toggleTextarea()"
                                 />
                                 <label
                                   class="form-check-label"
@@ -936,66 +938,62 @@
       });
 
        // JavaScript to handle enabling/disabling textarea
-  document.addEventListener("DOMContentLoaded", () => {
-    const insuranceOptions = document.getElementsByName("insurance");
-    const commentsField = document.getElementById("comments");
+       function toggleTextarea() {
+    const yesOption = document.getElementById("insurance2");
+    const textarea = document.getElementById("comments");
+    textarea.disabled = !yesOption.checked; // Enable if "Yes" is selected
+  }
 
-    insuranceOptions.forEach(option => {
-      option.addEventListener("change", () => {
-        commentsField.disabled = document.getElementById("insurance1").checked;
-      });
-    });
-  });
-
-      const openButton = document.getElementById("submit-btn");
-      const myDialog = document.getElementById("my-dialog");
+    //  const openButton = document.getElementById("submit-btn");
+    //  const myDialog = document.getElementById("my-dialog");
 
       //  openButton.addEventListener('click', () => {
       //       myDialog.showModal();
       //     });
 
-      const form = document.getElementById("book-form");
+      // const form = document.getElementById("book-form");
 
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        myDialog.showModal();
+      // form.addEventListener("submit", (event) => {
+      //   event.preventDefault();
+      //   myDialog.showModal();
 
-        const formData = new FormData(form);
+      //   const formData = new FormData(form);
 
-        const xhr1 = new XMLHttpRequest();
-        xhr1.open("POST", "databaseconnect.php");
-        xhr1.onload = () => {
-          // handle response from page1.php
-        };
-        xhr1.send(formData);
+      //   const xhr1 = new XMLHttpRequest();
+      //   xhr1.open("POST", "databaseconnect.php");
+      //   xhr1.onload = () => {
+      //     // handle response from page1.php
+      //   };
+      //   xhr1.send(formData);
 
-        const xhr2 = new XMLHttpRequest();
-        xhr2.open("POST", "clientmail.php");
-        xhr2.onload = () => {
-          // handle response from page2.php
-        };
-        xhr2.send(formData);
+      //   const xhr2 = new XMLHttpRequest();
+      //   xhr2.open("POST", "clientmail.php");
+      //   xhr2.onload = () => {
+      //     // handle response from page2.php
+      //   };
+      //   xhr2.send(formData);
 
-        const xhr3 = new XMLHttpRequest();
-        xhr3.open("POST", "send-email.php");
-        xhr3.onload = () => {
-          // handle response from page3.php
-        };
-        xhr3.send(formData);
+      //   const xhr3 = new XMLHttpRequest();
+      //   xhr3.open("POST", "send-email.php");
+      //   xhr3.onload = () => {
+      //     // handle response from page3.php
+      //   };
+      //   xhr3.send(formData);
 
-        reloadPage();
-      });
+      //   reloadPage();
+      // });
 
-      function reloadPage() {
-        setTimeout(() => {
-          // Enable the button after the delay
-          window.location.reload(true);
+      // function reloadPage() {
+      //   setTimeout(() => {
+      //     // Enable the button after the delay
+      //     window.location.reload(true);
 
-          // Run the function
-          // runAfterDelay();
-        }, 9000);
-      }
-    </script>
+      //     // Run the function
+      //     // runAfterDelay();
+      //   }, 9000);
+      // }
+   
+   </script>
 
 
     <script src="js/fetchTransferData.js"></script>

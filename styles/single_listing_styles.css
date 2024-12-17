@@ -502,7 +502,7 @@ section {
   bottom: -11px;
   width: calc(100% + 2px);
   height: 2px;
-  background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+  background: var(--primary-color);
   content: "";
   opacity: 0;
   -webkit-transition: all 200ms ease;
@@ -513,6 +513,7 @@ section {
 }
 .main_nav_item:hover::after {
   opacity: 1;
+  color: #000;
 }
 .content_search {
   -webkit-transform: translateY(-1px);

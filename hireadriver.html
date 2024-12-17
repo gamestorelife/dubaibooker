@@ -511,7 +511,7 @@
                                 id="phone"
                                 required
                                 placeholder="Enter phone number"
-                                name="subject"
+                                name="phone"
                               />
                             </div>
 
@@ -530,6 +530,7 @@
                                   id="insurance1"
                                   value="1"
                                   checked
+                                  onchange="toggleTextarea()"
                                 />
                                 <label
                                   class="form-check-label"
@@ -545,6 +546,7 @@
                                   name="insurance"
                                   id="insurance2"
                                   value="0"
+                                  onchange="toggleTextarea()"
                                 />
                                 <label
                                   class="form-check-label"
@@ -561,7 +563,7 @@
                                 class="form-control"
                                 id="comments"
                                 rows="3"
-                                name="message"
+                                name="comments"
                                 disabled
                               ></textarea>
                             </div>
@@ -794,72 +796,32 @@ document.addEventListener("DOMContentLoaded", applyBackground);
         UIkit.slider("#slider").show(b.index);
       });
 
-       // JavaScript to handle enabling/disabling textarea
-  document.addEventListener("DOMContentLoaded", () => {
-    const insuranceOptions = document.getElementsByName("insurance");
-    const commentsField = document.getElementById("comments");
+// JavaScript to handle enabling/disabling textarea
 
-    insuranceOptions.forEach(option => {
-      option.addEventListener("change", () => {
-        commentsField.disabled = document.getElementById("insurance1").checked;
-      });
-    });
-  });
+  function toggleTextarea() {
+    const yesOption = document.getElementById("insurance2");
+    const textarea = document.getElementById("comments");
+    textarea.disabled = !yesOption.checked; // Enable if "Yes" is selected
+  }
 
-      const openButton = document.getElementById("submit-btn");
-      const myDialog = document.getElementById("my-dialog");
 
-      //  openButton.addEventListener('click', () => {
-      //       myDialog.showModal();
-      //     });
 
-      const form = document.getElementById("book-form");
+     // const openButton = document.getElementById("submit-btn");
+     // const myDialog = document.getElementById("my-dialog");
 
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        myDialog.showModal();
+        // openButton.addEventListener('click', () => {
+        //      myDialog.showModal();
+        //       reloadPage()
+        //    });
 
-        const formData = new FormData(form);
+ 
 
-        const xhr1 = new XMLHttpRequest();
-        xhr1.open("POST", "databaseconnect.php");
-        xhr1.onload = () => {
-          // handle response from page1.php
-        };
-        xhr1.send(formData);
-
-        const xhr2 = new XMLHttpRequest();
-        xhr2.open("POST", "clientmail.php");
-        xhr2.onload = () => {
-          // handle response from page2.php
-        };
-        xhr2.send(formData);
-
-        const xhr3 = new XMLHttpRequest();
-        xhr3.open("POST", "send-email.php");
-        xhr3.onload = () => {
-          // handle response from page3.php
-        };
-        xhr3.send(formData);
-
-        reloadPage();
-      });
-
-      function reloadPage() {
-        setTimeout(() => {
-          // Enable the button after the delay
-          window.location.reload(true);
-
-          // Run the function
-          // runAfterDelay();
-        }, 9000);
-      }
     </script>
 
-
+<script src="js/hireadriver-email.js"></script>
 <script src="js/fetchHireaDriverData.js"></script>
-    <script src="js/jquery-3.5.0.min.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jquery-3.5.0.min.js"></script>
+ <script src="js/jquery-3.2.1.min.js"></script>
 
     <script src="dist/zebra_datepicker.min.js"></script>
     <script

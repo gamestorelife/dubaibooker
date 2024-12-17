@@ -754,6 +754,7 @@ app.post("/send-gettransfer-email", async (req, res) => {
   // Populate template with booking details
   const populatedHtml = populateTemplate(htmlTemplate, {
     name,
+    comments,
     bookingDetails,
   });
 
@@ -769,7 +770,7 @@ app.post("/send-gettransfer-email", async (req, res) => {
   const adminMailOptions = {
     from: '"Dubai Booker" <developers@mykonosbooker.com>',
     to: "freerapper666@gmail.com",
-    subject: "New Booking Received",
+    subject: "New Get-Transfer Booking Received",
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <h2 style="color: #2c3e50;">New Booking Received</h2>
@@ -800,28 +801,20 @@ app.post("/send-gettransfer-email", async (req, res) => {
           </tr>
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Pickup Location:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.pickupLocation
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.pickupLocation}</td>
           </tr>
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Drop-off Location:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.dropOffLocation
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.dropOffLocation}</td>
           </tr>
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Pickup Date & Time:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.pickupDate
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.pickupDate}</td>
           </tr>
           
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Flight Number:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.flightNumber
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.flightNumber}</td>
           </tr>
         </table>
   
@@ -829,16 +822,12 @@ app.post("/send-gettransfer-email", async (req, res) => {
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Return Pickup Date & Time:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.returnPickupDate
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.returnPickupDate}</td>
           </tr>
         
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Return Flight Number:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.returnFlightNumber
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.returnFlightNumber}</td>
           </tr>
         </table>
   
@@ -846,27 +835,21 @@ app.post("/send-gettransfer-email", async (req, res) => {
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Number of Adults:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.numberOfAdults
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.numberOfAdults}</td>
           </tr>
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Number of Children:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.numberOfChildren
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.numberOfChildren}</td>
           </tr>
           <tr>
             <td style="padding: 5px; border: 1px solid #ddd;">Number of Luggage:</td>
-            <td style="padding: 5px; border: 1px solid #ddd;">${
-              bookingDetails.numberOfLuggage
-            }</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${bookingDetails.numberOfLuggage}</td>
           </tr>
         </table>
   
         <h3 style="color: #2c3e50;">Additional Information</h3>
         <p>Comments: ${comments}</p>
-        <p>Comments Selected: ${insurance === "1" ? "Yes" : "No"}</p>
+        
   
         <p style="margin-top: 20px; font-size: 0.9em; color: #555;">
           This email was automatically generated. If you have any questions, please contact us.
@@ -917,6 +900,142 @@ app.get("/retrieve-hire-driver", (req, res) => {
     res.status(200).json(req.session.hireDriverData);
   } else {
     res.status(404).json({ message: "No hire driver data found in session" });
+  }
+});
+
+// Endpoint to handle "Hire a Driver" form submission and send emails
+app.post("/submit-hire-driver-email", async (req, res) => {
+  try {
+    // Retrieve session data
+    const hireDriverData = req.session.hireDriverData;
+    if (!hireDriverData) {
+      return res.status(400).json({ message: "No session data found" });
+    }
+
+    // Extract form inputs
+    const { name, email, phone, insurance, comments } = req.body;
+
+    // Email setup
+    const transporter = nodemailer.createTransport({
+      host: "smtp.hostinger.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "developers@mykonosbooker.com", // Replace with your email
+        pass: "Welcome@2024", // Replace with your email password
+      },
+    });
+
+    // Define welcome email to the client
+    // Path to the user email HTML template
+    const templatePath = path.join(__dirname, "hireadriver-welcome-email.html");
+
+    // Read and populate the HTML template
+    const populateTemplate = (template, data) => {
+      return template.replace(/\${(.*?)}/g, (_, key) => {
+        const keys = key.split("."); // Support nested keys
+        return keys.reduce((acc, k) => (acc ? acc[k] : ""), data) || "";
+      });
+    };
+
+    let htmlTemplate = "";
+    try {
+      htmlTemplate = fs.readFileSync(templatePath, "utf-8");
+    } catch (error) {
+      console.error("Error loading HTML template:", error);
+      return res.status(500).json({ message: "Failed to load email template" });
+    }
+
+    // Populate template with booking details
+    const populatedHtml = populateTemplate(htmlTemplate, {
+      name,
+      comments,
+      hireDriverData,
+    });
+
+    // Admin email content
+    const adminMailOptions = {
+      from: '"Dubai Booker" <developers@mykonosbooker.com>',
+      to: "freerapper666@gmail.com", // Admin email
+      subject: "New Hire-a-Driver Booking Notification",
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #333;">
+          <h2 style="color: #0056b3;">New Hire-a-Driver Booking</h2>
+          <p>Hello Admin,</p>
+          <p>You have received a new booking request. Below are the details:</p>
+    
+          <table style="border-collapse: collapse; width: 100%; margin-top: 10px;">
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${email}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${phone}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Start Date:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${
+                hireDriverData.startDate
+              }</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Adults:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${
+                hireDriverData.adults
+              }</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Children:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${
+                hireDriverData.children
+              }</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Hire Days:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${
+                hireDriverData.hireDays
+              }</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Hours per Day:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${
+                hireDriverData.hoursPerDay
+              }</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Comments:</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${
+                comments || "None"
+              }</td>
+            </tr>
+          </table>
+    
+          <p style="margin-top: 20px;">Best regards,<br>Dubai Booker Team</p>
+        </div>
+      `,
+    };
+
+    // Client email content
+    const userMailOptions = {
+      from: '"Dubai Booker" <developers@mykonosbooker.com>',
+      to: email,
+      subject: "Booking Confirmation - Hire a Driver",
+      html: populatedHtml,
+    };
+
+    // Send emails
+    await transporter.sendMail(adminMailOptions);
+    await transporter.sendMail(userMailOptions);
+
+    res.status(200).json({ message: "Emails sent successfully" });
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    res.status(500).json({ message: "Failed to send emails", error });
   }
 });
 
