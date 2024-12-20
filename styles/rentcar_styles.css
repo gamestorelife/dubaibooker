@@ -1348,12 +1348,13 @@ section {
   position: absolute;
   left: 0;
   bottom: 27px;
-  width: 100px;
+  width: max-content;
   height: 27px;
   background: var(--primary-color);
   overflow: hidden;
   color: white;
   border-radius: 0 10px 10px 0;
+  padding-right: 20px;
 }
 .offer_name a {
   display: block;

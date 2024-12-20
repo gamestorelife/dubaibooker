@@ -3985,6 +3985,7 @@ $(document).ready(function () {
 
   $("#roundedk-reservaton").Zebra_DatePicker({
     direction: true,
+    format: "Y-m-d H:i",
   });
 
   $("#date-book-trans").Zebra_DatePicker({

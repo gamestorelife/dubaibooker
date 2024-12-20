@@ -1039,6 +1039,61 @@ app.post("/submit-hire-driver-email", async (req, res) => {
   }
 });
 
+// Reservations Form Submission
+app.post("/submit-reservation", (req, res) => {
+  const { categorynumber, reservationDate, reservationsadults } = req.body;
+
+  // Save reservation data to session
+  req.session.reservation = {
+    date: reservationDate,
+    adults: reservationsadults,
+    category: categorynumber,
+  };
+
+  req.session.save((err) => {
+    if (err) {
+      console.error("Error saving session:", err);
+      return res.status(500).send("Error saving session");
+    }
+
+    console.log("Session data saved:", req.session.reservation);
+
+    // Determine redirection URL
+    let redirectUrl;
+    switch (categorynumber) {
+      case "19":
+        redirectUrl = "/beachclubs.html";
+        break;
+      case "20":
+        redirectUrl = "/nightclubs.html";
+        break;
+      case "21":
+        redirectUrl = "/restaurants.html";
+        break;
+      default:
+        redirectUrl = "/";
+    }
+
+    // Log the redirection URL
+    // console.log("Redirecting to main:", redirectUrl);
+
+    // Perform the redirection
+    res.json({ redirectUrl }); // Correct JSON response
+  });
+});
+
+// Retrieve the Reservation data from
+app.get("/retrieve-reservation", (req, res) => {
+  if (req.session && req.session.reservation) {
+    res.status(200).json({
+      message: "Reservation data retrieved successfully",
+      reservation: req.session.reservation,
+    });
+  } else {
+    res.status(404).json({ message: "No reservation data found in session" });
+  }
+});
+
 // Register Webhook
 app.post("/register-webhook", async (req, res) => {
   const { url, enabled_events, auth_header } = req.body;
