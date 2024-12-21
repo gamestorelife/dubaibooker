@@ -107,14 +107,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   </div>`;
 
-  // Append total price and buttons dynamically
-  const buttonContainer = document.createElement("div");
-  buttonContainer.className = "total-price-subbutton";
-  buttonContainer.innerHTML = `
-  <div class="button book_button" id="pickupclick"><a>Next</a></div>
-  <div class="button book_button" id="remarksclick" style="display: none;"><a>Next</a></div>
-  <div class="button book_button" id="multipaymentclick" style="display: none;"><a>Pay Now</a></div>
-`;
+  //   // Append total price and buttons dynamically
+  //   const buttonContainer = document.createElement("div");
+  //   buttonContainer.className = "total-price-subbutton";
+  //   buttonContainer.innerHTML = `
+  //   <div class="button book_button" id="pickupclick"><a>Next</a></div>
+  //   <div class="button book_button" id="remarksclick" style="display: none;"><a>Next</a></div>
+  //   <div class="button book_button" id="multipaymentclick" style="display: none;"><a>Pay Now</a></div>
+  // `;
 
   // // Remove it from its parent if needed
   // if (buttonContainer) {
