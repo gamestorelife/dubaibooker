@@ -1314,6 +1314,14 @@ section {
   width: 100%;
 }
 
+.total-price-subbutton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-top: -90px;
+}
+
 .total-font {
   font-size: 40px;
   font-weight: 700;
@@ -1361,7 +1369,10 @@ section {
 .offers_grid {
   width: 100%;
   margin-top: 66px;
-  margin-bottom: 30px;
+  position: relative;
+  flex-grow: 2;
+  height: 140vh;
+  box-sizing: border-box;
 }
 .offers_item {
   width: 100%;
@@ -1369,10 +1380,25 @@ section {
   box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
   border-radius: 25px;
   padding: 30px;
+  position: relative !important;
 }
 .offers_item:last-child {
   margin-bottom: 0px;
 }
+
+#allitemsincart {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  top: 0 !important;
+}
+
+#cart-items {
+  display: flex;
+  flex-direction: column; /* Items will stack vertically */
+  height: 100% !important;
+}
+
 .offers_image img {
   width: 100%;
 }
@@ -1450,7 +1476,7 @@ section {
   margin-right: 0px;
 }
 .book_button {
-  background: var(--darker-color);
+  background: var(--primary-color);
   z-index: -1;
   margin-top: 39px;
   margin-bottom: -5px;
@@ -1461,6 +1487,7 @@ section {
   transition: all 200ms ease;
   z-index: initial;
   width: 60%;
+  box-shadow: 10px 10px 20px rgb(5 4 4 / 37%);
 }
 .book_button:hover {
   opacity: 0.8;

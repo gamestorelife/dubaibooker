@@ -27,9 +27,6 @@
 
 @media only screen and (min-width: 576px) {
   /* Your CSS rules go here */
-  .offers_grid {
-    margin-top: 200px;
-  }
 }
 
 @media only screen and (max-width: 1730px) {
@@ -493,41 +490,34 @@
     font-size: 13px;
   }
 
-  .offers_grid {
-    margin-top: 66px !important;
-  }
-}
-
-/************
+  /************
 11. 539px
 ************/
 
-@media only screen and (max-width: 539px) {
-}
+  @media only screen and (max-width: 539px) {
+  }
 
-/************
+  /************
 12. 480px
 ************/
 
-@media only screen and (max-width: 480px) {
-}
+  @media only screen and (max-width: 480px) {
+  }
 
-/************
+  /************
 13. 479px
 ************/
 
-@media only screen and (max-width: 479px) {
-  h2 {
-    font-size: 24px;
+  @media only screen and (max-width: 479px) {
+    h2 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 13px;
+    }
   }
-  p {
-    font-size: 13px;
-  }
-}
 
-/************
+  /************
 14. 400px
 ************/
-
-@media only screen and (max-width: 400px) {
 }

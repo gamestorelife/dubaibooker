@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  document.getElementById("cart-items").style.height = "revert-layer";
   let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
   console.log(cart);
 
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error fetching cart from online session:", error);
     }
   }
+
   const cartItemsDiv = document.getElementById("cart-items");
 
   if (cart.length === 0) {
@@ -102,13 +104,41 @@ document.addEventListener("DOMContentLoaded", async () => {
   </div>
   <div class="total-price-sub"><h2>Total</h2></div>
   <div class="total-price-sub"><h1 class="total-font">${overallTotalPrice} AED</h1></div>
-  <div class="total-price-sub">
+
+  </div>`;
+
+  // Append total price and buttons dynamically
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "total-price-subbutton";
+  buttonContainer.innerHTML = `
   <div class="button book_button" id="pickupclick"><a>Next</a></div>
   <div class="button book_button" id="remarksclick" style="display: none;"><a>Next</a></div>
   <div class="button book_button" id="multipaymentclick" style="display: none;"><a>Pay Now</a></div>
-  </div>
-  </div>`;
-  cartItemsDiv.prepend(totalPriceDiv);
+`;
+
+  // // Remove it from its parent if needed
+  // if (buttonContainer) {
+  //   buttonContainer.parentNode.removeChild(buttonContainer);
+  // }
+
+  cartItemsDiv.appendChild(totalPriceDiv);
+
+  // cartItemsDiv.appendChild(buttonContainer);
+
+  // if (cartItemsDiv) {
+  //   cartItemsDiv.appendChild(buttonContainer);
+  // }
+  function ensureElementAtBottom(parent, element) {
+    // Remove the element if it exists
+    if (parent.contains(element)) {
+      parent.removeChild(element);
+    }
+    // Append the element to ensure it's always the last child
+    parent.appendChild(element);
+  }
+
+  // Ensure buttonContainer is always at the bottom
+  //ensureElementAtBottom(cartItemsDiv, buttonContainer);
 
   cart.forEach((item, index) => {
     const increasedAdultPrice = Math.floor(item.adultRate * 1.12);
@@ -304,7 +334,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `;
 
-    const countries = ["USA", "Canada", "UK", "Australia", "India"]; // Add all countries here
+    const countries = ["USA", "Canada", "UK", "Australia", "India", "UAE"]; // Add all countries here
     const countrySelect = formDiv.querySelector("#country");
     countries.forEach((country) => {
       const option = document.createElement("option");
