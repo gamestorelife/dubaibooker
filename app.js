@@ -1094,6 +1094,111 @@ app.get("/retrieve-reservation", (req, res) => {
   }
 });
 
+app.post("/send-reservation-email", async (req, res) => {
+  const {
+    reservationItem,
+    name,
+    email,
+    phone,
+    comments,
+    insurance,
+    reservationDate,
+    adults,
+  } = req.body;
+
+  // Create Nodemailer transporter
+  const transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "developers@mykonosbooker.com",
+      pass: "Welcome@2024", // Use your actual password
+    },
+  });
+
+  // Welcome email content for the client
+  const clientEmailContent = `
+    <p>Dear ${name},</p>
+    <p>Thank you for your reservation! Here are your booking details:</p>
+    <ul>
+      <li><strong>Reservation Date:</strong> ${reservationDate}</li>
+      <li><strong>Number of Adults:</strong> ${adults}</li>
+      <li><strong>Insurance:</strong> ${insurance === "1" ? "No" : "Yes"}</li>
+      <li><strong>Comments:</strong> ${comments || "None"}</li>
+    </ul>
+    <p>We look forward to hosting you!</p>
+    <p>Best regards,<br>Dubai Booker Team</p>
+  `;
+
+  // Notification email content for the admin
+  const adminEmailContent = `
+    <div style="font-family: Arial, sans-serif; color: #333;">
+      <h2 style="color: #0056b3;">New Reservation Booking</h2>
+      <p>Hello Admin,</p>
+      <p>You have received a new booking request. Below are the details:</p>
+
+      <table style="border-collapse: collapse; width: 100%; margin-top: 10px;">
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${name}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${email}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${phone}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Reservation Date:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${reservationDate}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Adults:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${adults}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Reservation Item:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${reservationItem}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Comments:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${
+            comments || "None"
+          }</td>
+        </tr>
+      </table>
+
+      <p style="margin-top: 20px;">Best regards,<br>Dubai Booker Team</p>
+    </div>
+  `;
+
+  try {
+    // Send welcome email to the client
+    await transporter.sendMail({
+      from: '"Dubai Booker" <developers@mykonosbooker.com>',
+      to: email,
+      subject: "Reservation Confirmation",
+      html: clientEmailContent,
+    });
+
+    // Send notification email to the admin
+    await transporter.sendMail({
+      from: '"Dubai Booker" <developers@mykonosbooker.com>',
+      to: "freerapper666@gmail.com", // Replace with the admin's email
+      subject: "New Reservation Notification",
+      html: adminEmailContent,
+    });
+
+    res.status(200).json({ message: "Emails sent successfully" });
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    res.status(500).json({ message: "Failed to send emails" });
+  }
+});
+
 // Register Webhook
 app.post("/register-webhook", async (req, res) => {
   const { url, enabled_events, auth_header } = req.body;
