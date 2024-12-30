@@ -265,7 +265,6 @@ section {
 }
 .button {
   display: inline-block;
-  height: 42px;
   border-radius: 27px;
   overflow: hidden;
   z-index: 1;
