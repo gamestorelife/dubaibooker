@@ -1122,9 +1122,9 @@ app.post("/send-reservation-email", async (req, res) => {
     <p>Dear ${name},</p>
     <p>Thank you for your reservation! Here are your booking details:</p>
     <ul>
-      <li><strong>Reservation Date:</strong> ${reservationDate}</li>
+      <li><strong>Reservation item:</strong> ${reservationItem}</li>
+      <li><strong>Reservation Date & Time:</strong> ${reservationDate}</li>
       <li><strong>Number of Adults:</strong> ${adults}</li>
-      <li><strong>Insurance:</strong> ${insurance === "1" ? "No" : "Yes"}</li>
       <li><strong>Comments:</strong> ${comments || "None"}</li>
     </ul>
     <p>We look forward to hosting you!</p>
@@ -1152,7 +1152,7 @@ app.post("/send-reservation-email", async (req, res) => {
           <td style="padding: 8px; border: 1px solid #ddd;">${phone}</td>
         </tr>
         <tr>
-          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Reservation Date:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;"><strong>Reservation Date & Time:</strong></td>
           <td style="padding: 8px; border: 1px solid #ddd;">${reservationDate}</td>
         </tr>
         <tr>
