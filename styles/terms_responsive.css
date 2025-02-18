@@ -135,6 +135,7 @@
   .copyright_content {
     height: auto;
     margin-top: 15px;
+    width: auto;
   }
   .footer_nav_container {
     height: auto;
