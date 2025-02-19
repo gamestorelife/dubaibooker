@@ -438,6 +438,9 @@ section {
 3.3 Main Nav
 *********************************/
 
+#Layer_1 {
+  display: none;
+}
 .main_nav_container {
   margin-right: 221px;
 }
@@ -573,7 +576,7 @@ section {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to right, #7f82f0 0%, #5ad2d4 100%);
+  background: linear-gradient(to right, #6c450e, #391e6b);
   z-index: 100;
   opacity: 0;
   visibility: hidden;
@@ -1603,7 +1606,7 @@ API CSS
   border-radius: 20px;
 }
 .tag_item:hover {
-  background: #fa9e1b;
+  background: var(--primary-color);
 }
 .tag_item a {
   display: block;

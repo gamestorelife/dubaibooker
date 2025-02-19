@@ -1727,7 +1727,7 @@ section {
   border-radius: 20px;
 }
 .tag_item:hover {
-  background: #fa9e1b;
+  background: var(--primary-color);
 }
 .tag_item a {
   display: block;
