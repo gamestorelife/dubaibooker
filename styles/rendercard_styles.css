@@ -440,6 +440,10 @@ section {
 3.3 Main Nav
 *********************************/
 
+#Layer_1 {
+  display: none;
+}
+
 .main_nav_container {
   margin-right: 221px;
 }
@@ -575,7 +579,7 @@ section {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background: var(--darker-color);
+  background: linear-gradient(to right, #6c450e, #391e6b);
   z-index: 100;
   opacity: 0;
   visibility: hidden;
