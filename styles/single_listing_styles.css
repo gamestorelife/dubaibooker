@@ -1817,7 +1817,7 @@ section {
 }
 
 .col-form-label {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .container-load {
@@ -1993,33 +1993,43 @@ center {
   padding: 11px;
   color: #ffffff;
   border-radius: 25px;
-  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  box-shadow: 5px 5px 5px rgb(5 4 4 / 55%);
   margin-left: -10px;
   margin-right: -10px;
 }
 
 .book-form {
-  background: linear-gradient(to right, #6c450e, #391e6b);
+  background: linear-gradient(to right, #6c450ec9, #391e6bcf);
   padding: 11px;
   color: #ffffff;
-  border-radius: 25px;
-  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  border-radius: 8px;
+  box-shadow: 3px 3px 3px rgb(5 4 4 / 55%);
   margin-left: -10px;
   margin-right: -10px;
 }
 
 .form-group input {
-  border-radius: 12px;
-  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px rgb(5 4 4 / 55%);
+  font-size: 12px;
 }
 
 .form-group textarea {
-  border-radius: 12px;
-  box-shadow: 10px 10px 20px rgb(5 4 4 / 55%);
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px rgb(5 4 4 / 55%);
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
 }
 
 .form-group p {
   color: white;
+}
+
+.form-group {
+  margin-bottom: 0px;
+}
+.button-margin {
+  padding-top: 20px;
 }
 #Layer_1 {
   display: none;
@@ -2032,6 +2042,7 @@ center {
 .bookingdetailsContainer p {
   padding: 0;
   margin: 0;
+  font-size: 12px;
 }
 
 .locationContainer {
@@ -2052,6 +2063,8 @@ center {
 }
 
 .cus-submit-button {
-  width: 40%;
-  font-weight: 600;
+  width: 27%;
+  font-weight: 400;
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
 }

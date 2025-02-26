@@ -23,12 +23,12 @@ function renderBeachClub(data) {
       <div class="bookingdetailsContainer">
          
           <div class="d-flex justify-content-between">
-              <div> <p><strong>Reservation Date & Time:</strong></p> </div>
+              <div> <p>Reservation Date & Time:</p> </div>
               <div> <p> ${data.reservation.date} <i class="fa-sharp fa-regular fa-timer"></i> </p> </div>
           </div>
          
           <div id="flight-number" class="fligh-number-container" >
-             <div><p><strong>Number of Adults:</strong></p>  </div>
+             <div><p>Number of Adults:</p>  </div>
                   <div><p> ${data.reservation.adults}  <i class="fa-duotone fa-thin fa-user"></i></p> </div>
           </div>
           
