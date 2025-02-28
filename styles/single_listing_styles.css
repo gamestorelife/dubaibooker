@@ -1258,6 +1258,7 @@ section {
   background: var(--primary-color);
   color: white;
   border: none;
+  box-shadow: 3px 3px 3px rgb(5 4 4 / 55%);
 }
 .book_button a {
   padding-left: 32px;
@@ -1446,6 +1447,7 @@ section {
 .room_image img {
   width: 100%;
   border-radius: 25px;
+  box-shadow: 3px 3px 3px rgb(5 4 4 / 55%);
 }
 
 .room_title {
@@ -1648,7 +1650,7 @@ section {
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  font-size: 12px;
+  font-size: 18px;
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   -ms-transition: all 200ms ease;

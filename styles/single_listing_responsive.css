@@ -389,7 +389,7 @@
     display: none;
   }
   .button {
-    height: 32px;
+    /* height: 32px; */
     border-radius: 22px;
   }
   .button a {
@@ -405,6 +405,9 @@
   }
   .main_nav_col {
     height: 60px;
+  }
+  .text-center {
+    font-size: 28px;
   }
   .header.scrolled .main_nav_col {
     height: 60px;
