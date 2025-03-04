@@ -1,5 +1,5 @@
 .Zebra_DatePicker {
-  background: linear-gradient(to right, #6c450e, #391e6b);
+  background: #d4d3da;
   border-radius: 15px;
   box-shadow: 0 0 10px #888;
   color: #6f7286;
@@ -70,7 +70,7 @@
   color: #cc236b;
 }
 .Zebra_DatePicker .dp_body .dp_selected {
-  background: #b56a6a;
+  background: #000000;
   color: #fff;
 }
 .Zebra_DatePicker .dp_body .dp_disabled {
@@ -131,7 +131,7 @@
 }
 .Zebra_DatePicker .dp_actions td {
   border-radius: 4px;
-  color: #ffffff;
+  color: #000000;
 }
 .Zebra_DatePicker .dp_actions .dp_caption {
   font-weight: 700;
@@ -146,7 +146,7 @@
   color: #fff;
 }
 .Zebra_DatePicker .dp_daypicker th {
-  background: #2f104270;
+  background: #2f104200;
   cursor: text;
   font-weight: 700;
 }
