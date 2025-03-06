@@ -13,9 +13,7 @@ document
       const email = document.getElementById("email").value;
       const phone = document.getElementById("phone").value;
       const comments = document.getElementById("comments").value;
-      const insurance = document.querySelector(
-        "input[name='insurance']:checked"
-      ).value;
+     // const insurance = document.querySelector("input[name='insurance']:checked").value;
 
       // Retrieve reservation data
       const response = await fetch("/retrieve-reservation");
@@ -31,7 +29,7 @@ document
         email,
         phone,
         comments,
-        insurance,
+        //insurance,
         reservationDate: reservation.date,
         adults: reservation.adults,
       };
