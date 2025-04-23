@@ -1408,12 +1408,14 @@ section {
 *********************************/
 
 .hotel_info_text {
-  margin-top: 45px;
+  margin-top: 15px;
 }
 .hotel_info_text p {
   color: #929191;
 }
-
+.hotel_info_text h5 {
+  margin-top: 16px;
+}
 /*********************************
 9.4 Hotel Info Tags
 *********************************/
