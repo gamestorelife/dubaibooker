@@ -1714,3 +1714,21 @@ section {
   transition: all 200ms ease;
   z-index: 55;
 }
+
+
+.search_container {
+  padding: 15px 0;
+}
+
+.search_input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+.search_input:focus {
+  outline: none;
+  border-color: #aaa;
+}

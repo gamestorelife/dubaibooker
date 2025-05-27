@@ -223,7 +223,10 @@
 
             <div class="col-lg-12">
               <!-- Offers Grid -->
-
+                     <!-- Search Input -->
+                  <div class="search_container mb-4">
+                    <input type="text" id="restaurantSearch" class="search_input" placeholder="Search restaurants...">
+                  </div>
               <div class="offers_grid">
 
                 <!-- Offers Item Zuma-Dubai -->
@@ -674,7 +677,7 @@
                   </div>
                 </div>
 
-                        <!-- Offers Item Roberto’s Italian restaurant -->
+                 <!-- Offers Item Roberto’s Italian restaurant -->
 
                 <div class="offers_item rating_5">
                   <div class="row">
@@ -779,7 +782,7 @@
                   </div>
                 </div>
 
-                <!-- Nova-1-->
+                <!-- Nova  -->
                   <div class="offers_item rating_5">
                   <div class="row">
                     <div class="col-lg-1 temp_col"></div>
@@ -813,7 +816,39 @@
                   </div>
                 </div>
 
-
+                 <!-- Ninive  -->
+                  <div class="offers_item rating_5">
+                  <div class="row">
+                    <div class="col-lg-1 temp_col"></div>
+                    <div class="col-lg-3 col-1680-4">
+                      <div class="offers_image_container">
+                        <a href="Ninive.html">
+                          <div
+                            class="offers_image_background"
+                            style="
+                              background-image: url(images/Dubai-Restaurants/Ninive/Ninive-M.jpg);
+                            "
+                          ></div>
+                          <div class="offer_name"><a>Ninive</a></div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="offers_content">
+                        <div class="offers_price">
+                          Ninive 
+                          <span></span>
+                        </div>
+                     
+                        <div class="button book_button">
+                          <a href="Ninive.html"
+                            >book<span></span><span></span><span></span
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               </div>
             </div>
@@ -1043,6 +1078,28 @@
     <script src="plugins/easing/easing.js"></script>
     <script src="plugins/parallax-js-master/parallax.min.js"></script>
     <!-- <script src="js/villas_custom.js"></script> -->
+
+            <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const searchInput = document.getElementById('restaurantSearch');
+          const offersItems = document.querySelectorAll('.offers_item');
+          
+          searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            offersItems.forEach(item => {
+              const restaurantName = item.querySelector('.offers_price').textContent.toLowerCase();
+              
+              if (restaurantName.includes(searchTerm)) {
+                item.style.display = ''; // Show matching items
+              } else {
+                item.style.display = 'none'; // Hide non-matching items
+              }
+            });
+          });
+        });
+        </script>
+
 
     <!-- Google Tag Manager (noscript) -->
     <noscript
