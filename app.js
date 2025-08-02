@@ -17,6 +17,7 @@ const mamopay = require("@api/mamopay");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
 const crypto = require("crypto");
+require("dotenv").config(); // Load environment variables from .env file
 
 const app = express();
 
@@ -63,8 +64,7 @@ const PORT = process.env.PORT || 3000;
 // MongoDB connection
 mongoose
   .connect(
-    process.env.MONGO_URI ||
-      "mongodb+srv://admin:QyeDCWTDUOHWbxL4@dubaibookerdb.j3ohhgq.mongodb.net/"
+    process.env.MONGO_URI
   )
   .then(() => {
     console.log("Connected to DB");
@@ -1101,7 +1101,6 @@ app.post("/send-reservation-email", async (req, res) => {
     email,
     phone,
     comments,
-    insurance,
     reservationDate,
     adults,
   } = req.body;
@@ -1117,19 +1116,34 @@ app.post("/send-reservation-email", async (req, res) => {
     },
   });
 
-  // Welcome email content for the client
-  const clientEmailContent = `
+ // Welcome email content for the client
+const clientEmailContent = `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="https://i.ibb.co/cKPMmF42/logo.png" alt="Company Logo" style="max-width: 150px; height: auto;">
+    </div>
+    <h2 style="color: #0056b3; text-align: center;">Reservation Confirmation</h2>
     <p>Dear ${name},</p>
-    <p>Thank you for your reservation! Here are your booking details:</p>
-    <ul>
-      <li><strong>Reservation item:</strong> ${reservationItem}</li>
-      <li><strong>Reservation Date & Time:</strong> ${reservationDate}</li>
-      <li><strong>Number of Adults:</strong> ${adults}</li>
-      <li><strong>Comments:</strong> ${comments || "None"}</li>
-    </ul>
-    <p>We look forward to hosting you!</p>
-    <p>Best regards,<br>Dubai Booker Team</p>
-  `;
+    <p>Thank you for your reservation with **Dubai Booker**. We're excited to confirm your booking!</p>
+    
+    <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+      <h3 style="color: #0056b3;">Your Booking Details:</h3>
+      <ul style="list-style-type: none; padding: 0;">
+        <li style="margin-bottom: 10px;"><strong>Reservation Item:</strong> ${reservationItem}</li>
+        <li style="margin-bottom: 10px;"><strong>Date & Time:</strong> ${reservationDate}</li>
+        <li style="margin-bottom: 10px;"><strong>Number of Adults:</strong> ${adults}</li>
+        <li style="margin-bottom: 10px;"><strong>Comments:</strong> ${comments || "None"}</li>
+      </ul>
+    </div>
+    
+    <p style="margin-top: 20px;">We look forward to hosting you and providing a great experience.</p>
+    <p style="margin-top: 20px;">If you have any questions or need to make changes, please don't hesitate to contact us.</p>
+    
+    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+      <p style="font-size: 12px; color: #777;">Best regards,<br>The Dubai Booker Team</p>
+    </div>
+  </div>
+`;
 
   // Notification email content for the admin
   const adminEmailContent = `
