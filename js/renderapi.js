@@ -68,7 +68,37 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       // Add click event listener to each tour container
       tourIdContainer.addEventListener("click", function () {
-        // ... rest of your existing click handler code ...
+      // Extract tourId and contractId from the container's ID
+          const tourId = tour.tourId;
+          const contractId = tour.contractId; // Assuming you have contractId in your tour object
+          const countryId = tour.countryId;
+          const cityId = tour.cityId;
+          const toDayDate = new Date();
+
+          const day = toDayDate.getDate();
+          const month = toDayDate.getMonth() + 1; // Note: month is zero-indexed, so add 1 to get the correct month
+          const year = toDayDate.getFullYear();
+          const travelDate = `${day}-${month}-${year}`;
+          const travelDateForm = `${year}-${month}-${day}`;
+
+          sessionStorage.setItem("tourId", tourId);
+          sessionStorage.setItem("contractId", contractId);
+          sessionStorage.setItem("countryId", countryId);
+          sessionStorage.setItem("cityId", cityId);
+          sessionStorage.setItem("travelDate", travelDate);
+          sessionStorage.setItem("travelDateForm", travelDateForm);
+
+          console.log(`Today is ${day}-${month}-${year}`);
+          console.log(
+            `Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`
+          );
+          console.log(travelDate);
+
+          const redirectUrl = `/tour-option.html`;
+
+          // Redirect to the constructed URL
+          window.location.href = redirectUrl;
+        
       });
     }
   }
