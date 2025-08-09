@@ -436,6 +436,10 @@
 
 @media only screen and (max-width: 768px)
 {
+	.m-grid ul
+	{
+		min-height: 276px  !important;
+	}
 	
 }
 

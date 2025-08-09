@@ -144,229 +144,270 @@ document.addEventListener("DOMContentLoaded", async function () {
       const tourDiv = document.createElement("div");
       tourDiv.className = "tour";
 
-      if (tourImages.length > 0 && tourImages[0].imagePath) {
-        let slideshowItems = "";
+      // Replace the image loading section with this:
 
-        tourImages.forEach((image) => {
-          slideshowItems += `
-                            <li>
-                            <img src="${image.imagePath}" alt="${image.imageCaptionName}" uk-cover>
-                          </li>
-                    `;
-        });
+    // Create a container for the tour details that will show regardless of images
+    const tourDetailsContainer = document.createElement('div');
+    tourDetailsContainer.style.padding = '5px';
 
-        tourDiv.innerHTML = `
-        <div>
-            <div class="hotel_slider_container">
+  
+
+      tourDetailsContainer.innerHTML = `
+        <div class="tour-head-name">
+        <h3 class="tourname hotel_title">${tour.tourName}</h3>
+        <a href="${tour.googleMapUrl}"><i class="fa-sharp fa-solid fa-location-dot" style="font-size:30px;"></i></a>
+            </div>
+            <div class="explore_button customico" id="explore-button">
+                Explore now
+            </div>
+            
+            <p>City: ${tour.cityName}</p>
+            <p>Duration: ${tour.duration}</p>
+            <p>Departure Point: ${tour.departurePoint}</p>
+            <p>Reporting Time: ${tour.reportingTime}</p>
+            <p>Tour Language: ${tour.tourLanguage}</p>
+            <p><b>Tour Description:</b> ${tour.tourDescription}</p>
+            <p><b>Tour Inclusion:</b> ${tour.tourInclusion}</p>
+            <p><b>Tour Exclusion:</b> ${tour.tourExclusion}</p>
+            <p><b>Important Information:</b> ${tour.importantInformation}</p>
+            <p><b>Itenarary Description:</b> ${tour.itenararyDescription}</p>
+            <p><b>Useful Information:</b> ${tour.usefulInformation}</p>  
+            <p><b>Cancellation Policy:</b> ${tour.cancellationPolicyName}</p>
+            <p><b>Child Cancellation Policy Description:</b> ${tour.childCancellationPolicyDescription}</p>
+            <p><b>Child Age:</b> ${tour.childAge}</p>
+            <p><b>Infant Age:</b> ${tour.infantAge}</p>
+            <p><b>FAQ Details:</b> ${tour.faqDetails}</p>
+            <p><b>Terms And Conditions:</b> ${tour.termsAndConditions}</p>
+        `;
+
+        // Handle images only if they exist
+        if (tourImages.length > 0 && tourImages[0].imagePath) {
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'hotel_slider_container';
+            
+            // Create slideshow HTML structure
+            imageContainer.innerHTML = `
                 <div class="m-grid">
                     <div uk-grid>
                         <div class="uk-width-1-2">
                             <div id="slideshow" class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 8:4; animation: push; autoplay: true; autoplay-interval: 3000">
-                                <ul class="uk-slideshow-items">
-                                    ${slideshowItems}
-                                </ul>
+                                <ul class="uk-slideshow-items" id="slideshow-items-container"></ul>
                                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
                                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-                `;
-      }
+            `;
 
-      tourDiv.innerHTML += `
-                    <div style="padding:5px;">
-                    <div class="tour-head-name">
-                    <h3 class="tourname hotel_title">${tour.tourName}</h3>
-                    <a href="${tour.googleMapUrl}"><i class="fa-sharp fa-solid fa-location-dot" style="font-size:30px;"></i></a>
-                    </div>
-                    <div class="explore_button customico" id="explore-button">
-                   Explore now
-                    </div>
+            // Prepend image container to tourDiv
+            tourDiv.appendChild(imageContainer);
+            
+            // Get the container for slideshow items
+            const slideshowContainer = imageContainer.querySelector('#slideshow-items-container');
+            
+            // Function to check image and add to slideshow
+            const processImage = async (image) => {
+                try {
+                    // First check if URL is valid
+                    const url = new URL(image.imagePath);
                     
-                    <p>City: ${tour.cityName}</p>
-                    <p>Duration: ${tour.duration}</p>
-                    <p>Departure Point: ${tour.departurePoint}</p>
-                    <p>Reporting Time: ${tour.reportingTime}</p>
-                    <p>Tour Language: ${tour.tourLanguage}</p>
-                    <p><b>Tour Description:</b> ${tour.tourDescription}</p>
-                    <p><b>Tour Inclusion:</b> ${tour.tourInclusion}</p>
-                    <p><b>Tour Exclusion:</b> ${tour.tourExclusion}</p>
-                    <p><b>Important Information:</b> ${tour.importantInformation}</p>
-                    <p><b>Itenarary Description:</b> ${tour.itenararyDescription}</p>
-                    <p><b>Useful Information:</b> ${tour.usefulInformation}</p>  
-                    <p><b>Cancellation Policy:</b> ${tour.cancellationPolicyName}</p>
-                    <p><b>Child Cancellation Policy Description:</b> ${tour.childCancellationPolicyDescription}</p>
-                    <p><b>Child Age:</b> ${tour.childAge}</p>
-                    <p><b>Infant Age:</b> ${tour.infantAge}</p>
-                    <p><b>FAQ Details:</b> ${tour.faqDetails}</p>
-                    <p><b>Terms And Conditions:</b> ${tour.termsAndConditions}</p>
+                    // Then check if image loads
+                    const img = new Image();
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = () => {
+                            // Fallback to local image
+                            const filename = image.imagePath.split('/').pop();
+                            const localPath = `images/${filename}.jpg`;
+                            console.warn(`Image failed to load from ${image.imagePath}, falling back to ${localPath}`);
+                            img.src = localPath;
+                            // Wait again for the local image to load or fail
+                            img.onerror = reject;
+                        };
+                        img.src = image.imagePath;
+                    });
+                    
+                    // If we get here, image loaded (either from URL or local)
+                    const slideItem = document.createElement('li');
+                    slideItem.innerHTML = `<img src="${img.src}" alt="${image.imageCaptionName}" uk-cover>`;
+                    slideshowContainer.appendChild(slideItem);
+                    
+                } catch (error) {
+                    console.error(`Failed to load image: ${image.imagePath}`, error);
+                    // You could add a placeholder image here if desired
+                }
+            };
+            
+            // Process all images sequentially to maintain order
+            (async () => {
+                for (const image of tourImages) {
+                    await processImage(image);
+                }
+            })();
+        }
 
-                    <!-- Add more details here -->
-                </div>
-            `;
+        // Add the tour details container to the tourDiv
+        tourDiv.appendChild(tourDetailsContainer);
+              // Create a separate div for displaying adult price
+              const adultPriceDiv = document.createElement("div");
+              adultPriceDiv.innerHTML = `<div class="price-tag"><h3 style="font-weight: 600;">${adultPrice} AED</h3></div>`;
+              // Create a unique container for the tourId
+              const tourIdContainer = document.createElement("div");
+              tourIdContainer.id = `tourId-${tour.tourId}`;
+              tourIdContainer.className = "tour-id-container";
+              tourIdContainer.appendChild(adultPriceDiv);
+              tourIdContainer.appendChild(tourDiv);
 
-      // Create a separate div for displaying adult price
-      const adultPriceDiv = document.createElement("div");
-      adultPriceDiv.innerHTML = `<div class="price-tag"><h3 style="font-weight: 600;">${adultPrice} AED</h3></div>`;
-      // Create a unique container for the tourId
-      const tourIdContainer = document.createElement("div");
-      tourIdContainer.id = `tourId-${tour.tourId}`;
-      tourIdContainer.className = "tour-id-container";
-      tourIdContainer.appendChild(adultPriceDiv);
-      tourIdContainer.appendChild(tourDiv);
+              // Append the tour container to the main container
+              tourContainer.appendChild(tourIdContainer);
+              // Add event listener to the explore button
+              const exploreButton = tourDiv.querySelector("#explore-button");
+              exploreButton.addEventListener("click", function () {
+                $(".date-menu").show(200);
 
-      // Append the tour container to the main container
-      tourContainer.appendChild(tourIdContainer);
-      // Add event listener to the explore button
-      const exploreButton = tourDiv.querySelector("#explore-button");
-      exploreButton.addEventListener("click", function () {
-        $(".date-menu").show(200);
+                // Create popup content
+                DateContainer.innerHTML = "";
+                const popupContent = document.createElement("div");
+                popupContent.innerHTML = `
+                <div  class="popup-content">
+                      <div class="popup-header">
+                          <div class="fonticon" id="popup-button">
+                                <i class="fa-regular fa-arrow-left"></i>
+                          </div>
 
-        // Create popup content
-        DateContainer.innerHTML = "";
-        const popupContent = document.createElement("div");
-        popupContent.innerHTML = `
-        <div  class="popup-content">
-              <div class="popup-header">
-                  <div class="fonticon" id="popup-button">
-                         <i class="fa-regular fa-arrow-left"></i>
-                  </div>
+                          <div class="fonticon" id="popup-button-option">
+                                <i class="fa-regular fa-arrow-left"></i>
+                          </div>
+                          <div class="fonticon" id="popup-button-tranfer">
+                                <i class="fa-regular fa-arrow-left"></i>
+                          </div>
+                        <div class="midtourname">
+                              <p class="tourheadername">${tour.tourName}</p>
+                        </div>
+                        <div class="fonticon" id="hrefshopping">
+                                <div class="cart-itmes-number">${cart.length}</div>
+                                <i class="fa-solid fa-cart-shopping"></i>  
+                            </div>
+                        </div>
+                      </div>
 
-                  <div class="fonticon" id="popup-button-option">
-                         <i class="fa-regular fa-arrow-left"></i>
-                  </div>
-                  <div class="fonticon" id="popup-button-tranfer">
-                         <i class="fa-regular fa-arrow-left"></i>
-                  </div>
-                <div class="midtourname">
-                       <p class="tourheadername">${tour.tourName}</p>
-                </div>
-                <div class="fonticon" id="hrefshopping">
-                        <div class="cart-itmes-number">${cart.length}</div>
-                         <i class="fa-solid fa-cart-shopping"></i>  
+                  <div id="mfirstcontainer">
+                    <div class="datecontainer">
+                      <div class="datecontainer-title"><h4>Select travel date</h4></div>
+                      <div class="calandercontainer">
+                        <input
+                          type="text"
+                          id="traveldate"
+                          placeholder="Check In Date"
+                          class="d-none"
+                          value=""
+                        />
+                      </div>
                     </div>
-                </div>
-               </div>
+                    <div class="travller-title">
+                      <h4>Select Travellers</h4>
+                    </div>
 
-          <div id="mfirstcontainer">
-            <div class="datecontainer">
-              <div class="datecontainer-title"><h4>Select travel date</h4></div>
-              <div class="calandercontainer">
-                <input
-                  type="text"
-                  id="traveldate"
-                  placeholder="Check In Date"
-                  class="d-none"
-                  value=""
-                />
-              </div>
-            </div>
-            <div class="travller-title">
-              <h4>Select Travellers</h4>
-            </div>
+                    <div class="adultprice-details">
+                      <div class="price-details">
+                        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+                        <div class="mini-detail-container">
+                          <div>
+                            <p class="mini-detail"><b>Adult</b></p>
+                          </div>
+                          <div><p class="mini-detail">${adultPrice} AED</p></div>
+                        </div>
+                      </div>
 
-            <div class="adultprice-details">
-              <div class="price-details">
-                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-                <div class="mini-detail-container">
-                  <div>
-                    <p class="mini-detail"><b>Adult</b></p>
+                      <div class="adultcounter">
+                        <div>
+                          <button id="decrement" class="countericon">
+                            <i class="fa-solid fa-circle-minus customico"></i>
+                          </button>
+                        </div>
+                        <div class="adultnumber">
+                          <h2><span id="counter" value="">1</span></h2>
+                        </div>
+                        <div>
+                          <button id="increment" class="countericon">
+                            <i class="fa-solid fa-circle-plus customico"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="adultprice-details">
+                      <div class="price-details">
+                        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+
+                        <div class="mini-detail-container">
+                          <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
+                          <p class="mini-detail">${childPrice} AED</p>
+                        </div>
+                      </div>
+
+                      <div class="adultcounter">
+                        <div>
+                          <button id="childdecrement" class="countericon">
+                            <i class="fa-solid fa-circle-minus customico"></i>
+                          </button>
+                        </div>
+                        <div class="adultnumber">
+                          <h2><span id="childcounter" value="">0</span></h2>
+                        </div>
+                        <div>
+                          <button id="childincrement" class="countericon">
+                            <i class="fa-solid fa-circle-plus customico"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="adultprice-details">
+                      <div class="price-details">
+                        <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
+
+                        <div class="mini-detail-container">
+                          <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
+                          <p class="mini-detail">${infantPrice} AED</p>
+                        </div>
+                      </div>
+
+                      <div class="adultcounter">
+                        <div>
+                          <button id="infantdecrement" class="countericon">
+                            <i class="fa-solid fa-circle-minus customico"></i>
+                          </button>
+                        </div>
+                        <div class="adultnumber">
+                          <h2><span id="infantcounter" value="">0</span></h2>
+                        </div>
+                        <div>
+                          <button id="infantincrement" class="countericon">
+                            <i class="fa-solid fa-circle-plus customico"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="adultsubmession">
+                      <button id="adultnumbersubmit" class="submit-button customico">
+                        Next
+                      </button>
+                    </div>
                   </div>
-                  <div><p class="mini-detail">${adultPrice} AED</p></div>
-                </div>
-              </div>
+                  <div id="secondoptionscontainer">
+                    <div id="act-options" class="tourOptioncont"></div>
+                  </div>
 
-              <div class="adultcounter">
-                <div>
-                  <button id="decrement" class="countericon">
-                    <i class="fa-solid fa-circle-minus customico"></i>
-                  </button>
+                  <div id="transferoptionscontainer">
+                  <div id="act-tranfer" class="tourOptioncont"></div>
+                  </div>
+                  <div id="timeslotcontainer">
+                  <div id="time-slot" class="tourOptioncont"></div>
+                  </div>
+                  
                 </div>
-                <div class="adultnumber">
-                  <h2><span id="counter" value="">1</span></h2>
-                </div>
-                <div>
-                  <button id="increment" class="countericon">
-                    <i class="fa-solid fa-circle-plus customico"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="adultprice-details">
-              <div class="price-details">
-                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
 
-                <div class="mini-detail-container">
-                  <p class="mini-detail"><b>Child(2-11Yrs)</b></p>
-                  <p class="mini-detail">${childPrice} AED</p>
-                </div>
-              </div>
-
-              <div class="adultcounter">
-                <div>
-                  <button id="childdecrement" class="countericon">
-                    <i class="fa-solid fa-circle-minus customico"></i>
-                  </button>
-                </div>
-                <div class="adultnumber">
-                  <h2><span id="childcounter" value="">0</span></h2>
-                </div>
-                <div>
-                  <button id="childincrement" class="countericon">
-                    <i class="fa-solid fa-circle-plus customico"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="adultprice-details">
-              <div class="price-details">
-                <div class="adultprice-icon"><i class="fa-light fa-user"></i></div>
-
-                <div class="mini-detail-container">
-                  <p class="mini-detail"><b>Infant(0-3Yrs)</b></p>
-                  <p class="mini-detail">${infantPrice} AED</p>
-                </div>
-              </div>
-
-              <div class="adultcounter">
-                <div>
-                  <button id="infantdecrement" class="countericon">
-                    <i class="fa-solid fa-circle-minus customico"></i>
-                  </button>
-                </div>
-                <div class="adultnumber">
-                  <h2><span id="infantcounter" value="">0</span></h2>
-                </div>
-                <div>
-                  <button id="infantincrement" class="countericon">
-                    <i class="fa-solid fa-circle-plus customico"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="adultsubmession">
-              <button id="adultnumbersubmit" class="submit-button customico">
-                Next
-              </button>
-            </div>
-          </div>
-          <div id="secondoptionscontainer">
-            <div id="act-options" class="tourOptioncont"></div>
-          </div>
-
-          <div id="transferoptionscontainer">
-          <div id="act-tranfer" class="tourOptioncont"></div>
-          </div>
-          <div id="timeslotcontainer">
-          <div id="time-slot" class="tourOptioncont"></div>
-          </div>
-          
-        </div>
-
-            `;
+                    `;
 
         // Add the HTML to the page
 
@@ -517,8 +558,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                   <p><strong>Total Amount:</strong> ${increasedFinalAmount} ${fineResponseData.currency}</p>
                   </div>
                       
-                      <!-- Add more details here -->
-                  </div>
+                      </div>
                
                   </div>
                       
