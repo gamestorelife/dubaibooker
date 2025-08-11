@@ -2170,7 +2170,7 @@ center {
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
-  padding-top: 50%;
+  padding-top: 15%;
 }
 .option-contain {
   display: flex;

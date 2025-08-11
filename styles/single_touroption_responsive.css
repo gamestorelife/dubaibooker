@@ -440,6 +440,10 @@
 	{
 		min-height: 276px  !important;
 	}
+
+	.loading-mainicon {
+		padding-top: 50%;
+	}
 	
 }
 
