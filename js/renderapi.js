@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     'Exotic Sunrise with Balloon Flights',
     'SeaWorld from Dubai',
     'Paramotor Adventure Tour',
+    'Dubai Fountain Show and Lake Ride',
   ];
 
   // Function to check if a tour should be hidden
