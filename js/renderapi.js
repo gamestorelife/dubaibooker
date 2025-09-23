@@ -5,6 +5,38 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Check if there is a selected city in local storage
   const selectedCity = sessionStorage.getItem("selectedCity");
 
+  // Static list of tour names to hide from rendering
+  const toursToHide = [
+    "Not Working ",
+    "Glow Garden",
+    "Donut Ride Dubai",
+    "Banana Boat Ride",
+    "Kayaking in Dubai ",
+    "Dubai To Abu Dhabi Intercity Transfers",
+    "Ras Al Khaimah Dessert Safari From Dubai",
+    "Dubai Safari Park",
+    "Russian Guide Modern Night Dubai Tour From Dubai",
+    "Sunset Marina Dhow Cruise",
+    "Etisalat SIM Card for tourists",
+    "Pluma Show Circus in Dubai",
+    "Mohit Chauhan Live in Dubai",
+    "Atul Khatri Live in Dubai",
+    "Colors Laughter Night ft Abishek Kumar And Nirmal Pillai",
+    "Speed Boat in Dubai",
+    "Colors Laughter Night ft Gaurav Kapoor",
+    "Colors Laughter Night ft Kanan Gill",
+    "Biswa Kalyan Rath Live in Dubai",
+    "Dubai Water sports activities",
+    "Amit Tandon Live in Dubai",
+    "Heritage Desert Safari Dubai",
+  ];
+
+  // Function to check if a tour should be hidden
+  function isTourHidden(tourName) {
+    // Trim whitespace from the tour name before checking
+    return toursToHide.includes(tourName.trim());
+  }
+
   async function getTourImageSource(tour) {
     // First try to use the imageCaptionName as a URL if it exists
     if (tour.imageCaptionName && 
@@ -32,6 +64,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Use for...of instead of forEach for async operations
     for (const tour of tours) {
+      // Check if the tour should be hidden based on its name
+      if (isTourHidden(tour.tourName)) {
+        console.log(`Tour "${tour.tourName}" is on the hidden list and will not be rendered.`);
+        continue; // Skip the rest of the loop for this tour
+      }
+
       // Check if the tour ID is already in the set, if so, skip rendering
       if (uniqueTourIds.has(tour.tourId)) {
         continue;
