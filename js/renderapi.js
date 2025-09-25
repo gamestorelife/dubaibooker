@@ -54,6 +54,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     'SeaWorld from Dubai',
     'Paramotor Adventure Tour',
     'Dubai Fountain Show and Lake Ride',
+    'Ekart Zabeel Dubai',
+    'The View at The Palm Jumeirah Dubai',
+    'Dubai to Abu Dhabi Intercity transfers',
   ];
 
   // Function to check if a tour should be hidden
