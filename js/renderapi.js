@@ -57,6 +57,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     'Ekart Zabeel Dubai',
     'The View at The Palm Jumeirah Dubai',
     'Dubai to Abu Dhabi Intercity transfers',
+    'AR Rahman Live In Abu Dhabi',
+    'The Jamie Lever show in Abu Dhabi',
+    'IIFA Rocks',
+    'IIFA Utsavam 2024',
+    'SeaWorld Experiences',
+    'Formula 1 Abu Dhabi Grand Prix 2024',
+    'Yas Waterworld',
+    'Dubai Dolphinarium from Abu Dhabi',
+    'Abu Dhabi Airport Pick up',
+    'Love Boat from Abu Dhabi',
+    'KidZania Abu Dhabi',
+    'Skydive Abu Dhabi',
   ];
 
   // Function to check if a tour should be hidden
