@@ -69,6 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     'Love Boat from Abu Dhabi',
     'KidZania Abu Dhabi',
     'Skydive Abu Dhabi',
+    'Theatre Of Digital Art',
   ];
 
   // Function to check if a tour should be hidden
