@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     'Skydive Abu Dhabi',
     'Theatre Of Digital Art',
     'Atlantis Lunch or Dinner',
+    'Natak ke Rang',
   ];
 
   // Function to check if a tour should be hidden
