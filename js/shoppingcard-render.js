@@ -450,7 +450,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 last_name: passengers.lastName,
                 description: description,
                 active: true,
-                return_url: "http://localhost:3000/confirmation.html",
+                return_url: "https://www.dubaibooker.com/confirmation.html",
                 failure_return_url:
                   "https://www.dubaibooker.com/cardrender.html",
                 processing_fee_percentage: 3.6,
