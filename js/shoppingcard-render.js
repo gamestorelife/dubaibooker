@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("cart-items").style.height = "revert-layer";
   let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-  console.log(cart);
+  //console.log(cart);
 
   // Check if the local cart is empty, if so, fetch from online session
   if (cart.length === 0) {
     try {
-      const response = await fetch("/cart-session");
+      const response = await fetch("/2");
       if (response.ok) {
         const data = await response.json();
-        console.log("Cart fetched from online session:", data);
+        //console.log("Cart fetched from online session:", data);
         cart = data.cartItems; // Set cart to the data from the online session
 
         // Store the fetched cart in sessionStorage to keep it locally
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
       .then((response) => response.text())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         cart.splice(itemId, 1);
         sessionStorage.setItem("cart", JSON.stringify(cart));
         location.reload();
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     $("#tour-options").hide();
     $("#multipaymentclick").show();
 
-    console.log(cart);
+   // console.log(cart);
     sessionStorage.setItem("cart", JSON.stringify(cart));
     guestdetails();
   });
@@ -384,10 +384,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         const uniqueNo = generateUniqueNo();
-        const newCart = {
-          uniqueNo,
-          count: cart.length,
-          TourDetails: cart.map((item, index) => ({
+          const newCart = {
+        uniqueNo: uniqueNo,
+        TourDetails: cart.map((item, index) => ({
             serviceUniqueId: item.serviceUniqueId,
             tourId: item.tourId,
             optionId: item.optionId,
@@ -395,18 +394,23 @@ document.addEventListener("DOMContentLoaded", async () => {
             child: item.child,
             infant: item.infant,
             tourDate: item.tourDate,
-            timeSlotId: item.timeSlotId,
+            timeSlotId: item.timeSlotId || "",
             startTime: item.startTime,
             transferId: item.transferId,
-            pickup: item.pickupLocation || item.pickup,
+            pickup: item.pickupLocation || "",
             adultRate: item.adultRate,
             childRate: item.childRate,
-            serviceTotal: item.serviceTotal,
-          })),
-          passengers: [passengers],
-        };
+            serviceTotal: item.serviceTotal
+        })),
+        passengers: [passengers]
+    };
 
-        console.log("Final Cart Data:", newCart);
+     // Add count parameter only if there are multiple tour items
+    if (cart.length > 1) {
+        newCart.count = cart.length;
+    }
+
+     //console.log("Final Cart Data:", newCart);
 
         // Make the POST request to /save-cart
         fetch("/save-cart", {
@@ -419,7 +423,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
           .then((response) => response.text())
           .then((result) => {
-            console.log("Cart saved successfully:", result);
+            //("Cart saved successfully:", result);
           });
 
         // Send cart data to backend
@@ -446,7 +450,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 last_name: passengers.lastName,
                 description: description,
                 active: true,
-                return_url: "http://localhost:3000/cardrender.html",
+                return_url: "http://localhost:3000/confirmation.html",
                 failure_return_url:
                   "https://www.dubaibooker.com/cardrender.html",
                 processing_fee_percentage: 3.6,
@@ -475,11 +479,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
   }
 
-  function generateUniqueNo() {
-    const timestamp = Date.now().toString(); // Get current timestamp
-    const randomNumber = Math.floor(Math.random() * 1000).toString(); // Generate a random number between 0 and 999999
-    return timestamp + randomNumber; // Concatenate timestamp and random number
-  }
+ function generateUniqueNo() {
+     // Generate a timestamp-based unique number similar to the example
+    const timestamp = Date.now().toString();
+    // Add some random digits to ensure uniqueness
+    const random = Math.floor(Math.random() * 10000).toString();
+    return timestamp + random;
+}
 
   document.getElementById("backbutton").addEventListener("click", () => {
     location.reload();

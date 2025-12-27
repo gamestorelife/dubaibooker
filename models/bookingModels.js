@@ -1,39 +1,32 @@
 const mongoose = require("mongoose");
 
-const bookingSchema = mongoose.Schema(
-  {
+const bookingSchema = new mongoose.Schema({
     uniqueNo: {
-      type: Number,
-      required: true,
-      unique: true,
+        type: String,
+        required: true
     },
+    // Make count optional since it's only required for multiple items
     count: {
-      type: Number,
-      required: true,
+        type: Number,
+        required: false // Change to false
     },
-    TourDetails: [
-      {
-        serviceUniqueId: {
-          type: Number,
-          required: true,
-        },
-        tourId: Number,
-        optionId: Number,
+    TourDetails: [{
+        serviceUniqueId: String,
+        tourId: String,
+        optionId: String,
         adult: Number,
         child: Number,
         infant: Number,
-        tourDate: Date,
+        tourDate: String,
         timeSlotId: String,
         startTime: String,
-        transferId: Number,
+        transferId: String,
         pickup: String,
         adultRate: Number,
         childRate: Number,
-        serviceTotal: Number,
-      },
-    ],
-    passengers: [
-      {
+        serviceTotal: Number
+    }],
+    passengers: [{
         serviceType: String,
         prefix: String,
         firstName: String,
@@ -44,14 +37,11 @@ const bookingSchema = mongoose.Schema(
         message: String,
         leadPassenger: Number,
         paxType: String,
-        clientReferenceNo: Number,
-      },
-    ],
-  },
-  {
-    timestamps: true,
-  }
-);
+        clientReferenceNo: Number
+    }]
+}, {
+    timestamps: true
+});
 
 // Pre-save hook to generate uniqueNo and serviceUniqueId
 bookingSchema.pre("save", async function (next) {

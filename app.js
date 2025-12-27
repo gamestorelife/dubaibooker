@@ -23,6 +23,13 @@ const app = express();
 
 app.use(bodyParser.json());
 
+// Initialize Mamo Pay SDK
+if (process.env.MAMO_PAY_KEY) {
+  mamopay.auth(process.env.MAMO_PAY_KEY);
+} else {
+  console.warn("MAMO_PAY_KEY not found in environment variables");
+}
+
 // app.use((req, res, next) => {
 //  // console.log("Headers:", req.headers);
 //  // console.log("Request Body:", req.body);
@@ -98,22 +105,32 @@ app.use(
 //   })
 // );
 
+app.get("/confirmation.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "confirmation.html"));
+});
+
 // Route to save cart data and passenger details to session
 app.post("/save-cart", (req, res) => {
   const { uniqueNo, count, TourDetails, passengers } = req.body;
 
-  // Store the received data in the session
-  req.session.cart = {
-    uniqueNo: uniqueNo || generateUniqueNo(),
-    count: count || TourDetails.length,
-    TourDetails: TourDetails,
-  };
+ 
+   // Store the received data in the session
+    req.session.cart = {
+        uniqueNo: uniqueNo || generateUniqueNo(),
+        TourDetails: TourDetails || []
+    };
 
-  // If passengers are provided, include them in the session
-  if (passengers) {
-    req.session.cart.passengers = passengers;
-  }
-  console.log("Session after saving cart:", req.session);
+    // Add count only if it exists in the request (for multiple items)
+    if (count) {
+        req.session.cart.count = count;
+    }
+
+    // If passengers are provided, include them in the session
+    if (passengers) {
+        req.session.cart.passengers = passengers;
+    }
+    
+    console.log("Session after saving cart:", req.session);
   // Save session and send response
   req.session.save((err) => {
     if (err) {
@@ -347,6 +364,31 @@ app.post("/time-slot", async (req, res) => {
     res.status(500).send("Error processing POST request");
   }
 });
+
+app.post("/bookings", async (req, res) => {
+  try {
+    const response = await fetch(
+      "http://raynaapi.raynatours.com/api/Booking/bookings",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${API_KEY}`,
+        },
+        body: JSON.stringify(req.body),
+      }
+    );
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error making API request:", error.message);
+    res.status(500).send("Error processing POST request");
+  }
+});
+
+
+
+
 
 app.post("/user-booking", async (req, res) => {
   try {
@@ -1245,6 +1287,141 @@ app.post("/register-webhook", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+
+// Cart Finalization and Booking with Rayna API
+
+// Add this to app.js
+
+
+// Add this new endpoint to app.js
+app.post("/finalize-booking-sequence", async (req, res) => {
+    try {
+        const cartData = req.session.cart;
+        if (!cartData) return res.status(400).json({ 
+            success: false, 
+            message: "No session data found" 
+        });
+
+        // STEP 1: Call Rayna Booking API
+        const bookingResponse = await fetch("http://raynaapi.raynatours.com/api/Booking/bookings", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${process.env.RAYAN_SECRET_KEY}`,
+            },
+            body: JSON.stringify(cartData),
+        });
+
+        const bookingResult = await bookingResponse.json();
+        console.log("Booking Response:", JSON.stringify(bookingResult, null, 2));
+
+        // Check if booking was successful
+        if (bookingResult.statuscode === 200 && !bookingResult.error && bookingResult.result) {
+            // SUCCESS CASE - Extract booking IDs dynamically
+            let referenceNo = bookingResult.result.referenceNo || ""; // AGT351742712251960
+            let bookingId = "";
+            
+            // Try to get bookingId from different possible locations
+            if (bookingResult.result.bookingId) {
+                // From ticket response structure
+                bookingId = bookingResult.result.bookingId;
+            } else if (bookingResult.result.details && bookingResult.result.details[0] && bookingResult.result.details[0].bookingId) {
+                // From booking response structure
+                bookingId = bookingResult.result.details[0].bookingId;
+            } else if (bookingResult.result.referenceNo) {
+                // Use referenceNo as fallback
+                bookingId = bookingResult.result.referenceNo;
+            }
+            
+            console.log("Extracted - Booking ID:", bookingId, "Reference:", referenceNo);
+            
+            const uniqueNo = cartData.uniqueNo;
+            
+            // STEP 2: Prepare payload for GetBookedTickets
+            const ticketPayload = {
+                uniqNO: uniqueNo,
+                referenceNo: referenceNo,
+                bookedOption: (bookingResult.result.details || []).map(detail => ({
+                    serviceUniqueId: detail.serviceUniqueId,
+                    bookingId: detail.bookingId || bookingId
+                }))
+            };
+
+            console.log("Ticket Payload:", JSON.stringify(ticketPayload, null, 2));
+
+            try {
+                // STEP 3: Call Rayna Ticket API
+                const ticketResponse = await fetch("http://raynaapi.raynatours.com/api/Booking/GetBookedTickets", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${process.env.RAYAN_SECRET_KEY}`,
+                    },
+                    body: JSON.stringify(ticketPayload),
+                });
+
+                const ticketResult = await ticketResponse.json();
+                console.log("Ticket Response:", JSON.stringify(ticketResult, null, 2));
+
+                // If ticket API returns bookingId, use that
+                if (ticketResult.result && ticketResult.result.bookingId) {
+                    bookingId = ticketResult.result.bookingId;
+                }
+                
+                // If ticket API returns referenceNo, use that
+                if (ticketResult.result && ticketResult.result.referenceNo) {
+                    referenceNo = ticketResult.result.referenceNo;
+                }
+
+                // Send success response to frontend with correct structure
+                res.json({
+                    success: true,
+                    bookingId: bookingId, // Dynamic numeric ID
+                    referenceNo: referenceNo, // Dynamic AGT reference
+                    ticketURL: ticketResult.result?.ticketURL || "", // Dynamic ticket URL
+                    tickets: [{
+                        pdfPath: ticketResult.result?.ticketURL || "",
+                        optionName: ticketResult.result?.optionName || ""
+                    }]
+                });
+                
+            } catch (ticketError) {
+                // If ticket API fails, still return success for booking
+                console.error("Ticket API Error:", ticketError);
+                res.json({
+                    success: true,
+                    bookingId: bookingId,
+                    referenceNo: referenceNo,
+                    ticketURL: "",
+                    tickets: [],
+                    ticketError: "Tickets not available at this time"
+                });
+            }
+            
+        } else {
+            // ERROR CASE - like error 169
+            console.error("Booking API Error:", bookingResult);
+            
+            res.json({
+                success: false,
+                message: bookingResult.error?.description || "Booking failed",
+                fullResponse: bookingResult
+            });
+        }
+    } catch (error) {
+        console.error("Sequence Error:", error);
+        res.status(500).json({ 
+            success: false,
+            message: "Internal Server Error",
+            error: error.message 
+        });
+    }
+});
+
+
+
+
 
 const options = {
   key: fs.readFileSync("cloudflare/cloudflare_private_key.pem"),

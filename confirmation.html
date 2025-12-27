@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" href="/styles/main_styles.css"> 
+     <style>
+        .confirmation-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .info-box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        .error-box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 4px solid #f44336;
+        }
+        .ticket-list {
+            margin-top: 20px;
+        }
+        .ticket-link {
+            display: block;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .ticket-link:hover {
+            background: #45a049;
+        }
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .refund-info {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .success-section, .error-section {
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <!-- Loading State -->
+        <div id="loading-section" class="loading">
+            <div class="loading-spinner"></div>
+            <h2>Processing Your Booking...</h2>
+            <p>Please wait while we confirm your booking details.</p>
+        </div>
+        
+        <!-- Success Section (Hidden by default) -->
+        <div id="success-section" class="success-section">
+            <h1>✅ Booking Confirmed!</h1>
+            
+            <div class="info-box">
+                <h2>Booking Information</h2>
+                <p><strong>Booking ID:</strong> <span id="booking-id-display">Processing...</span></p>
+                <p><strong>Reference Number:</strong> <span id="ref-no-display">Processing...</span></p>
+            </div>
+            
+            <div class="info-box">
+                <h2>Your Tickets</h2>
+                <div id="ticket-list" class="ticket-list">
+                    <p>Loading tickets...</p>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h2>Next Steps</h2>
+                <p>1. Save your booking ID for reference</p>
+                <p>2. Download and print your tickets</p>
+                <p>3. Present tickets at the venue</p>
+                <p>4. Check your email for confirmation</p>
+            </div>
+        </div>
+        
+        <!-- Error Section (Hidden by default) -->
+        <div id="error-section" class="error-section">
+            <h1>⚠️ Booking Issue Detected</h1>
+            
+            <div class="error-box">
+                <h2 id="error-title">Booking Error</h2>
+                <p id="error-description">An error occurred while processing your booking.</p>
+                <p id="error-code" style="font-weight: bold;"></p>
+            </div>
+            
+            <div class="refund-info" id="refund-message">
+                <h3>Refund Assistance</h3>
+                <p>Please contact our Refund team for assistance:</p>
+                <p><strong>Email:</strong> refund@dubaibooker.com</p>
+                <p><strong>Phone:</strong> +971-XXX-XXX-XXXX</p>
+            </div>
+            
+            <div class="info-box">
+                <h2>What to do next?</h2>
+                <p>1. Contact our refund team with the error details above</p>
+                <p>2. Keep your payment reference for verification</p>
+                <p>3. Our team will process your refund within 5-7 business days</p>
+                <p>4. You will receive email confirmation once refund is processed</p>
+            </div>
+        </div>
+        
+        <!-- Payment Status (for non-captured payments) -->
+        <div id="status-message" style="display: none;"></div>
+    </div>
+    <script src="/js/confirmation-render.js"></script>
+     <script>
+        // Hide loading section when page finishes loading
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('loading-section').style.display = 'none';
+            }, 3000); // Show loading for at least 3 seconds
+        });
+    </script>
+</body>
+</html>

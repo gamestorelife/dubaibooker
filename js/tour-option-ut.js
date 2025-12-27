@@ -805,11 +805,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                                   );
 
                                   function generateUniqueNumber() {
-                                    const timestamp = Date.now().toString(); // Get current timestamp
-                                    const randomNumber = Math.floor(
-                                      Math.random() * 1000
-                                    ).toString(); // Generate a random number between 0 and 999999
-                                    return timestamp + randomNumber; // Concatenate timestamp and random number
+                                    // Generates a random number between 100000 and 999999
+                                   return Math.floor(100000 + Math.random() * 999999).toString();
                                   }
 
                                   // Generate a unique number
