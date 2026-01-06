@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const travelDateForm = sessionStorage.getItem("travelDateForm");
 
   console.log(
-    `Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`
+    `Clicked on tourId: ${tourId}, contractId: ${contractId}, countryId: ${countryId}, cityId: ${cityId}`
   );
   //console.log(travelDate);
   //console.log(travelDateForm);
