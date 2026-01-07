@@ -3987,6 +3987,10 @@ $(document).ready(function () {
     direction: true,
     format: "Y-m-d H:i",
   });
+   $("#servicesDate").Zebra_DatePicker({
+    direction: true,
+    
+  });
 
   $("#date-book-trans").Zebra_DatePicker({
     direction: true,

@@ -2537,33 +2537,31 @@
 						<form  id="services_form" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
 							<div class="search_item cus-pad" id="activity-pcv">
 								<div>Type of Service</div>
-								<select name="servicescategory" id="" class="roundedk dropdown_item_select search_input" required>
+								<select name="servicescategory" id="servicesCategory" class="roundedk dropdown_item_select search_input" required>
 									<option selected="selected" disabled="disabled" value="">Select Type of Service</option>
-									<option value="7" >Private Chef</option>
-									<option value="8" >Private Security</option>
-									<option value="18" >Private Concierge</option>
-									<option value="14" >Spa - Massage</option>
-									<option value="9" >Personal Trainer</option>
-									<option value="15" >Barber</option>
-									<option value="17" >Shisha</option>
-									<option value="12" >Nails</option>
-									<option value="13" >Hairdresser</option>
-									<option value="16" >Bartender</option>
-									<option value="10" >Yoga Class</option>
-									<option value="11" >Tennis Instructor</option>
-	
+									<option value="20" >Private Chef</option>
+									<option value="21" >Private Security</option>
+									<option value="22" >Private Concierge</option>
+									<option value="23" >Spa - Massage</option>
+									<option value="24" >Personal Trainer</option>
+									<option value="25" >Barber</option>
+									<option value="26" >Shisha</option>
+									<option value="27" >Nails</option>
+									<option value="28" >Hairdresser</option>
+									<option value="29" >Bartender</option>
+									<option value="30" >Yoga Class</option>
+									<option value="31" >Tennis Instructor</option>
 								</select>
 							</div>
 							<div class="check-in-hire justify-content-around" id="serv-pcv"> 
 								<div class="search_item cus-pad" id="hire-days">
 									<div>Date</div>
-									<input  type="text" id="" class="roundedk-serv-in check_out search_input" placeholder="Service Date" name="servicesdate">
+									<input  type="text" id="servicesDate" class="roundedk-serv-in check_out search_input" placeholder="Service Date" name="servicesdate">
 									
 								</div>
 								<div class="search_item cus-pad" id="hire-hours">
 									<div>how many days</div>
-									
-									<select name="servicesdays" id="" class="roundedk dropdown_item_select search_input" required>
+									<select name="servicesdays" id="servicesDays" class="roundedk dropdown_item_select search_input" required>
 											<option selected="selected" disabled="disabled" value="">How Many Days</option>
 											<option value="1">1 Day</option>
 											<option value="2">2 Days</option>
@@ -2599,46 +2597,9 @@
 								</div>
 							</div>
 
-
-
-							
-
-							
-								<div class="search_item d-none" id="activity-hours-pcv">
-									<div>Hours Per Day</div>
-									<select name="adults" id="" class="roundedk dropdown_item_select search_input">
-											<option>1 Hour </option>
-											<option>2 Hours </option>
-											<option>3 Hours </option>
-											<option>4 Hours </option>
-											<option>5 Hours </option>
-											<option>6 Hours </option>
-											<option>7 Hours </option>
-											<option>8 Hours </option>
-											<option>9 Hours </option>
-											<option>10 Hours</option>
-											<option>11 Hours</option>
-											<option>12 Hours</option>
-											<option>13 Hours</option>
-											<option>14 Hours</option>
-											<option>15 Hours</option>
-											<option>16 Hours</option>
-											<option>17 Hours</option>
-											<option>18 Hours</option>
-											<option>19 Hours</option>
-											<option>20 Hours</option>
-											<option>21 Hours</option>
-											<option>23 Hours</option>
-											<option>24 Hours</option>
-									
-										
-									</select>
-								</div>
-								
-								
 								<div class="search_item activity_adult cus-pad">
 									<div>Adults</div>
-									<select name="services_adults" id="" class="roundedk dropdown_item_select search_input" required>
+									<select name="services_adults" id="servicesAdults" class="roundedk dropdown_item_select search_input" required>
 										<option value="">0</option>
 										<option value="1">1</option>
 										<option value="2" selected="selected">2</option>
@@ -2663,277 +2624,6 @@
 									</select>
 								</div>
 						
-
-								
-								<div class="hamburger2-services d-none">
-										
-										<table class="tablez" id="smview-dash" >
-											<tr>
-												<th rowspan="2" style="white-space:nowrap; height: 10px; width: 40px;">
-													<div class="booking-person-villa d-flex">
-														<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-															<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-														  </svg>
-														  
-													</div>
-												</th>
-												<td style="white-space:nowrap; height: 10px; font-size: 12px;">Travelers</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="travler-display" >
-														<p id="aladults-services" value=" "> 1  </p>  Adults,  <p id="alkids-services" value=" "> 0  </p> Children</p>
-													</div>
-												</td>
-											  </tr>
-										</table>
-									</div>
-								
-							
-
-									<div class="search_item d-none" id="activity-hours-pcv">
-										<div>Special request</div>
-										<input type="text"  id="" class="roundedk check_out search_input" placeholder="Note any special request">
-									</div>
-	
-									<div class="menu2-services trans_500" id="pmenu">
-										<div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">
-											
-											<div class="persons-dash">
-												<table>
-													<tr>
-														<td colspan="2" id="close-ignore-services"> <a ><i class="fa-regular fa-circle-xmark" style="font-size: 20px;"></i></a></td>
-													</tr>
-													<tr>
-														<td id="room1" >   </td>
-														
-													</tr>
-													<tr class="maintr">
-														<td class="selec-p">Adults</td>
-														<td class="counters-d">
-															<select id="qty1-services" value="" class="qty" name="" >
-																<option value="1">1</option>
-																<option value="2">2</option>
-																<option value="3">3</option>
-																<option value="4">4</option>
-																<option value="5">5</option>
-																<option value="6">6</option>
-																<option value="7">7</option>
-																<option value="8">8</option>
-																<option value="9">9</option>
-																<option value="10">10</option>
-																<option value="11">11</option>
-																<option value="12">12</option>
-															</select>  
-														</td>
-													</tr>
-													<tr class="maintr">
-														<td class="selec-p">Children</td>
-		
-														<td class="counters-d">
-															<select class="selec-Children-services" value="">
-																<option value="0">0</option>
-																<option value="1">1</option>
-																<option value="2">2</option>
-																<option value="3">3</option>
-																<option value="4">4</option>
-																<option value="5">5</option>
-																<option value="6">6</option>
-															</select>
-														</td>
-													</tr>	
-													<tr>
-														<td colspan="2" class="notifi-red"><div class="red-notification-services"><p class="notifi-head">Please provide Children age?</p></div></td>
-													</tr>
-												
-													<tr class="maintr">
-														<td class="selec-p ">
-														<div class="mkids-services-age1" id="lil_kid" >
-															<div class="mkids">Child 1 Age</div>
-															<div class="age-selc">
-																<select class="1stkid-services">
-																	<option value="0">0</option>
-																	<option value="1">1</option>
-																	<option value="2">2</option>
-																	<option value="3">3</option>
-																	<option value="4">4</option>
-																	<option value="5">5</option>
-																	<option value="6">6</option>
-																	<option value="7">7</option>
-																	<option value="8">8</option>
-																	<option value="9">9</option>
-																	<option value="10">10</option>
-																	<option value="11">11</option>
-																	<option value="12">12</option>
-																	<option value="13">13</option>
-																	<option value="14">14</option>
-																	<option value="15">15</option>
-																	<option value="16">16</option>
-																	<option value="17">17</option>
-																</select>
-															</div>
-														</div>
-														</td>
-														<td class="counters-d">
-															<div class="mkids-services-age2" id="lil_kid">
-																<div class="mkids">Child 2 Age</div>
-																<div class="age-selc">
-																	<select class="2kid-services">
-																		<option value="0">0</option>
-																		<option value="1">1</option>
-																		<option value="2">2</option>
-																		<option value="3">3</option>
-																		<option value="4">4</option>
-																		<option value="5">5</option>
-																		<option value="6">6</option>
-																		<option value="7">7</option>
-																		<option value="8">8</option>
-																		<option value="9">9</option>
-																		<option value="10">10</option>
-																		<option value="11">11</option>
-																		<option value="12">12</option>
-																		<option value="13">13</option>
-																		<option value="14">14</option>
-																		<option value="15">15</option>
-																		<option value="16">16</option>
-																		<option value="17">17</option>
-																	</select>
-																</div>
-															</div>
-														</td>
-														
-													</tr>
-													<tr class="maintr-kid">
-														<td class="selec-p">
-														<div class="mkids-services-age3" id="lil_kid">
-															<div class="mkids">Child 3 Age</div>
-															<div class="age-selc">
-																<select class="3rdkid-services">
-																	<option value="0">0</option>
-																	<option value="1">1</option>
-																	<option value="2">2</option>
-																	<option value="3">3</option>
-																	<option value="4">4</option>
-																	<option value="5">5</option>
-																	<option value="6">6</option>
-																	<option value="7">7</option>
-																	<option value="8">8</option>
-																	<option value="9">9</option>
-																	<option value="10">10</option>
-																	<option value="11">11</option>
-																	<option value="12">12</option>
-																	<option value="13">13</option>
-																	<option value="14">14</option>
-																	<option value="15">15</option>
-																	<option value="16">16</option>
-																	<option value="17">17</option>
-																</select>
-															</div>
-														</div>
-														</td>
-														<td class="counters-d">
-															<div class="mkids-services-age4" id="lil_kid">
-																<div class="mkids">Child 4 Age</div>
-																<div class="age-selc">
-																	<select class="4rthkid-services">
-																		<option value="0">0</option>
-																		<option value="1">1</option>
-																		<option value="2">2</option>
-																		<option value="3">3</option>
-																		<option value="4">4</option>
-																		<option value="5">5</option>
-																		<option value="6">6</option>
-																		<option value="7">7</option>
-																		<option value="8">8</option>
-																		<option value="9">9</option>
-																		<option value="10">10</option>
-																		<option value="11">11</option>
-																		<option value="12">12</option>
-																		<option value="13">13</option>
-																		<option value="14">14</option>
-																		<option value="15">15</option>
-																		<option value="16">16</option>
-																		<option value="17">17</option>
-																	</select>
-																</div>
-															</div>
-														</td>
-														
-													</tr>
-													
-													<tr class="maintr-kid">
-														<td class="selec-p ">
-															<div class="mkids-services-age5" id="lil_kid">
-																<div class="mkids">Child 5 Age</div>
-																<div class="age-selc">
-																	<select class="5kid-services">
-																	<option value="0">0</option>
-																	<option value="1">1</option>
-																	<option value="2">2</option>
-																	<option value="3">3</option>
-																	<option value="4">4</option>
-																	<option value="5">5</option>
-																	<option value="6">6</option>
-																	<option value="7">7</option>
-																	<option value="8">8</option>
-																	<option value="9">9</option>
-																	<option value="10">10</option>
-																	<option value="11">11</option>
-																	<option value="12">12</option>
-																	<option value="13">13</option>
-																	<option value="14">14</option>
-																	<option value="15">15</option>
-																	<option value="16">16</option>
-																	<option value="17">17</option>
-																</select>
-															</div>
-														</div>
-														</td>
-														<td class="counters-d">
-															<div class="mkids-services-age6" id="lil_kid">
-																<div class="mkids">Child 6 Age</div>
-																<div class="age-selc">
-																	<select class="6kid-services">
-																		<option value="0">0</option>
-																		<option value="1">1</option>
-																		<option value="2">2</option>
-																		<option value="3">3</option>
-																		<option value="4">4</option>
-																		<option value="5">5</option>
-																		<option value="6">6</option>
-																		<option value="7">7</option>
-																		<option value="8">8</option>
-																		<option value="9">9</option>
-																		<option value="10">10</option>
-																		<option value="11">11</option>
-																		<option value="12">12</option>
-																		<option value="13">13</option>
-																		<option value="14">14</option>
-																		<option value="15">15</option>
-																		<option value="16">16</option>
-																		<option value="17">17</option>
-																	</select>
-																</div>
-															</div>
-														</td>
-														
-													</tr>
-		
-		
-													<tr >
-														<td class="done-p" colspan="2"><div class="done-close-services">Done</div></td>
-													</tr>
-												</table>
-		
-											</div>
-											
-											
-											
-										</div>
-										
-									</div>
-							
-							
 							<button class="button search_button" type="submit">search<span></span><span></span><span></span></button>
 						</form>
 					</div>
@@ -4001,6 +3691,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 </script>
 
+<script src="js/services-form.js"></script>
 <script src="js/reservationform.js"></script>
 <script src="js/activityLinks.js"></script>
 <script src="js/jquery.min.js"></script> 

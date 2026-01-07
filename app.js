@@ -588,7 +588,6 @@ app.post("/submit-apartment-booking", async (req, res) => {
 });
 
 //Villa Form Get
-
 app.get("/retrieve-apartment-booking", (req, res) => {
   // Check if session data exists for the apartment booking
   if (req.session && req.session.bookingData) {
@@ -599,6 +598,109 @@ app.get("/retrieve-apartment-booking", (req, res) => {
   } else {
     res.status(404).json({ message: "No booking data found in session" });
   }
+});
+
+
+// Add these routes to app.js
+
+// 1. Route to SAVE services data to session
+app.post("/save-services-data", (req, res) => {
+    console.log("POST /save-services-data called with:", req.body);
+    
+    const { servicesCategory, servicesDate, servicesDays, servicesAdults } = req.body;
+    
+    // Add validation
+    if (!servicesCategory || !servicesDate || !servicesDays || !servicesAdults) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // Save reservation data to session
+    req.session.servicesData = {
+        category: servicesCategory,
+        Date: servicesDate,
+        Days: servicesDays,
+        Adults: servicesAdults,
+    };
+
+    // Determine redirection URL
+    let redirectUrl;
+    switch (servicesCategory) {
+        case "20":
+            redirectUrl = "/PrivateChef.html";
+            break;
+        case "21":
+            redirectUrl = "/PrivateSecurity.html";
+            break;
+        case "22":
+            redirectUrl = "/PrivateConcierge.html";
+            break;
+        case "23":
+            redirectUrl = "/SpaMassage.html";
+            break; 
+        case "24":
+            redirectUrl = "/PersonalTrainer.html";
+            break; 
+        case "25":
+            redirectUrl = "/Barber.html";
+            break;
+        case "26":
+            redirectUrl = "/Shisha.html";
+            break;
+        case "27":
+            redirectUrl = "/Nails.html";
+            break;
+        case "28":
+            redirectUrl = "/Hairdresser.html";
+            break;   
+        case "29":
+            redirectUrl = "/Bartender.html";
+            break;
+        case "30":
+            redirectUrl = "/YogaClass.html";
+            break;  
+        case "31":
+            redirectUrl = "/TennisInstructor.html";
+            break;                            
+        default:
+            redirectUrl = "/";
+    }
+
+    req.session.save((err) => {
+        if (err) {
+            console.error("Error saving services data to session:", err);
+            return res.status(500).json({ 
+                message: "Error saving data",
+                redirectUrl: "/"  // Optional: send default redirect on error
+            });
+        }
+        
+        console.log("Services data successfully saved to session ID:", req.sessionID);
+        console.log("Redirecting to:", redirectUrl);
+        
+       
+        
+        // Send ONE response with both message and redirect URL
+        res.status(200).json({ 
+            message: "Services data saved successfully", 
+            redirectUrl 
+        });
+    });
+});
+
+
+// 2. Route to RETRIEVE services data from session
+app.get("/get-services-data", (req, res) => {
+    console.log("GET /get-services-data requested. Session ID:", req.sessionID);
+    
+    if (req.session.servicesData) {
+        console.log("Found services data:", req.session.servicesData);
+        res.status(200).json({ 
+            servicesData: req.session.servicesData  // Wrap in servicesData property
+        });
+    } else {
+        console.log("No services data found in session:", req.session);
+        res.status(404).json({ message: "No services data found in session" });
+    }
 });
 
 // POST route to handle form data and send Villa emails
@@ -1252,6 +1354,165 @@ const clientEmailContent = `
   } catch (error) {
     console.error("Error sending emails:", error);
     res.status(500).json({ message: "Failed to send emails" });
+  }
+});
+
+app.post("/send-services-email", async (req, res) => {
+  const {
+    reservationItem,
+    name,
+    email,
+    phone,
+    comments,
+    servicesCategory,
+    servicesDate,
+    servicesDays,
+    servicesAdults,
+  } = req.body;
+
+  // Create Nodemailer transporter
+  const transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "developers@mykonosbooker.com",
+      pass: "Welcome@2024",
+    },
+  });
+
+ // Map category codes to human-readable names
+const getCategoryName = (categoryCode) => {
+  switch(categoryCode) {
+    case "20": return "Private Chef";
+    case "21": return "Private Security";
+    case "22": return "Private Concierge";
+    case "23": return "Spa - Massage";
+    case "24": return "Personal Trainer";
+    case "25": return "Barber";
+    case "26": return "Shisha";
+    case "27": return "Nails";
+    case "28": return "Hairdresser";
+    case "29": return "Bartender";
+    case "30": return "Yoga Class";
+    case "31": return "Tennis Instructor";
+    default: return "Service";
+  }
+};
+
+  const categoryName = getCategoryName(servicesCategory);
+
+  // Welcome email content for the client
+  const clientEmailContent = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <img src="https://i.ibb.co/cKPMmF42/logo.png" alt="Company Logo" style="max-width: 150px; height: auto;">
+      </div>
+      <h2 style="color: #0056b3; text-align: center;">Service Reservation Confirmation</h2>
+      <p>Dear ${name},</p>
+      <p>Thank you for your service reservation with <strong>Dubai Booker</strong>. We're excited to confirm your booking!</p>
+      
+      <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+        <h3 style="color: #0056b3;">Your Service Booking Details:</h3>
+        <ul style="list-style-type: none; padding: 0;">
+          <li style="margin-bottom: 10px;"><strong>Service Type:</strong> ${categoryName}</li>
+          <li style="margin-bottom: 10px;"><strong>Selected Service:</strong> ${reservationItem}</li>
+          <li style="margin-bottom: 10px;"><strong>Start Date:</strong> ${servicesDate}</li>
+          <li style="margin-bottom: 10px;"><strong>Number of Days:</strong> ${servicesDays}</li>
+          <li style="margin-bottom: 10px;"><strong>Number of Adults:</strong> ${servicesAdults}</li>
+          <li style="margin-bottom: 10px;"><strong>Comments:</strong> ${comments || "None"}</li>
+        </ul>
+      </div>
+      
+      <p style="margin-top: 20px;">We look forward to providing you with an exceptional service experience.</p>
+      <p style="margin-top: 20px;">If you have any questions or need to make changes, please don't hesitate to contact us.</p>
+      
+      <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+        <p style="font-size: 12px; color: #777;">Best regards,<br>The Dubai Booker Team</p>
+        <p style="font-size: 12px; color: #777;">Contact: ${phone}</p>
+      </div>
+    </div>
+  `;
+
+  // Notification email content for the admin
+  const adminEmailContent = `
+    <div style="font-family: Arial, sans-serif; color: #333;">
+      <h2 style="color: #0056b3;">New Service Reservation Booking</h2>
+      <p>Hello Admin,</p>
+      <p>You have received a new <strong>${categoryName}</strong> service booking request. Below are the details:</p>
+
+      <table style="border-collapse: collapse; width: 100%; margin-top: 10px;">
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Customer Name:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${name}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Email:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${email}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Phone:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${phone}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Service Category:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${categoryName} (Code: ${servicesCategory})</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Selected Service:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${reservationItem}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Start Date:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${servicesDate}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Number of Days:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${servicesDays}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Number of Adults:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${servicesAdults}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Comments:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${comments || "None"}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Booking Time:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${new Date().toLocaleString()}</td>
+        </tr>
+      </table>
+
+      <p style="margin-top: 20px; padding: 10px; background-color: #f0f8ff; border-left: 4px solid #0056b3;">
+        <strong>Note:</strong> This is a service reservation. Please follow up with the customer to confirm availability and finalize arrangements.
+      </p>
+
+      <p style="margin-top: 20px;">Best regards,<br>Dubai Booker Team</p>
+    </div>
+  `;
+
+  try {
+    // Send welcome email to the client
+    await transporter.sendMail({
+      from: '"Dubai Booker" <developers@mykonosbooker.com>',
+      to: email,
+      subject: `${categoryName} Reservation Confirmation`,
+      html: clientEmailContent,
+    });
+
+    // Send notification email to the admin
+    await transporter.sendMail({
+      from: '"Dubai Booker" <developers@mykonosbooker.com>',
+      to: "freerapper666@gmail.com", // Replace with the admin's email
+      subject: `New ${categoryName} Service Reservation - ${name}`,
+      html: adminEmailContent,
+    });
+
+    res.status(200).json({ message: "Service reservation emails sent successfully" });
+  } catch (error) {
+    console.error("Error sending service emails:", error);
+    res.status(500).json({ message: "Failed to send service reservation emails" });
   }
 });
 
