@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     'Theatre Of Digital Art',
     'Atlantis Lunch or Dinner',
     'Natak ke Rang',
+    'Al Ain Zoo',
   ];
 
   // Function to check if a tour should be hidden
