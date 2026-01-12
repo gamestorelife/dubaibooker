@@ -1288,6 +1288,10 @@ qty {
   padding-top: 10px;
 }
 
+option {
+  font-size: 18px;
+}
+
 .dropdown_item_select {
   border-radius: 10px;
   border-width: 0.5px;
@@ -1296,6 +1300,9 @@ qty {
   border-style: solid;
   color: rgba(255, 255, 255, 0.961);
   width: 100%;
+  font-family: "Minimal", sans-serif;
+  letter-spacing: 2px;
+  
   /* -webkit-appearance:none;
     -moz-appearance:none;
     -ms-appearance:none;
