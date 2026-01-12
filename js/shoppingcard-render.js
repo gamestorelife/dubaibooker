@@ -29,46 +29,52 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const removeItemFromCart = (itemId) => {
-    const itemToRemove = cart[itemId];
-    // Step 1: Remove item from the online session via DELETE request
-    fetch(`/remove-from-cart/${itemToRemove.serviceUniqueId}`, {
-      method: "DELETE",
+ const removeItemFromCart = (itemId) => {
+  const itemToRemove = cart[itemId];
+
+  // Step 1: Remove item from the server session via DELETE request
+  fetch(`/remove-from-cart/${itemToRemove.serviceUniqueId}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject("Failed to remove item from online session");
+      }
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject("Failed to remove item from online session");
-        }
-      })
-      .then((data) => {
-        console.log("Item removed from online session:", data.message);
+    .then((data) => {
+      console.log("Item removed from online session:", data.message);
 
-        // Step 2: Remove the item from local session (sessionStorage)
-        // Remove the item locally from the cart array and update sessionStorage
-        cart.splice(itemId, 1);
-        sessionStorage.setItem("cart", JSON.stringify(cart));
+      // Step 2: Remove the item from local array and update sessionStorage
+      cart.splice(itemId, 1); 
+      sessionStorage.setItem("cart", JSON.stringify(cart));
 
-        // Reload the page to reflect the updated cart
-        // location.reload();
-      })
-      .catch((error) => {
-        console.error("Error during removal:", error);
-      });
-
-    fetch(`/remove-from-cart/${itemId}`, {
-      method: "GET",
+      // Step 3: Reload the page to reflect the updated cart
+      location.reload(); 
     })
-      .then((response) => response.text())
-      .then((data) => {
-        //console.log(data);
-        cart.splice(itemId, 1);
-        sessionStorage.setItem("cart", JSON.stringify(cart));
-        location.reload();
-      })
-      .catch((error) => console.error("Error:", error));
-  };
+    .catch((error) => {
+      console.error("Error during removal:", error);
+    });
+
+  // DELETE or COMMENT OUT the entire second fetch block below:
+  /*
+  fetch(`/remove-from-cart/${itemId}`, {
+    method: "GET",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      // This was the cause of the double-splice bug
+      cart.splice(itemId, 1);
+      sessionStorage.setItem("cart", JSON.stringify(cart));
+      location.reload();
+    })
+  */
+};
+
+
+
+
 
   // Prepare description for payment link based on tour options
   let tourOptionsDescriptions = cart.map((item) => item.tourName);
