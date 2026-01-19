@@ -1853,7 +1853,8 @@ option {
   position: absolute;
   left: 41px;
   bottom: calc(100% - 18px);
-  background: #ffffff;
+      box-shadow: 9px 10px 20px rgb(5 4 4 / 62%);
+    background: var(--primary-color);
   padding-left: 20px;
   padding-right: 21px;
   padding-top: 9px;
@@ -1864,7 +1865,7 @@ option {
 .test_name {
   font-size: 14px;
   font-weight: 700;
-  color: #2d2c2c;
+  color: #ffffff;
   text-transform: uppercase;
 }
 .test_date {
