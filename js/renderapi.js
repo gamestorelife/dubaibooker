@@ -41,38 +41,39 @@ document.addEventListener("DOMContentLoaded", async function () {
     "Kayaking in Dubai",
     "Ras Al Khaimah Desert Safari from Dubai",
     "Birthday Party at Dhow Cruise",
-    'Wonder Bus Sea and Land Adventure Tours',
-    'Flying Cup Dubai',
-    'The Lost Chambers Aquarium Tickets',
-    'Ekart Zabeel Duba',
-    'Chillout Ice Lounge Dubai',
-    'Dubai Aquarium and Penguin Encounter',
-    'Magical Morning With Balloon Flights',
-    'Skydive Abu Dhabi from Dubai',
-    'Dubai Autodrome',
-    'Exotic Sunrise with Balloon Flights',
-    'SeaWorld from Dubai',
-    'Paramotor Adventure Tour',
-    'Dubai Fountain Show and Lake Ride',
-    'Ekart Zabeel Dubai',
-    'The View at The Palm Jumeirah Dubai',
-    'Dubai to Abu Dhabi Intercity transfers',
-    'AR Rahman Live In Abu Dhabi',
-    'The Jamie Lever show in Abu Dhabi',
-    'IIFA Rocks',
-    'IIFA Utsavam 2024',
-    'SeaWorld Experiences',
-    'Formula 1 Abu Dhabi Grand Prix 2024',
-    'Yas Waterworld',
-    'Dubai Dolphinarium from Abu Dhabi',
-    'Abu Dhabi Airport Pick up',
-    'Love Boat from Abu Dhabi',
-    'KidZania Abu Dhabi',
-    'Skydive Abu Dhabi',
-    'Theatre Of Digital Art',
-    'Atlantis Lunch or Dinner',
-    'Natak ke Rang',
-    'Al Ain Zoo',
+    "Wonder Bus Sea and Land Adventure Tours",
+    "Flying Cup Dubai",
+    "The Lost Chambers Aquarium Tickets",
+    "Ekart Zabeel Duba",
+    "Chillout Ice Lounge Dubai",
+    "Dubai Aquarium and Penguin Encounter",
+    "Magical Morning With Balloon Flights",
+    "Skydive Abu Dhabi from Dubai",
+    "Dubai Autodrome",
+    "Exotic Sunrise with Balloon Flights",
+    "SeaWorld from Dubai",
+    "Paramotor Adventure Tour",
+    "Dubai Fountain Show and Lake Ride",
+    "Ekart Zabeel Dubai",
+    "The View at The Palm Jumeirah Dubai",
+    "Dubai to Abu Dhabi Intercity transfers",
+    "AR Rahman Live In Abu Dhabi",
+    "The Jamie Lever show in Abu Dhabi",
+    "IIFA Rocks",
+    "IIFA Utsavam 2024",
+    "SeaWorld Experiences",
+    "Formula 1 Abu Dhabi Grand Prix 2024",
+    "Yas Waterworld",
+    "Dubai Dolphinarium from Abu Dhabi",
+    "Abu Dhabi Airport Pick up",
+    "Love Boat from Abu Dhabi",
+    "KidZania Abu Dhabi",
+    "Skydive Abu Dhabi",
+    "Theatre Of Digital Art",
+    "Atlantis Lunch or Dinner",
+    "Natak ke Rang",
+    "Al Ain Zoo",
+    "Misfits Boxing The Fight before the Christmas in Dubai",
   ];
 
   // Function to check if a tour should be hidden
@@ -83,12 +84,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   async function getTourImageSource(tour) {
     // First try to use the imageCaptionName as a URL if it exists
-    if (tour.imageCaptionName && 
-        (tour.imageCaptionName.startsWith('http://') || 
-         tour.imageCaptionName.startsWith('https://'))) {
+    if (
+      tour.imageCaptionName &&
+      (tour.imageCaptionName.startsWith("http://") ||
+        tour.imageCaptionName.startsWith("https://"))
+    ) {
       try {
         // Check if the image URL is valid
-        const response = await fetch(tour.imageCaptionName, { method: 'HEAD' });
+        const response = await fetch(tour.imageCaptionName, { method: "HEAD" });
         if (response.ok) {
           return tour.imageCaptionName;
         }
@@ -96,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(`Remote image not available, using fallback: ${error}`);
       }
     }
-    
+
     // Fallback to local image path
     return `images/${tour.tourName.toLowerCase().replace(/\s+/g, "-")}.jpg`;
   }
@@ -110,7 +113,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     for (const tour of tours) {
       // Check if the tour should be hidden based on its name
       if (isTourHidden(tour.tourName)) {
-        console.log(`Tour "${tour.tourName}" is on the hidden list and will not be rendered.`);
+        console.log(
+          `Tour "${tour.tourName}" is on the hidden list and will not be rendered.`,
+        );
         continue; // Skip the rest of the loop for this tour
       }
 
@@ -120,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       const imageSrc = await getTourImageSource(tour);
-      
+
       const tourDiv = document.createElement("div");
       tourDiv.className = "tour";
       tourDiv.innerHTML = `
@@ -150,37 +155,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       // Add click event listener to each tour container
       tourIdContainer.addEventListener("click", function () {
-      // Extract tourId and contractId from the container's ID
-          const tourId = tour.tourId;
-          const contractId = tour.contractId; // Assuming you have contractId in your tour object
-          const countryId = tour.countryId;
-          const cityId = tour.cityId;
-          const toDayDate = new Date();
+        // Extract tourId and contractId from the container's ID
+        const tourId = tour.tourId;
+        const contractId = tour.contractId; // Assuming you have contractId in your tour object
+        const countryId = tour.countryId;
+        const cityId = tour.cityId;
+        const toDayDate = new Date();
 
-          const day = toDayDate.getDate();
-          const month = toDayDate.getMonth() + 1; // Note: month is zero-indexed, so add 1 to get the correct month
-          const year = toDayDate.getFullYear();
-          const travelDate = `${day}-${month}-${year}`;
-          const travelDateForm = `${year}-${month}-${day}`;
+        const day = toDayDate.getDate();
+        const month = toDayDate.getMonth() + 1; // Note: month is zero-indexed, so add 1 to get the correct month
+        const year = toDayDate.getFullYear();
+        const travelDate = `${day}-${month}-${year}`;
+        const travelDateForm = `${year}-${month}-${day}`;
 
-          sessionStorage.setItem("tourId", tourId);
-          sessionStorage.setItem("contractId", contractId);
-          sessionStorage.setItem("countryId", countryId);
-          sessionStorage.setItem("cityId", cityId);
-          sessionStorage.setItem("travelDate", travelDate);
-          sessionStorage.setItem("travelDateForm", travelDateForm);
+        sessionStorage.setItem("tourId", tourId);
+        sessionStorage.setItem("contractId", contractId);
+        sessionStorage.setItem("countryId", countryId);
+        sessionStorage.setItem("cityId", cityId);
+        sessionStorage.setItem("travelDate", travelDate);
+        sessionStorage.setItem("travelDateForm", travelDateForm);
 
-          console.log(`Today is ${day}-${month}-${year}`);
-          console.log(
-            `Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`
-          );
-          console.log(travelDate);
+        console.log(`Today is ${day}-${month}-${year}`);
+        console.log(
+          `Clicked on tourId: ${tourId}, contractId: ${contractId}, ${countryId}, ${cityId}`,
+        );
+        console.log(travelDate);
 
-          const redirectUrl = `/tour-option.html`;
+        const redirectUrl = `/tour-option.html`;
 
-          // Redirect to the constructed URL
-          window.location.href = redirectUrl;
-        
+        // Redirect to the constructed URL
+        window.location.href = redirectUrl;
       });
     }
   }
