@@ -59,7 +59,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const jqueryPath = path.resolve(
   __dirname,
-  "node_modules/jquery/dist/jquery.min.js"
+  "node_modules/jquery/dist/jquery.min.js",
 );
 const $ = require(jqueryPath);
 
@@ -68,11 +68,10 @@ const MAMO_API_KEY = process.env.MAMO_PAY_KEY;
 
 const PORT = process.env.PORT || 3000;
 
-// MongoDB connection
+// MongoDB connection with production fixes
+// MongoDB connection - remove the options object
 mongoose
-  .connect(
-    process.env.MONGO_URI
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected to DB");
   })
@@ -92,7 +91,7 @@ app.use(
       autoRemove: "native",
     }),
     cookie: { secure: false }, // Set secure: true if using HTTPS
-  })
+  }),
 );
 
 // app.set("trust proxy", 1); // Required for apps behind proxies like Cloudflare
@@ -113,24 +112,23 @@ app.get("/confirmation.html", (req, res) => {
 app.post("/save-cart", (req, res) => {
   const { uniqueNo, count, TourDetails, passengers } = req.body;
 
- 
-   // Store the received data in the session
-    req.session.cart = {
-        uniqueNo: uniqueNo || generateUniqueNo(),
-        TourDetails: TourDetails || []
-    };
+  // Store the received data in the session
+  req.session.cart = {
+    uniqueNo: uniqueNo || generateUniqueNo(),
+    TourDetails: TourDetails || [],
+  };
 
-    // Add count only if it exists in the request (for multiple items)
-    if (count) {
-        req.session.cart.count = count;
-    }
+  // Add count only if it exists in the request (for multiple items)
+  if (count) {
+    req.session.cart.count = count;
+  }
 
-    // If passengers are provided, include them in the session
-    if (passengers) {
-        req.session.cart.passengers = passengers;
-    }
-    
-    console.log("Session after saving cart:", req.session);
+  // If passengers are provided, include them in the session
+  if (passengers) {
+    req.session.cart.passengers = passengers;
+  }
+
+  console.log("Session after saving cart:", req.session);
   // Save session and send response
   req.session.save((err) => {
     if (err) {
@@ -205,7 +203,7 @@ app.delete("/remove-from-cart/:serviceUniqueId", (req, res) => {
   if (req.session.cartItems && req.session.cartItems.length > 0) {
     // Find the index of the item with the matching serviceUniqueId
     const itemIndex = req.session.cartItems.findIndex(
-      (item) => item.serviceUniqueId === serviceUniqueId
+      (item) => item.serviceUniqueId === serviceUniqueId,
     );
 
     if (itemIndex !== -1) {
@@ -271,7 +269,7 @@ app.post("/api-data", async (req, res) => {
           Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(req.body),
-      }
+      },
     );
     const data = await response.json();
     res.json(data);
@@ -292,7 +290,7 @@ app.post("/tour-price", async (req, res) => {
           Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(req.body),
-      }
+      },
     );
     const data = await response.json();
     res.json(data);
@@ -313,7 +311,7 @@ app.post("/activity-click", async (req, res) => {
           Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(req.body),
-      }
+      },
     );
     const data = await response.json();
     res.json(data);
@@ -334,7 +332,7 @@ app.post("/tour-options", async (req, res) => {
           Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(req.body),
-      }
+      },
     );
     const data = await response.json();
     res.json(data);
@@ -355,7 +353,7 @@ app.post("/time-slot", async (req, res) => {
           Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(req.body),
-      }
+      },
     );
     const data = await response.json();
     res.json(data);
@@ -376,7 +374,7 @@ app.post("/bookings", async (req, res) => {
           Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(req.body),
-      }
+      },
     );
     const data = await response.json();
     res.json(data);
@@ -385,10 +383,6 @@ app.post("/bookings", async (req, res) => {
     res.status(500).send("Error processing POST request");
   }
 });
-
-
-
-
 
 app.post("/user-booking", async (req, res) => {
   try {
@@ -473,13 +467,13 @@ app.get("/mamo-business-details", async (req, res) => {
         headers: {
           Authorization: `Bearer ${MAMO_API_KEY}`,
         },
-      }
+      },
     );
     res.json(response.data);
   } catch (error) {
     console.error(
       "Error making GET request to Mamo API:",
-      error.response ? error.response.data : error.message
+      error.response ? error.response.data : error.message,
     );
     res.status(500).send("Error processing GET request");
   }
@@ -519,7 +513,7 @@ app.post("/create-payment-link", async (req, res) => {
   } catch (error) {
     console.error(
       "Error creating Mamo payment link:",
-      error.response?.data || error.message
+      error.response?.data || error.message,
     );
     res.status(500).json({
       error: "Failed to create payment link",
@@ -600,107 +594,107 @@ app.get("/retrieve-apartment-booking", (req, res) => {
   }
 });
 
-
 // Add these routes to app.js
 
 // 1. Route to SAVE services data to session
 app.post("/save-services-data", (req, res) => {
-    console.log("POST /save-services-data called with:", req.body);
-    
-    const { servicesCategory, servicesDate, servicesDays, servicesAdults } = req.body;
-    
-    // Add validation
-    if (!servicesCategory || !servicesDate || !servicesDays || !servicesAdults) {
-        return res.status(400).json({ message: "Missing required fields" });
+  console.log("POST /save-services-data called with:", req.body);
+
+  const { servicesCategory, servicesDate, servicesDays, servicesAdults } =
+    req.body;
+
+  // Add validation
+  if (!servicesCategory || !servicesDate || !servicesDays || !servicesAdults) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  // Save reservation data to session
+  req.session.servicesData = {
+    category: servicesCategory,
+    Date: servicesDate,
+    Days: servicesDays,
+    Adults: servicesAdults,
+  };
+
+  // Determine redirection URL
+  let redirectUrl;
+  switch (servicesCategory) {
+    case "20":
+      redirectUrl = "/PrivateChef.html";
+      break;
+    case "21":
+      redirectUrl = "/PrivateSecurity.html";
+      break;
+    case "22":
+      redirectUrl = "/PrivateConcierge.html";
+      break;
+    case "23":
+      redirectUrl = "/SpaMassage.html";
+      break;
+    case "24":
+      redirectUrl = "/PersonalTrainer.html";
+      break;
+    case "25":
+      redirectUrl = "/Barber.html";
+      break;
+    case "26":
+      redirectUrl = "/Shisha.html";
+      break;
+    case "27":
+      redirectUrl = "/Nails.html";
+      break;
+    case "28":
+      redirectUrl = "/Hairdresser.html";
+      break;
+    case "29":
+      redirectUrl = "/Bartender.html";
+      break;
+    case "30":
+      redirectUrl = "/YogaClass.html";
+      break;
+    case "31":
+      redirectUrl = "/TennisInstructor.html";
+      break;
+    default:
+      redirectUrl = "/";
+  }
+
+  req.session.save((err) => {
+    if (err) {
+      console.error("Error saving services data to session:", err);
+      return res.status(500).json({
+        message: "Error saving data",
+        redirectUrl: "/", // Optional: send default redirect on error
+      });
     }
 
-    // Save reservation data to session
-    req.session.servicesData = {
-        category: servicesCategory,
-        Date: servicesDate,
-        Days: servicesDays,
-        Adults: servicesAdults,
-    };
+    console.log(
+      "Services data successfully saved to session ID:",
+      req.sessionID,
+    );
+    console.log("Redirecting to:", redirectUrl);
 
-    // Determine redirection URL
-    let redirectUrl;
-    switch (servicesCategory) {
-        case "20":
-            redirectUrl = "/PrivateChef.html";
-            break;
-        case "21":
-            redirectUrl = "/PrivateSecurity.html";
-            break;
-        case "22":
-            redirectUrl = "/PrivateConcierge.html";
-            break;
-        case "23":
-            redirectUrl = "/SpaMassage.html";
-            break; 
-        case "24":
-            redirectUrl = "/PersonalTrainer.html";
-            break; 
-        case "25":
-            redirectUrl = "/Barber.html";
-            break;
-        case "26":
-            redirectUrl = "/Shisha.html";
-            break;
-        case "27":
-            redirectUrl = "/Nails.html";
-            break;
-        case "28":
-            redirectUrl = "/Hairdresser.html";
-            break;   
-        case "29":
-            redirectUrl = "/Bartender.html";
-            break;
-        case "30":
-            redirectUrl = "/YogaClass.html";
-            break;  
-        case "31":
-            redirectUrl = "/TennisInstructor.html";
-            break;                            
-        default:
-            redirectUrl = "/";
-    }
-
-    req.session.save((err) => {
-        if (err) {
-            console.error("Error saving services data to session:", err);
-            return res.status(500).json({ 
-                message: "Error saving data",
-                redirectUrl: "/"  // Optional: send default redirect on error
-            });
-        }
-        
-        console.log("Services data successfully saved to session ID:", req.sessionID);
-        console.log("Redirecting to:", redirectUrl);
-        
-       
-        
-        // Send ONE response with both message and redirect URL
-        res.status(200).json({ 
-            message: "Services data saved successfully", 
-            redirectUrl 
-        });
+    // Send ONE response with both message and redirect URL
+    res.status(200).json({
+      message: "Services data saved successfully",
+      redirectUrl,
     });
+  });
 });
-
 
 // 2. Route to RETRIEVE services data from session
 app.get("/get-services-data", (req, res) => {
-    console.log("GET /get-services-data requested. Session ID:", req.sessionID);
-    
-    if (req.session.servicesData) {
-        console.log("Found services data:", req.session.servicesData);
-        res.status(200).json({ 
-            servicesData: req.session.servicesData  // Wrap in servicesData property
-        });
-    } else {
-        console.log("No services data found in session:", req.session);
-        res.status(404).json({ message: "No services data found in session" });
-    }
+  console.log("GET /get-services-data requested. Session ID:", req.sessionID);
+
+  if (req.session.servicesData) {
+    console.log("Found services data:", req.session.servicesData);
+    res.status(200).json({
+      servicesData: req.session.servicesData, // Wrap in servicesData property
+    });
+  } else {
+    console.log("No services data found in session:", req.session);
+    res.status(404).json({ message: "No services data found in session" });
+  }
 });
 
 // POST route to handle form data and send Villa emails
@@ -741,7 +735,7 @@ app.post("/send-booking-email", (req, res) => {
     }\nNumber of Adults: ${bookingDetails.adults}\nNumber of Children: ${
       bookingDetails.children
     }\nChild Ages: ${bookingDetails.childAges.join(
-      ", "
+      ", ",
     )}\n\nComments: ${comments}\nInsurance: ${
       insurance ? "Yes" : "No"
     }\nPhone: ${phone}`,
@@ -754,7 +748,7 @@ app.post("/send-booking-email", (req, res) => {
     }</li><li>Number of Children: ${
       bookingDetails.children
     }</li><li>Child Ages: ${bookingDetails.childAges.join(
-      ", "
+      ", ",
     )}</li></ul><p>Comments: ${comments}</p>
     <p>Insurance: ${insurance ? "Yes" : "No"}</p>
     <p>Phone: ${phone}</p><p>Email: ${email}</p>`,
@@ -799,7 +793,7 @@ app.get("/search-locations", async (req, res) => {
           country: "AE", // Restrict to UAE
           limit: 5, // Limit number of suggestions
         },
-      }
+      },
     );
 
     const suggestions = response.data.data.map((location) => location.label);
@@ -1260,8 +1254,8 @@ app.post("/send-reservation-email", async (req, res) => {
     },
   });
 
- // Welcome email content for the client
-const clientEmailContent = `
+  // Welcome email content for the client
+  const clientEmailContent = `
   <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
     <div style="text-align: center; margin-bottom: 20px;">
       <img src="https://i.ibb.co/cKPMmF42/logo.png" alt="Company Logo" style="max-width: 150px; height: auto;">
@@ -1381,24 +1375,37 @@ app.post("/send-services-email", async (req, res) => {
     },
   });
 
- // Map category codes to human-readable names
-const getCategoryName = (categoryCode) => {
-  switch(categoryCode) {
-    case "20": return "Private Chef";
-    case "21": return "Private Security";
-    case "22": return "Private Concierge";
-    case "23": return "Spa - Massage";
-    case "24": return "Personal Trainer";
-    case "25": return "Barber";
-    case "26": return "Shisha";
-    case "27": return "Nails";
-    case "28": return "Hairdresser";
-    case "29": return "Bartender";
-    case "30": return "Yoga Class";
-    case "31": return "Tennis Instructor";
-    default: return "Service";
-  }
-};
+  // Map category codes to human-readable names
+  const getCategoryName = (categoryCode) => {
+    switch (categoryCode) {
+      case "20":
+        return "Private Chef";
+      case "21":
+        return "Private Security";
+      case "22":
+        return "Private Concierge";
+      case "23":
+        return "Spa - Massage";
+      case "24":
+        return "Personal Trainer";
+      case "25":
+        return "Barber";
+      case "26":
+        return "Shisha";
+      case "27":
+        return "Nails";
+      case "28":
+        return "Hairdresser";
+      case "29":
+        return "Bartender";
+      case "30":
+        return "Yoga Class";
+      case "31":
+        return "Tennis Instructor";
+      default:
+        return "Service";
+    }
+  };
 
   const categoryName = getCategoryName(servicesCategory);
 
@@ -1509,10 +1516,14 @@ const getCategoryName = (categoryCode) => {
       html: adminEmailContent,
     });
 
-    res.status(200).json({ message: "Service reservation emails sent successfully" });
+    res
+      .status(200)
+      .json({ message: "Service reservation emails sent successfully" });
   } catch (error) {
     console.error("Error sending service emails:", error);
-    res.status(500).json({ message: "Failed to send service reservation emails" });
+    res
+      .status(500)
+      .json({ message: "Failed to send service reservation emails" });
   }
 });
 
@@ -1534,7 +1545,7 @@ app.post("/register-webhook", async (req, res) => {
           enabled_events,
           auth_header,
         }),
-      }
+      },
     );
 
     const data = await response.json();
@@ -1549,140 +1560,154 @@ app.post("/register-webhook", async (req, res) => {
   }
 });
 
-
 // Cart Finalization and Booking with Rayna API
 
 // Add this to app.js
 
-
 // Add this new endpoint to app.js
 app.post("/finalize-booking-sequence", async (req, res) => {
-    try {
-        const cartData = req.session.cart;
-        if (!cartData) return res.status(400).json({ 
-            success: false, 
-            message: "No session data found" 
-        });
+  try {
+    const cartData = req.session.cart;
+    if (!cartData)
+      return res.status(400).json({
+        success: false,
+        message: "No session data found",
+      });
 
-        // STEP 1: Call Rayna Booking API
-        const bookingResponse = await fetch("http://raynaapi.raynatours.com/api/Booking/bookings", {
+    // STEP 1: Call Rayna Booking API
+    const bookingResponse = await fetch(
+      "http://raynaapi.raynatours.com/api/Booking/bookings",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.RAYAN_SECRET_KEY}`,
+        },
+        body: JSON.stringify(cartData),
+      },
+    );
+
+    const bookingResult = await bookingResponse.json();
+    console.log("Booking Response:", JSON.stringify(bookingResult, null, 2));
+
+    // Check if booking was successful
+    if (
+      bookingResult.statuscode === 200 &&
+      !bookingResult.error &&
+      bookingResult.result
+    ) {
+      // SUCCESS CASE - Extract booking IDs dynamically
+      let referenceNo = bookingResult.result.referenceNo || ""; // AGT351742712251960
+      let bookingId = "";
+
+      // Try to get bookingId from different possible locations
+      if (bookingResult.result.bookingId) {
+        // From ticket response structure
+        bookingId = bookingResult.result.bookingId;
+      } else if (
+        bookingResult.result.details &&
+        bookingResult.result.details[0] &&
+        bookingResult.result.details[0].bookingId
+      ) {
+        // From booking response structure
+        bookingId = bookingResult.result.details[0].bookingId;
+      } else if (bookingResult.result.referenceNo) {
+        // Use referenceNo as fallback
+        bookingId = bookingResult.result.referenceNo;
+      }
+
+      console.log(
+        "Extracted - Booking ID:",
+        bookingId,
+        "Reference:",
+        referenceNo,
+      );
+
+      const uniqueNo = cartData.uniqueNo;
+
+      // STEP 2: Prepare payload for GetBookedTickets
+      const ticketPayload = {
+        uniqNO: uniqueNo,
+        referenceNo: referenceNo,
+        bookedOption: (bookingResult.result.details || []).map((detail) => ({
+          serviceUniqueId: detail.serviceUniqueId,
+          bookingId: detail.bookingId || bookingId,
+        })),
+      };
+
+      console.log("Ticket Payload:", JSON.stringify(ticketPayload, null, 2));
+
+      try {
+        // STEP 3: Call Rayna Ticket API
+        const ticketResponse = await fetch(
+          "http://raynaapi.raynatours.com/api/Booking/GetBookedTickets",
+          {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${process.env.RAYAN_SECRET_KEY}`,
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.RAYAN_SECRET_KEY}`,
             },
-            body: JSON.stringify(cartData),
-        });
+            body: JSON.stringify(ticketPayload),
+          },
+        );
 
-        const bookingResult = await bookingResponse.json();
-        console.log("Booking Response:", JSON.stringify(bookingResult, null, 2));
+        const ticketResult = await ticketResponse.json();
+        console.log("Ticket Response:", JSON.stringify(ticketResult, null, 2));
 
-        // Check if booking was successful
-        if (bookingResult.statuscode === 200 && !bookingResult.error && bookingResult.result) {
-            // SUCCESS CASE - Extract booking IDs dynamically
-            let referenceNo = bookingResult.result.referenceNo || ""; // AGT351742712251960
-            let bookingId = "";
-            
-            // Try to get bookingId from different possible locations
-            if (bookingResult.result.bookingId) {
-                // From ticket response structure
-                bookingId = bookingResult.result.bookingId;
-            } else if (bookingResult.result.details && bookingResult.result.details[0] && bookingResult.result.details[0].bookingId) {
-                // From booking response structure
-                bookingId = bookingResult.result.details[0].bookingId;
-            } else if (bookingResult.result.referenceNo) {
-                // Use referenceNo as fallback
-                bookingId = bookingResult.result.referenceNo;
-            }
-            
-            console.log("Extracted - Booking ID:", bookingId, "Reference:", referenceNo);
-            
-            const uniqueNo = cartData.uniqueNo;
-            
-            // STEP 2: Prepare payload for GetBookedTickets
-            const ticketPayload = {
-                uniqNO: uniqueNo,
-                referenceNo: referenceNo,
-                bookedOption: (bookingResult.result.details || []).map(detail => ({
-                    serviceUniqueId: detail.serviceUniqueId,
-                    bookingId: detail.bookingId || bookingId
-                }))
-            };
-
-            console.log("Ticket Payload:", JSON.stringify(ticketPayload, null, 2));
-
-            try {
-                // STEP 3: Call Rayna Ticket API
-                const ticketResponse = await fetch("http://raynaapi.raynatours.com/api/Booking/GetBookedTickets", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${process.env.RAYAN_SECRET_KEY}`,
-                    },
-                    body: JSON.stringify(ticketPayload),
-                });
-
-                const ticketResult = await ticketResponse.json();
-                console.log("Ticket Response:", JSON.stringify(ticketResult, null, 2));
-
-                // If ticket API returns bookingId, use that
-                if (ticketResult.result && ticketResult.result.bookingId) {
-                    bookingId = ticketResult.result.bookingId;
-                }
-                
-                // If ticket API returns referenceNo, use that
-                if (ticketResult.result && ticketResult.result.referenceNo) {
-                    referenceNo = ticketResult.result.referenceNo;
-                }
-
-                // Send success response to frontend with correct structure
-                res.json({
-                    success: true,
-                    bookingId: bookingId, // Dynamic numeric ID
-                    referenceNo: referenceNo, // Dynamic AGT reference
-                    ticketURL: ticketResult.result?.ticketURL || "", // Dynamic ticket URL
-                    tickets: [{
-                        pdfPath: ticketResult.result?.ticketURL || "",
-                        optionName: ticketResult.result?.optionName || ""
-                    }]
-                });
-                
-            } catch (ticketError) {
-                // If ticket API fails, still return success for booking
-                console.error("Ticket API Error:", ticketError);
-                res.json({
-                    success: true,
-                    bookingId: bookingId,
-                    referenceNo: referenceNo,
-                    ticketURL: "",
-                    tickets: [],
-                    ticketError: "Tickets not available at this time"
-                });
-            }
-            
-        } else {
-            // ERROR CASE - like error 169
-            console.error("Booking API Error:", bookingResult);
-            
-            res.json({
-                success: false,
-                message: bookingResult.error?.description || "Booking failed",
-                fullResponse: bookingResult
-            });
+        // If ticket API returns bookingId, use that
+        if (ticketResult.result && ticketResult.result.bookingId) {
+          bookingId = ticketResult.result.bookingId;
         }
-    } catch (error) {
-        console.error("Sequence Error:", error);
-        res.status(500).json({ 
-            success: false,
-            message: "Internal Server Error",
-            error: error.message 
+
+        // If ticket API returns referenceNo, use that
+        if (ticketResult.result && ticketResult.result.referenceNo) {
+          referenceNo = ticketResult.result.referenceNo;
+        }
+
+        // Send success response to frontend with correct structure
+        res.json({
+          success: true,
+          bookingId: bookingId, // Dynamic numeric ID
+          referenceNo: referenceNo, // Dynamic AGT reference
+          ticketURL: ticketResult.result?.ticketURL || "", // Dynamic ticket URL
+          tickets: [
+            {
+              pdfPath: ticketResult.result?.ticketURL || "",
+              optionName: ticketResult.result?.optionName || "",
+            },
+          ],
         });
+      } catch (ticketError) {
+        // If ticket API fails, still return success for booking
+        console.error("Ticket API Error:", ticketError);
+        res.json({
+          success: true,
+          bookingId: bookingId,
+          referenceNo: referenceNo,
+          ticketURL: "",
+          tickets: [],
+          ticketError: "Tickets not available at this time",
+        });
+      }
+    } else {
+      // ERROR CASE - like error 169
+      console.error("Booking API Error:", bookingResult);
+
+      res.json({
+        success: false,
+        message: bookingResult.error?.description || "Booking failed",
+        fullResponse: bookingResult,
+      });
     }
+  } catch (error) {
+    console.error("Sequence Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
 });
-
-
-
-
 
 const options = {
   key: fs.readFileSync("cloudflare/cloudflare_private_key.pem"),
