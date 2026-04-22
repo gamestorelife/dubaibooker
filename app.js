@@ -261,7 +261,7 @@ app.post("/api-data", async (req, res) => {
   try {
     //console.log("Incoming body:", req.body);
     const response = await fetch(
-      "http://raynaapi.raynatours.com/api/Tour/tourstaticdata",
+      "https://activities.raynatours.com/api/Tour/tourstaticdata",
       {
         method: "POST",
         headers: {
@@ -282,7 +282,7 @@ app.post("/api-data", async (req, res) => {
 app.post("/tour-price", async (req, res) => {
   try {
     const response = await fetch(
-      "http://raynaapi.raynatours.com/api/Tour/touroption",
+      "https://activities.raynatours.com/api/Tour/touroption",
       {
         method: "POST",
         headers: {
@@ -303,7 +303,7 @@ app.post("/tour-price", async (req, res) => {
 app.post("/activity-click", async (req, res) => {
   try {
     const response = await fetch(
-      "http://raynaapi.raynatours.com/api/Tour/tourStaticDataById",
+      "https://activities.raynatours.com/api/Tour/tourStaticDataById",
       {
         method: "POST",
         headers: {
@@ -324,7 +324,7 @@ app.post("/activity-click", async (req, res) => {
 app.post("/tour-options", async (req, res) => {
   try {
     const response = await fetch(
-      "http://raynaapi.raynatours.com/api/Tour/touroptionstaticdata",
+      "https://activities.raynatours.com/api/Tour/touroptionstaticdata",
       {
         method: "POST",
         headers: {
@@ -345,7 +345,7 @@ app.post("/tour-options", async (req, res) => {
 app.post("/time-slot", async (req, res) => {
   try {
     const response = await fetch(
-      "http://raynaapi.raynatours.com/api/Tour/timeslot",
+      "https://activities.raynatours.com/api/Tour/timeslot",
       {
         method: "POST",
         headers: {
@@ -366,7 +366,7 @@ app.post("/time-slot", async (req, res) => {
 app.post("/bookings", async (req, res) => {
   try {
     const response = await fetch(
-      "http://raynaapi.raynatours.com/api/Booking/bookings",
+      "https://activities.raynatours.com/api/Booking/bookings",
       {
         method: "POST",
         headers: {
@@ -1576,7 +1576,7 @@ app.post("/finalize-booking-sequence", async (req, res) => {
 
     // STEP 1: Call Rayna Booking API
     const bookingResponse = await fetch(
-      "http://raynaapi.raynatours.com/api/Booking/bookings",
+      "https://activities.raynatours.com/api/Booking/bookings",
       {
         method: "POST",
         headers: {
@@ -1640,7 +1640,7 @@ app.post("/finalize-booking-sequence", async (req, res) => {
       try {
         // STEP 3: Call Rayna Ticket API
         const ticketResponse = await fetch(
-          "http://raynaapi.raynatours.com/api/Booking/GetBookedTickets",
+          "https://activities.raynatours.com/api/Booking/GetBookedTickets",
           {
             method: "POST",
             headers: {
